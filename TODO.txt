@@ -1,0 +1,50 @@
+type of card:
+1. [] Gold card
+2. [] silver card
+
+
+The Users
+1. [] Afilliated Customer 
+2. [] Customer
+
+Business
+1. [] bill Paid
+2. [] day counter of account from beginning.
+3. [] percentage discount counter
+4. [] counter Bill pay each per over 2 year. 
+7. [] calculating percentage discount.
+ 
+CheckPoint
+1. [] If the user has been customer for over 2 years.
+2. [] bill paid is bigger then 200$.
+3. [] Is user affiliated.
+4. [] Did write name successfully.
+5. [] A user can get only one of the percentage based discounts on a bill
+6. [] The percentage based discounts do not apply on phones.
+7. [] Did bill pay each per 2 years.
+
+Required Activities
+
+* [] Object oriented programming approach, provide a high level UML class diagram of
+all the key classes in your solution. This can either be on paper or using a CASE tool
+
+* [] Code to be generic and simple
+
+* [] Clear README.md that explains how the code and the test can be run and how the
+coverage reports can be generated
+
+
+Bonus Activites
+
+*Create scripts, e.g. Maven, etc. to:
+o build the project from the command-line
+o run static code analysis such as linting
+o run unit tests and code coverage
+* SonarQube report for the code showing its quality summary
+Create a GitHub repository, ensure the name is generic and doesn’t have any company
+names. Commit your code to the GitHub repository and share the link with us.
+
+Follow up Discussion
+
+After completing the exercise please be ready for 15 minutes’ discussion on your key
+decisions, assumptions and rationale for your implementation.
