@@ -1,11 +1,11 @@
 type of card:
-1. [] Gold card
-2. [] silver card
+1. [X] Gold card
+2. [X] silver card
 
 
 The Users
-1. [] Afilliated Customer 
-2. [] Customer
+1. [X] Afilliated Customer 
+2. [X] Customer
 
 Business
 1. [] bill Paid
@@ -13,6 +13,8 @@ Business
 3. [] percentage discount counter
 4. [] counter Bill pay each per over 2 year. 
 7. [] calculating percentage discount.
+8. [] Affiliated Register
+9. [] 
  
 CheckPoint
 1. [] If the user has been customer for over 2 years.
