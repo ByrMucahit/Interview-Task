@@ -30,8 +30,9 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZXBu0FIZEeyQT9VvjLNgDg" value="*"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_70FccFJnEeyA8YnLbYknow" name="ownCardType">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_70FccFJnEeyA8YnLbYknow" name="ownCardType" type="_VI3l8FIREeyQT9VvjLNgDg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_qSIo0FKMEeyWnbnEqGDQTQ" name="firstDayOfBeingCustomer">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
           </ownedAttribute>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_zOEigFJfEeyA8YnLbYknow" name="setId" visibility="private">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_-ePPMFJfEeyA8YnLbYknow" name="id">
@@ -168,6 +169,9 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_wVk8UFJoEeyA8YnLbYknow" name="ownCardType" type="_VI3l8FIREeyQT9VvjLNgDg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_I4FR4FKiEey8VrM8WM81CA" name="personAddress">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_STV78FJhEeyA8YnLbYknow" name="setId" visibility="private">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_XuG7gFJhEeyA8YnLbYknow" name="id">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -379,13 +383,13 @@
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_ZT8eoFJmEeyA8YnLbYknow" name="getCardNumber"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_ZT8eoFJmEeyA8YnLbYknow" name="getCardNumber" visibility="private"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_ZsrHsFJmEeyA8YnLbYknow" name="setCardSecurityNumber">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_qLPy8FJmEeyA8YnLbYknow" name="cardSecurityNumber">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_aHGZ4FJmEeyA8YnLbYknow" name="getCardSecurityNumber"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_aHGZ4FJmEeyA8YnLbYknow" name="getCardSecurityNumber" visibility="private"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_aqdloFJmEeyA8YnLbYknow" name="setCardLastUsableDate">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_3iWW8FJmEeyA8YnLbYknow" name="cardLastUsableDate">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
@@ -430,6 +434,8 @@
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
             </ownedParameter>
           </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_wAI4AFKNEeyWnbnEqGDQTQ" name="userIdGenerator"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_zQWrkFKNEeyWnbnEqGDQTQ" name="cardIdGenerator"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_kdCrQFJsEeyA8YnLbYknow" name="counterForCard">
           <ownedOperation xmi:type="uml:Operation" xmi:id="_S2gDoFJyEeyA8YnLbYknow" name="counterOfBillPaidOverStatedYear"/>

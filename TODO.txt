@@ -8,13 +8,14 @@ The Users
 2. [X] Customer
 
 Business
-1. [] bill Paid
-2. [] day counter of account from beginning.
-3. [] percentage discount counter
-4. [] counter Bill pay each per over 2 year. 
-7. [] calculating percentage discount.
-8. [] Affiliated Register
-9. [] 
+1. [X] bill Paid
+2. [X] day counter of account from beginning.
+3. [X] discount counter based on percentage
+4. [X] counter Bill pay each per over 2 year. 
+5. [X] Affiliated Register
+	* insert to martrix
+6. [X] calculate amount of discount
+7. [] Customer Register
  
 CheckPoint
 1. [] If the user has been customer for over 2 years.
