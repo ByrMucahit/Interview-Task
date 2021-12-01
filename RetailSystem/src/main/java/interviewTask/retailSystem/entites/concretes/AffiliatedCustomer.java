@@ -15,7 +15,7 @@ public class AffiliatedCustomer extends Person {
 		/* Those're passed to superclass named Person */
 		super(id, personName, personSurname, personMail, 
 				ownCardType, personPhone, personAlternativePhone, 
-				personAddress, firstDayOfBeenCustomer);
+				personAddress);
 		
 		this.socialIdentityNumber = socialIdentityNumber;
 	}

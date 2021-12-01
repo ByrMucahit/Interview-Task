@@ -15,6 +15,7 @@ public abstract class Person {
 	private Date firstDayOfBeenCustomer;
 	private Card ownCardType;
 	
+	/* Constructor */
 	public Person(int id, String personName, String personSurname, String personMail, Card ownCardType,
 			String personPhone, String personAlternativePhone, String personAddress) {
 			
@@ -107,6 +108,25 @@ public abstract class Person {
 	public Card getOwnCardType() {
 		return ownCardType;
 	}
-	
-	
 }
+
+/*
+ * Description:
+ * -------------
+ * This class named Person is superclass. It has eight different parameters. It can be derivatived vary personel by this class such as customer,employee etc.
+ * 
+ * Parameters:
+ * -------------
+ * id: Person,who has been on system, is identified on id. 
+ * personName: Name of the person.
+ * personSurname: Surname of the person.
+ * personMail: Mail of the person.
+ * ownCardType: Card is used when doing shopping in this retail website. Each person has only one type of  card,and has just only one card. It's object.
+ * personPhone: Phone number of the person.
+ * personAlternativePhone: Second phone number of person.
+ * personAddress: Home address of person.
+ * 
+ *  return:
+ *  --------
+ *  None
+ *  */

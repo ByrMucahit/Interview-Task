@@ -9,5 +9,20 @@ public class SilverCard extends Card {
 				percentageOfDiscount, cardPassword);
 		
 	}
-
 }
+
+
+/* 
+ * Description:
+ * ------------
+ * It's a type of card. It's derivated by Card Class. It's a child class 
+ * 
+ * Parameters:
+ * ------------
+ * It has same parameters with superclass named Card.
+ * 
+ * Returns:
+ * ------------
+ * None
+ * */
+ 
