@@ -145,7 +145,7 @@
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_MaL98FJmEeyA8YnLbYknow" name="getCardPaswword" visibility="private"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_b26yUFIREeyQT9VvjLNgDg" name="customer">
+        <packagedElement xmi:type="uml:Class" xmi:id="_b26yUFIREeyQT9VvjLNgDg" name="Customer">
           <generalization xmi:type="uml:Generalization" xmi:id="_xwOA4FIREeyQT9VvjLNgDg" general="_OWtVoFIREeyQT9VvjLNgDg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_M2U2EFITEeyQT9VvjLNgDg" name="id" visibility="private" isOrdered="true" isReadOnly="true">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -215,7 +215,7 @@
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_XK_GsFJpEeyA8YnLbYknow" name="getOwnCardType"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_dm0psFIREeyQT9VvjLNgDg" name="affiliatedCustomer">
+        <packagedElement xmi:type="uml:Class" xmi:id="_dm0psFIREeyQT9VvjLNgDg" name="AffiliatedCustomer">
           <generalization xmi:type="uml:Generalization" xmi:id="_1dHJYFIREeyQT9VvjLNgDg" general="_OWtVoFIREeyQT9VvjLNgDg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_NXXtoFITEeyQT9VvjLNgDg" name="id" isOrdered="true" isReadOnly="true">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -295,7 +295,7 @@
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_KvJREFJpEeyA8YnLbYknow" name="getOwnCardType"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_g7pQcFIREeyQT9VvjLNgDg" name="goldCard">
+        <packagedElement xmi:type="uml:Class" xmi:id="_g7pQcFIREeyQT9VvjLNgDg" name="GoldCard">
           <generalization xmi:type="uml:Generalization" xmi:id="_8TGJwFIREeyQT9VvjLNgDg" general="_VI3l8FIREeyQT9VvjLNgDg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_5yKIUFJkEeyA8YnLbYknow" name="cardId" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -352,7 +352,7 @@
           </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_d6U-cFJnEeyA8YnLbYknow" name="getCardPassword" visibility="private"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_lHiCEFIREeyQT9VvjLNgDg" name="silverCard">
+        <packagedElement xmi:type="uml:Class" xmi:id="_lHiCEFIREeyQT9VvjLNgDg" name="SilverCard">
           <generalization xmi:type="uml:Generalization" xmi:id="_-DhlkFIREeyQT9VvjLNgDg" general="_VI3l8FIREeyQT9VvjLNgDg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_6BioIFJkEeyA8YnLbYknow" name="cardId" visibility="private">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -414,46 +414,45 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_owXmcFIQEeyQT9VvjLNgDg" name="business">
       <packagedElement xmi:type="uml:Package" xmi:id="_B7bgsFIREeyQT9VvjLNgDg" name="abstracts">
         <packagedElement xmi:type="uml:Interface" xmi:id="_XAYuUFJrEeyA8YnLbYknow" name="CardService">
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_LSHT4FJsEeyA8YnLbYknow" name=""/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_LSHT4FJsEeyA8YnLbYknow" name="cardIdGenerator"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_aVFAUFK6Eey8VrM8WM81CA" name="cardNumberGenerator"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_SoiEAFK9Eey8VrM8WM81CA" name="cardSecurityNumberGenerator"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Interface" xmi:id="_rEGCUFJtEeyA8YnLbYknow" name="UserService"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_rEGCUFJtEeyA8YnLbYknow" name="UserService">
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_EXKQIFK9Eey8VrM8WM81CA" name="personIdentifier"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_G7mi0FK9Eey8VrM8WM81CA" name="userIdGenerator"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Interface" xmi:id="_Oyn3gFK_Eey8VrM8WM81CA" name="TransactionService">
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_U34lkFK_Eey8VrM8WM81CA" name="payBill"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_VGzyYFK_Eey8VrM8WM81CA" name="calculateAmountOfDiscount"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_VWsBcFK_Eey8VrM8WM81CA" name="counterOfBillPaidOverStatedYear"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_VwXFsFK_Eey8VrM8WM81CA" name="counterOfDiscountBasedOnPercentage"/>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_D48WQFIREeyQT9VvjLNgDg" name="concretes">
-        <packagedElement xmi:type="uml:Class" xmi:id="_U1GtEFJsEeyA8YnLbYknow" name="Transaction">
+        <packagedElement xmi:type="uml:Class" xmi:id="_U1GtEFJsEeyA8YnLbYknow" name="UserManager">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_G3rEsFJzEeyA8YnLbYknow" name="user" type="_OWtVoFIREeyQT9VvjLNgDg"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_2-cFsFJzEeyA8YnLbYknow" name="card" type="_VI3l8FIREeyQT9VvjLNgDg"/>
-          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_vmx7oFJzEeyA8YnLbYknow" client="_U1GtEFJsEeyA8YnLbYknow" supplier="_XAYuUFJrEeyA8YnLbYknow" contract="_XAYuUFJrEeyA8YnLbYknow"/>
-          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_1ssJ8FJzEeyA8YnLbYknow" client="_U1GtEFJsEeyA8YnLbYknow" supplier="_rEGCUFJtEeyA8YnLbYknow" contract="_rEGCUFJtEeyA8YnLbYknow"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_QVeb4FJzEeyA8YnLbYknow" name="personelIdentifier">
+          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_pkU04FK-Eey8VrM8WM81CA" client="_U1GtEFJsEeyA8YnLbYknow" supplier="_rEGCUFJtEeyA8YnLbYknow" contract="_rEGCUFJtEeyA8YnLbYknow"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_QVeb4FJzEeyA8YnLbYknow" name="personIdentifier">
             <ownedParameter xmi:type="uml:Parameter" xmi:id="_b6aesFJzEeyA8YnLbYknow" name="personelPhone">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_ekFPoFJzEeyA8YnLbYknow" name="payBill">
-            <ownedParameter xmi:type="uml:Parameter" xmi:id="_miNj0FJzEeyA8YnLbYknow" name="amount">
-              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            </ownedParameter>
-          </ownedOperation>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_wAI4AFKNEeyWnbnEqGDQTQ" name="userIdGenerator"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_zQWrkFKNEeyWnbnEqGDQTQ" name="cardIdGenerator"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_kdCrQFJsEeyA8YnLbYknow" name="counterForCard">
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_S2gDoFJyEeyA8YnLbYknow" name="counterOfBillPaidOverStatedYear"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_VybpQFJyEeyA8YnLbYknow" name="counterOfDiscountBasedOnPercentage"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Ov6XMFK-Eey8VrM8WM81CA" name="CardManager">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_CD4ekFLAEey8VrM8WM81CA" name="card" type="_VI3l8FIREeyQT9VvjLNgDg"/>
+          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_rjug0FK-Eey8VrM8WM81CA" client="_Ov6XMFK-Eey8VrM8WM81CA" supplier="_XAYuUFJrEeyA8YnLbYknow" contract="_XAYuUFJrEeyA8YnLbYknow"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_RGGLcFK-Eey8VrM8WM81CA" name="cardIdGenerator"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_eVVz8FK-Eey8VrM8WM81CA" name="cardNumberGenerator"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_endesFK-Eey8VrM8WM81CA" name="cardSecurityNumberGenerator"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_wwqZAFJsEeyA8YnLbYknow" name="Calculating">
-          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_sOcG0FJzEeyA8YnLbYknow" client="_wwqZAFJsEeyA8YnLbYknow" supplier="_XAYuUFJrEeyA8YnLbYknow" contract="_XAYuUFJrEeyA8YnLbYknow"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_af9vYFJyEeyA8YnLbYknow" name="calculateAmountOfDiscount"/>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_Bxqb4FJtEeyA8YnLbYknow" name="CounterForUser">
-          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_qUm3YFJzEeyA8YnLbYknow" client="_Bxqb4FJtEeyA8YnLbYknow" supplier="_rEGCUFJtEeyA8YnLbYknow" contract="_rEGCUFJtEeyA8YnLbYknow"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_xImwMFJyEeyA8YnLbYknow" name="dayCounterOfAccountFromBegining"/>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Realization" xmi:id="_v2zG4FJuEeyA8YnLbYknow" client="_kdCrQFJsEeyA8YnLbYknow" supplier="_XAYuUFJrEeyA8YnLbYknow"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_sFJkwFJvEeyA8YnLbYknow" name="Register">
-          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_vO4V0FJvEeyA8YnLbYknow" client="_sFJkwFJvEeyA8YnLbYknow" supplier="_rEGCUFJtEeyA8YnLbYknow" contract="_rEGCUFJtEeyA8YnLbYknow"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_zfaPgFJyEeyA8YnLbYknow" name="customer"/>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_ztYaEFJyEeyA8YnLbYknow" name="beingAffiliatedCustomerRegister"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_QbqR4FK_Eey8VrM8WM81CA" name="TransactionManager">
+          <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_hRPH4FK_Eey8VrM8WM81CA" client="_QbqR4FK_Eey8VrM8WM81CA" supplier="_Oyn3gFK_Eey8VrM8WM81CA" contract="_Oyn3gFK_Eey8VrM8WM81CA"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_iRqqIFK_Eey8VrM8WM81CA" name="payBill"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_iuJx0FK_Eey8VrM8WM81CA" name="calculateAmountOfDiscount"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_i7vh4FK_Eey8VrM8WM81CA" name="counterOfBillPaidOverStatedYear"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_jJV5AFK_Eey8VrM8WM81CA" name="counterOfDiscountBasedOnPercentage"/>
         </packagedElement>
       </packagedElement>
     </packagedElement>
