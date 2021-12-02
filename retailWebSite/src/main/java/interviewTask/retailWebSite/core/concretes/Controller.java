@@ -46,9 +46,22 @@ public class Controller {
 		return null;
 	}
 	
-	public Boolean characterLengthController() {
-		
-		return null;
+	public Boolean characterLengthController(String data, int length, String headerCharacter) {
+		if(data.length() == length) {
+			
+			if(data.substring(0,2).equals(headerCharacter)) {
+				return false;
+			}
+			else {
+				System.out.println("It's invalid. Please enter correctly.");
+				return true;
+			}
+			
+		}
+		else {
+			System.out.println("It's invalid. Please enter correctly.");
+			return true;
+		}
 	}
 	
 	public Boolean properChartacterController() {
@@ -99,4 +112,13 @@ public class Controller {
 			}
 			return true;
 		}
+	
+	public Boolean characterController(String data) {
+		if(data.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

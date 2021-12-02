@@ -106,9 +106,10 @@ public class RetailWebSiteApplication {
 			
 			
 			 
-			/*message = userManager.personIdentifier(json);
-			System.out.println("message: "+ message);*/
-       
+			message = userManager.personIdentifier(json);
+			System.out.println("message: "+ message);
+		/*String m = "Merhaba";
+		System.out.println(m.substring(0,2));*/
 	
 		 /*String[] elementNames = JSONObject.getNames();*/
 		/*JSONObject objectInArray = jRootArray.getJSONObject("1");*/

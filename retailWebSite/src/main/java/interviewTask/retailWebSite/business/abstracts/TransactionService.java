@@ -8,4 +8,6 @@ public interface TransactionService {
 	DataResult<Person> calculateAmountOfDiscount();
 	DataResult<Person> counterOfBillPaidOverStatedYear();
 	DataResult<Person> counterOfDiscountBasedOnPercentage();
+	String fillingBlankedField(String request, int length, String headerCharacter);
+
 }

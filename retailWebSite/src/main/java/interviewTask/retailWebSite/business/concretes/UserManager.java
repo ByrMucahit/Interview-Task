@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import interviewTask.retailWebSite.business.abstracts.CardService;
+import interviewTask.retailWebSite.business.abstracts.TransactionService;
 import interviewTask.retailWebSite.business.abstracts.UserService;
 import interviewTask.retailWebSite.core.concretes.Controller;
 import interviewTask.retailWebSite.core.concretes.utilities.results.DataResult;
@@ -24,15 +25,24 @@ public class UserManager implements UserService {
 	Card card;
 	
 	Scanner myObj = new Scanner(System.in);
+	CardService cardManager = new CardManager();
+	Controller controller = new Controller();
+	TransactionService transactionManager = new TransactionManager();
 	
 	@Override
 	public String personIdentifier(JSONObject jsonInput) {
+		/* Common Variable */
 		String[] tempInfoArray = new String[20];
+		String templatePhoneNumber;
+		boolean boolFlag = true ;
+		String strFlag ; 
 		
-		CardService cardManager = new CardManager();
+		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		
-		Controller controller = new Controller();
-		int flag = controller.registerContoller("054354461581",jsonInput);
+		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:[05....]\n", 11, "05").toUpperCase();
+		 
+		
+		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
 		JSONArray jRootArray = new JSONArray();
 	
 	    
@@ -45,32 +55,41 @@ public class UserManager implements UserService {
 		}
 		else if(flag == -1) {
 			
-			System.out.println("You're a new for us"+", "+"We're exicted to meet you."+" "+ "Welcome to our family.");
 			
-			 System.out.println("Please enter your first name:\n");
-			 tempInfoArray[0] = myObj.nextLine().toUpperCase();
+			 System.out.println("You're a new for us"+", "+"We're excited to meet you."+" "+ "Welcome to our family.");
+			
+			 tempInfoArray[0] = transactionManager.fillingBlankedField("Please enter your first name. It's required !!!:\n", 0, null).toUpperCase();
 			 
-			 System.out.println("Please enter your surname:\n");
-			 tempInfoArray[1] = myObj.nextLine().toUpperCase();
-			 
-			 System.out.println("Please enter your  mail:\n");
-			 tempInfoArray[2] = myObj.nextLine();
-			 
-			 System.out.println("Please enter your telephone number, It's required:\n");
-			 tempInfoArray[3] = myObj.nextLine();
-			 
+		 	 tempInfoArray[1] = transactionManager.fillingBlankedField("Please enter your surname. It's required !!! :\n", 0, null).toUpperCase();
+		
+		 	 tempInfoArray[2] = transactionManager.fillingBlankedField("Please enter your  mail. It's required !!!:\n", 0, null);
+			 		
+		 	strFlag = transactionManager.fillingBlankedField("If you want to save number you wrote. It's required:[Y/N]\n", 0, null);	 	
+			 		
+			 /* Telephone Number */
+			 if(strFlag.equals("Y")) {
+			 		tempInfoArray[3] = templatePhoneNumber;
+			 	}
+			 else if(strFlag.equals("N")){	
+				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 0, null);
+				 
+			 		}
+				 
 			 System.out.println("Please enter alternative telephone number, It's optional:\n");
 			 tempInfoArray[4] = myObj.nextLine();
+				
 			 
-			 System.out.println("Please enter your home address:\n");
-			 tempInfoArray[5] = myObj.nextLine();
+			 tempInfoArray[5] = transactionManager.fillingBlankedField("Please enter your home address. It's required:\n", 0, null);
+				 
 			 
-			 System.out.println("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required\n");
-			 tempInfoArray[6] = myObj.nextLine().toUpperCase();
-			 
+			 tempInfoArray[6] = transactionManager.fillingBlankedField("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required. [G/S]\n", 0, null).toUpperCase(); 
+					
+				 
 			 System.out.println("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter E if you want.[E/N]:\n");
 			 tempInfoArray[7] = myObj.nextLine().toUpperCase();
-			 
+			
+			
+			
 			
 			try {
 						
@@ -121,7 +140,7 @@ public class UserManager implements UserService {
 				} catch (JSONException e) {
 	                e.printStackTrace();
 	            }
-				System.out.println("value : "+ jsonInput.getJSONArray("datas").toString());
+				System.out.println("value : "+ jsonInput.getJSONArray("data").toString());
 			
 		}
 		
