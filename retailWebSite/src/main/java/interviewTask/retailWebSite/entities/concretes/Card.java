@@ -8,14 +8,18 @@ public abstract class Card {
 	private String codeOfCardSecurity;
 	private int percentageOfDiscount;
 	private String cardPassword;
+	private int amountOfDiscountUsage;
 	
 	/* Constructor */
-	public Card(int cardId, String cardNumber, String codeOfCardSecurity, int percentageOfDiscount, String cardPassword) {
+	public Card(int cardId, String cardNumber, String codeOfCardSecurity, int percentageOfDiscount, 
+			String cardPassword, int amountOfDiscountUsage) {
+		
 		this.cardId = cardId;
 		this.cardNumber = cardNumber;
 		this.codeOfCardSecurity = codeOfCardSecurity;
 		this.percentageOfDiscount = percentageOfDiscount;
 		this.cardPassword = cardPassword;
+		this.amountOfDiscountUsage = amountOfDiscountUsage;
 	}
 	
 	/* Card Id */
@@ -31,7 +35,7 @@ public abstract class Card {
 		this.cardNumber = cardNumber;
 	}
 	
-	protected String getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 	
@@ -40,7 +44,7 @@ public abstract class Card {
 		this.codeOfCardSecurity = codeOfCardSecurity;
 	}
 	
-	protected String getCodeOfCardSecurity() {
+	public String getCodeOfCardSecurity() {
 		return codeOfCardSecurity;
 	}
 	
@@ -49,10 +53,27 @@ public abstract class Card {
 		this.cardPassword = cardPassword;
 	}
 	
-	public String getCardPassword(String cardPassword) {
+	public String getCardPassword() {
 		return cardPassword;
 	}
-
+	
+	/* Percentage Of Discount */
+	public void setPercentageOfDiscount(int percentageOfDiscount ) {
+		this.percentageOfDiscount = percentageOfDiscount;
+	}
+	
+	public int getPercentageOfDiscount() {
+		return percentageOfDiscount;
+	}
+	
+	/* Amount of discount for usage */
+	public void setAmountOfDiscountUsage(int amountOfDiscountUsage) {
+		this.amountOfDiscountUsage = amountOfDiscountUsage;
+	}
+	
+	public int getAmountOfDiscountUsage() {
+		return amountOfDiscountUsage;
+	}
 }
 
 /*

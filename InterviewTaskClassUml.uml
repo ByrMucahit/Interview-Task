@@ -493,6 +493,7 @@
           <ownedOperation xmi:type="uml:Operation" xmi:id="_8DXl4FJ4EeyA8YnLbYknow" name="registerController"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_-PL9MFJ4EeyA8YnLbYknow" name="processController"/>
           <ownedOperation xmi:type="uml:Operation" xmi:id="_ZxPkAFJ5EeyA8YnLbYknow" name="discountController"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_f_fbEFLeEeymNLGXEs3OIQ" name="amountOfBillController"/>
         </packagedElement>
       </packagedElement>
     </packagedElement>

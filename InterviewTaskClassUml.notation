@@ -1209,6 +1209,10 @@
                     <element xmi:type="uml:Operation" href="InterviewTaskClassUml.uml#_ZxPkAFJ5EeyA8YnLbYknow"/>
                     <layoutConstraint xmi:type="notation:Location" xmi:id="_ZxwhYVJ5EeyA8YnLbYknow"/>
                   </children>
+                  <children xmi:type="notation:Shape" xmi:id="_gBniAFLeEeymNLGXEs3OIQ" type="Operation_ClassOperationLabel">
+                    <element xmi:type="uml:Operation" href="InterviewTaskClassUml.uml#_f_fbEFLeEeymNLGXEs3OIQ"/>
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_gBniAVLeEeymNLGXEs3OIQ"/>
+                  </children>
                   <styles xmi:type="notation:TitleStyle" xmi:id="_5Lh2FlJ4EeyA8YnLbYknow"/>
                   <styles xmi:type="notation:SortingStyle" xmi:id="_5Lh2F1J4EeyA8YnLbYknow"/>
                   <styles xmi:type="notation:FilteringStyle" xmi:id="_5Lh2GFJ4EeyA8YnLbYknow"/>
@@ -1221,7 +1225,7 @@
                   <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5Lh2HlJ4EeyA8YnLbYknow"/>
                 </children>
                 <element xmi:type="uml:Class" href="InterviewTaskClassUml.uml#_5LBfwFJ4EeyA8YnLbYknow"/>
-                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5LhPAVJ4EeyA8YnLbYknow" x="1054" y="692" width="161" height="161"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5LhPAVJ4EeyA8YnLbYknow" x="1054" y="692" width="241" height="161"/>
               </children>
               <styles xmi:type="notation:TitleStyle" xmi:id="_IBlmpFIREeyQT9VvjLNgDg"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_IBlmpVIREeyQT9VvjLNgDg"/>

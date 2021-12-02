@@ -5,12 +5,12 @@ package interviewTask.retailWebSite.entities.concretes;
 public class GoldCard extends Card{
 	
 	/* Consturctor */
-	public GoldCard(int cardId, String cardNumber, String codeOfCardSecurity, 
-			int percentageOfDiscount, String cardPassword) {
+	public GoldCard(int cardId, String cardNumber, String codeOfCardSecurity, int percentageOfDiscount, 
+			String cardPassword, int amountOfDiscountUsage) {
 		
 		/* Constructor */
-		super(cardId, cardNumber, codeOfCardSecurity, 
-				percentageOfDiscount, cardPassword);
+		super(cardId, cardNumber, codeOfCardSecurity, percentageOfDiscount, 
+				 cardPassword,  amountOfDiscountUsage);
 		
 	}
 
