@@ -47,8 +47,6 @@ public class UserManager implements UserService {
 			
 			System.out.println("You're a new for us"+", "+"We're exicted to meet you."+" "+ "Welcome to our family.");
 			
-			
-			 
 			 System.out.println("Please enter your first name:\n");
 			 tempInfoArray[0] = myObj.nextLine().toUpperCase();
 			 
@@ -76,7 +74,7 @@ public class UserManager implements UserService {
 			
 			try {
 						
-						JSONObject jInnerObject2 = new JSONObject();
+						JSONObject jInnerObject = new JSONObject();
 					
 						/* Setting User ID */
 						tempInfoArray[9] = userIdGenerator(jsonInput);
@@ -97,27 +95,27 @@ public class UserManager implements UserService {
 							card = new SilverCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 20, tempInfoArray[13],0 );
 						}
 						/* Card Transaction */
-						jInnerObject2.put("cardId",  String.valueOf(card.getCardId()));
-						jInnerObject2.put("cardNumber", card.getCardNumber());
-						jInnerObject2.put("cardSecurityNumber", card.getCodeOfCardSecurity());
-						jInnerObject2.put("percentageOfDiscount", String.valueOf(card.getPercentageOfDiscount()));
-						jInnerObject2.put("cardPassword ", card.getCardPassword());
-						jInnerObject2.put("amountOfDiscountUsage ", card.getAmountOfDiscountUsage());
+						jInnerObject.put("cardId",  String.valueOf(card.getCardId()));
+						jInnerObject.put("cardNumber", card.getCardNumber());
+						jInnerObject.put("cardSecurityNumber", card.getCodeOfCardSecurity());
+						jInnerObject.put("percentageOfDiscount", String.valueOf(card.getPercentageOfDiscount()));
+						jInnerObject.put("cardPassword ", card.getCardPassword());
+						jInnerObject.put("amountOfDiscountUsage ", card.getAmountOfDiscountUsage());
 						
 						/* Person Id Generator */
 						tempId = userIdGenerator(jsonInput);
-						jInnerObject2.put("personId",tempId);
+						jInnerObject.put("personId",tempId);
 						
 						/* Datas, which is got by Customer */
-						jInnerObject2.put("personName",tempInfoArray[0]);
-						jInnerObject2.put("personSurname",tempInfoArray[1]);
-						jInnerObject2.put("personMail",tempInfoArray[2]);
-						jInnerObject2.put("personTelephoneNumber",tempInfoArray[3]);
-						jInnerObject2.put("personAlternativeTelephoneNumber", tempInfoArray[4]);
-						jInnerObject2.put("personAddress",tempInfoArray[5]);
+						jInnerObject.put("personName",tempInfoArray[0]);
+						jInnerObject.put("personSurname",tempInfoArray[1]);
+						jInnerObject.put("personMail",tempInfoArray[2]);
+						jInnerObject.put("personTelephoneNumber",tempInfoArray[3]);
+						jInnerObject.put("personAlternativeTelephoneNumber", tempInfoArray[4]);
+						jInnerObject.put("personAddress",tempInfoArray[5]);
 						
 						
-						jRootArray.put(jInnerObject2);
+						jRootArray.put(jInnerObject);
 						jsonInput.put("data", jRootArray);
 					
 				} catch (JSONException e) {

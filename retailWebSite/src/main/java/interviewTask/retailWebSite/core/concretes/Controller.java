@@ -1,37 +1,28 @@
 package interviewTask.retailWebSite.core.concretes;
 
 
-import java.util.Iterator;
-import java.util.Map;
-import org.json.JSONArray;
+
 import org.json.JSONObject;
 
 public class Controller {
 
-	 final int greatesLimitedNumberOfSecurityCode = 999;
+	final int greatesLimitedNumberOfSecurityCode = 999;
 	
 	public Boolean deviceController() {
-		
 		return null;
 	}
 	
-	public int registerContoller(String telephoneNumber, JSONObject jsonInput) {
-		
+	public int registerContoller(String telephoneNumber, JSONObject jsonInput) {	
 		int index = 0;
-		
 		
 	    for (int i = 0, size = jsonInput.getJSONArray("data").length(); i < size; i++)
 	    {
-	    	
-	    	
 	    	if(jsonInput.getJSONArray("data").getJSONObject(i).getString("personTelephoneNumber").equals(telephoneNumber)){
 	    		index = i;
+	    		
 	    		return index;
-	    	}
-	      
-	    	
-	
-        }
+	    }
+	   }
 	    return -1;
 	}
 	
@@ -68,11 +59,10 @@ public class Controller {
 	public Boolean idConflictController(JSONObject jsonInput, int id) {
 		
 		for(int i = 0; i < jsonInput.getJSONArray("data").length(); i++) {
-			
 			/* If id is same either person id or car id */
 			if(jsonInput.getJSONArray("data").getJSONObject(0).getString("personId").equals(String.valueOf(id)) ||
-					jsonInput.getJSONArray("data").getJSONObject(0).getString("cardId").equals(String.valueOf(id)))
-			{
+					jsonInput.getJSONArray("data").getJSONObject(0).getString("cardId").equals(String.valueOf(id))){
+				
 				return true;
 			}
 		}
@@ -81,42 +71,32 @@ public class Controller {
 	
 	
 	public Boolean cardNumberConflictController(JSONObject jsonInput, int cardNumber ) {
-		
 		for(int i = 0; i < jsonInput.getJSONArray("data").length(); i++) {
-			
-			if(jsonInput.getJSONArray("data").getJSONObject(0).getString("cardNumber").equals(String.valueOf(cardNumber)))
-			{
+			if(jsonInput.getJSONArray("data").getJSONObject(0).getString("cardNumber").equals(String.valueOf(cardNumber))){
 				return true;
 			}
 		}
 		return false;
 	}
 		
-		public Boolean securityNumberConflictController(JSONObject jsonInput, int securityNumber ) {
-			
-			for(int i = 0; i < jsonInput.getJSONArray("data").length(); i++) {
+	public Boolean securityNumberConflictController(JSONObject jsonInput, int securityNumber ) {
+		for(int i = 0; i < jsonInput.getJSONArray("data").length(); i++) {
+			if(jsonInput.getJSONArray("data").getJSONObject(0).getString("cardSecurityNumber").equals(String.valueOf(securityNumber))&&
+				securityNumber < greatesLimitedNumberOfSecurityCode){
 				
-				if(jsonInput.getJSONArray("data").getJSONObject(0).getString("cardSecurityNumber").equals(String.valueOf(securityNumber))&&
-						securityNumber < greatesLimitedNumberOfSecurityCode)
-				{
 					return false;
 				}
 			}
 			return true;
 		}
 		
-		
-			public Boolean passwordNumberConflictController(JSONObject jsonInput, int passwordNumber ) {
-			
-			for(int i = 0; i < jsonInput.getJSONArray("data").length(); i++) {
-				
-				if(jsonInput.getJSONArray("data").getJSONObject(0).getString("cardPassword").equals(String.valueOf(passwordNumber)))
-				{
-					return false;
+	public Boolean passwordNumberConflictController(JSONObject jsonInput, int passwordNumber ) {
+		for(int i = 0; i < jsonInput.getJSONArray("data").length(); i++) {
+			if(jsonInput.getJSONArray("data").getJSONObject(0).getString("cardPassword").equals(String.valueOf(passwordNumber))){
+					
+				return false;
 				}
 			}
 			return true;
 		}
-		
-	
 }
