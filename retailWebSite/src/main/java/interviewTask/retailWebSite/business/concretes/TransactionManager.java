@@ -47,17 +47,14 @@ public class TransactionManager implements TransactionService {
 			response = myObj.nextLine();
 			
 			if(checkpoint.characterController(response)) {
-				flag= false;
-			}
-			else {
-				if(length != 0 && headerCharacter != null) {
-					System.out.println("header Character"+headerCharacter);
-					flag = checkpoint.characterLengthController(response, length, headerCharacter );
+				flag = false;
+				if(length != 0 ) {
+					flag = false;
+					if(headerCharacter != null)
+					{
+						flag = checkpoint.characterLengthController(response, length, headerCharacter );	
+					}
 				}
-				else {
-					flag = true;
-				}
-				
 			}
 		}
 		return response;

@@ -39,13 +39,12 @@ public class UserManager implements UserService {
 		
 		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		
-		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:[05....]\n", 11, "05").toUpperCase();
+		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:[It should be like that 05....]\n", 11, "05").toUpperCase();
 		 
 		
 		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
 		JSONArray jRootArray = new JSONArray();
 	
-	    
 		if (flag != -1) {
 			// "I want to iterate though the objects in the array..."      
 			System.out.println("Dear "+jsonInput.getJSONArray("data").getJSONObject(flag).getString("personName").toUpperCase()+" "+
@@ -53,6 +52,7 @@ public class UserManager implements UserService {
 			
 			return "Transaction has been done";
 		}
+		
 		else if(flag == -1) {
 			
 			
@@ -108,10 +108,10 @@ public class UserManager implements UserService {
 						tempInfoArray[13] = cardManager.cardPasswordGenerator(jsonInput);
 						
 						if(tempInfoArray[6].equals("G")) {
-							card = new GoldCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 30, tempInfoArray[13],0);
+							card = new GoldCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 30, tempInfoArray[13],1);
 						}
 						else if(tempInfoArray[6].equals("S")) {
-							card = new SilverCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 20, tempInfoArray[13],0 );
+							card = new SilverCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 20, tempInfoArray[13],1);
 						}
 						/* Card Transaction */
 						jInnerObject.put("cardId",  String.valueOf(card.getCardId()));
@@ -141,10 +141,14 @@ public class UserManager implements UserService {
 	                e.printStackTrace();
 	            }
 				System.out.println("value : "+ jsonInput.getJSONArray("data").toString());
-			
+				
+				return "Transaction has been done";
+		}
+		else {
+			return "process is fault";
 		}
 		
-		return "process is fault";
+		
 	}
 
 	@Override
