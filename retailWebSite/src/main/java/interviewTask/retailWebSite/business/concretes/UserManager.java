@@ -38,27 +38,29 @@ public class UserManager implements UserService {
 	LocalDate currentDate = LocalDate.now();
 	 
 	@Override
-	public String personIdentifier(JSONObject jsonInput) {
+	public JSONObject personIdentifier(JSONObject jsonInput) {
 		/* Common Variable */
 		String[] tempInfoArray = new String[20];
 		String templatePhoneNumber;
 		boolean boolFlag = true ;
 		String strFlag ; 
+		JSONObject tempJSON;
 		
 		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		
-		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:[It should be like that 05....]\n", 11, "05",2).toUpperCase();
+		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It should be consist of 11 numbers, It's required:[It should be like that 05....]\n", 11, "05",2).toUpperCase();
 		 
 		
 		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
 		JSONArray jRootArray = new JSONArray();
-	
+		
 		if (flag != -1) {
-			// "I want to iterate though the objects in the array..."      
-			System.out.println("Dear "+jsonInput.getJSONArray("data").getJSONObject(flag).getString("personName").toUpperCase()+" "+
-								jsonInput.getJSONArray("data").getJSONObject(flag).getString("personSurname").toUpperCase()+", "+"Welcome to Retail Website");
+			// "I want to iterate though the objects in the array..." 
+			jsonInput = jsonInput.getJSONArray("data").getJSONObject(flag);
+			System.out.println("Dear "+jsonInput.getString("personName").toUpperCase()+" "+
+					jsonInput.getString("personSurname").toUpperCase()+", "+"Welcome to Retail Website");
 			
-			return "Transaction has been done";
+			return jsonInput;
 		}
 		
 		else if(flag == -1) {
@@ -79,25 +81,24 @@ public class UserManager implements UserService {
 			 		tempInfoArray[3] = templatePhoneNumber;
 			 	}
 			 else if(strFlag.equals("N")){	
-				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 0, null,0);
+				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 11, "05",0);
 				 
 			 		}
 				 
-			 System.out.println("Please enter alternative telephone number, It's optional:\n");
-			 tempInfoArray[4] = myObj.nextLine();
+			 
+			 tempInfoArray[4] = transactionManager.fillingBlankedField("Please enter alternative telephone number, It's required:\n", 11, "05",0);
 			 
 			 tempInfoArray[5] = transactionManager.fillingBlankedField("Please enter your home address. It's required:\n", 0, null,0);
 				 
 			 
-			 tempInfoArray[6] = transactionManager.fillingBlankedField("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required. [G/S]\n", 0, null,0).toUpperCase(); 
+			 tempInfoArray[6] = transactionManager.fillingBlankedOptionalField("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required. [G/S]", "G", "S").toUpperCase();   
 					
 				 
-			 System.out.println("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter E if you want.[Y/N]:\n");
-			 tempInfoArray[7] = myObj.nextLine().toUpperCase();
+			 
+			 tempInfoArray[7] = transactionManager.fillingBlankedOptionalField("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter E if you want.[Y/N]:\n", "Y", "N").toUpperCase() ; 
 			 
 			 
-			 System.out.println("Do you want  enter count of day that  you have been our customer? FOR TESTING !!!");
-			 yesNoFlag = myObj.nextLine().toUpperCase();
+			 yesNoFlag =transactionManager.fillingBlankedOptionalField("Do you want  enter count of day that  you have been our customer? FOR TESTING[Y/N]!!!","Y","N").toUpperCase();
 			 
 			 if(yesNoFlag.equals("Y")) {
 				 tempInfoArray[8] = transactionManager.fillingBlankedNumberField("Please enter Year", 0).toUpperCase(); 
@@ -107,7 +108,7 @@ public class UserManager implements UserService {
 			 }
 			 else if(yesNoFlag.equals("N")) {
 				 tempInfoArray[8] = String.valueOf(currentDate.getYear());
-				 tempInfoArray[9] = String.valueOf(currentDate.getMonth());
+				 tempInfoArray[9] = String.valueOf(currentDate.getMonthValue());
 				 tempInfoArray[10] = String.valueOf(currentDate.getDayOfMonth());
 			 }
 			 
@@ -126,6 +127,8 @@ public class UserManager implements UserService {
 						/* Setting Card Password */
 						tempInfoArray[16] = cardManager.cardPasswordGenerator(jsonInput);
 						
+						 jsonInput = jsonInput.getJSONArray("data").getJSONObject(Integer.valueOf(tempInfoArray[12] ));
+						
 						if(tempInfoArray[6].equals("G")) {
 							card = new GoldCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 30, tempInfoArray[13],1);
 						}
@@ -135,7 +138,7 @@ public class UserManager implements UserService {
 						
 						
 						if( tempInfoArray[7].equals("Y")) {
-							tempSocialId = transactionManager.beAffiliated();
+							
 									customer = new AffiliatedCustomer(
 									Integer.valueOf(tempInfoArray[9]), /*id*/
 									tempInfoArray[0], /*Name */
@@ -186,7 +189,7 @@ public class UserManager implements UserService {
 						jInnerObject.put("personAlternativeTelephoneNumber", customer.getPersonAlternativePhone());
 						jInnerObject.put("personAddress", customer.getPersonAddress());
 						jInnerObject.put("typeOfCustomer", customer.getTypeCustomer());
-						jInnerObject.put("typeOfCard", customer.getOwnCardType());
+						jInnerObject.put("typeOfCard", customer.getTypeOfCard());
 						jInnerObject.put("firstDay", customer.getFirstDayOfBeenCustomer());
 						
 						if( customer.getTypeCustomer().equals("affiliated")) {
@@ -207,10 +210,10 @@ public class UserManager implements UserService {
 	            }
 				System.out.println("value : "+ jsonInput.getJSONArray("data").toString());
 				
-				return "Transaction has been done";
+				return jsonInput;
 		}
 		else {
-			return "process is fault";
+			return jsonInput;
 		}
 		
 		
@@ -228,6 +231,13 @@ public class UserManager implements UserService {
 			tempId +=1;
 		}
 		return String.valueOf(tempId);
+	}
+
+	@Override
+	public JSONObject userRemoving(JSONObject jsonInput) {
+		jsonInput.getJSONArray("data").remove(0);
+		System.out.println("Your Account has been removed");
+		return jsonInput;
 	}
 
 }

@@ -12,22 +12,35 @@ public class Controller {
 
 	final int greatesLimitedNumberOfSecurityCode = 999;
 	
-	public Boolean deviceController() {
-		return null;
+	public Boolean deviceController(JSONObject json) {
+		
+		if(json.getString("device").equals("phone")) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
 	}
 	
 	public int registerContoller(String telephoneNumber, JSONObject jsonInput) {	
 		int index = 0;
 		
-	    for (int i = 0, size = jsonInput.getJSONArray("data").length(); i < size; i++)
+	    for (int i = 0, size = jsonInput.length(); i < size; i++)
 	    {
-	    	if(jsonInput.getJSONArray("data").getJSONObject(i).getString("personTelephoneNumber").equals(telephoneNumber)){
+	    	try {
+	    	if(jsonInput.getString("personTelephoneNumber").equals(telephoneNumber)){
 	    		index = i;
 	    		
 	    		return index;
-	    }
+	    	}
+	    	}
+	    	catch (Exception e) {
+	    	      System.out.println("This Phone Number ");
+	    	      return -1;
+	    	    }
 	   }
-	    return -1;
+	   return -1;
 	}
 	
 	public Boolean processController(JSONObject json) {
@@ -37,7 +50,7 @@ public class Controller {
 		TransactionService transactionManager = new TransactionManager();
 		temp = transactionManager.counterOfBillPaidOverStatedYear(json);
 		
-		if(temp > 2) {
+		if(temp >= 730) {
 			return true;
 		}
 		else {
@@ -49,47 +62,71 @@ public class Controller {
 	
 	public JSONObject discountController(JSONObject jsonInput) {
 		
+		String AmountOfDiscount;
+		
 		JSONObject json = new JSONObject();
 		JSONArray jDiscountArray = new JSONArray();
 		System.out.println(jsonInput);
-		if(jsonInput.getString("typeOfCustomer").equals("affiliated")){
-			JSONObject jInnerObject = new JSONObject();
-			jInnerObject.put("affiliatedDiscount","10");
-			jDiscountArray.put(jInnerObject);
-			json.put("discount", jDiscountArray);
-		}
 		
-		if(processController(jsonInput)) {
-			JSONObject jInnerObject = new JSONObject();
-			jInnerObject.put("longOfYouHaveBeenCustomer","3");
-			jDiscountArray.put(jInnerObject);
-			json.put("discount", jDiscountArray);
-		}
+		AmountOfDiscount = countOfDiscountUsage(jsonInput);
+				
 		
-		if(jsonInput.getString("typeOfCard").equals("GOLDEN")) {
-			JSONObject jInnerObject = new JSONObject();
-			jInnerObject.put("goldenCard:","30");
-			jDiscountArray.put(jInnerObject);
-			json.put("discount", jDiscountArray);
-		}
+		if(deviceController(jsonInput)) {
+			if(jsonInput.getString("typeOfCustomer").equals("affiliated")){
+				JSONObject jInnerObject = new JSONObject();
+				jInnerObject.put("indirim","10");
+				jDiscountArray.put(jInnerObject);
+				json.put("discount", jDiscountArray);
+			}
 		
-		else if(jsonInput.getString("typeOfCard").equals("SILVER")) {
-			JSONObject jInnerObject = new JSONObject();
-			jInnerObject.put("silverCard:","20");
-			jDiscountArray.put(jInnerObject);
-			json.put("discount", jDiscountArray);
+			if(processController(jsonInput)) {
+				JSONObject jInnerObject = new JSONObject();
+				jInnerObject.put("indirim","5");
+				jDiscountArray.put(jInnerObject);
+				json.put("discount", jDiscountArray);
+			}
+		
+			if(jsonInput.getString("typeOfCard").equals("GOLDEN")) {
+				JSONObject jInnerObject = new JSONObject();
+				jInnerObject.put("indirim","30");
+				jDiscountArray.put(jInnerObject);
+				json.put("discount", jDiscountArray);
+			}
+		
+			else if(jsonInput.getString("typeOfCard").equals("SILVER")) {
+				JSONObject jInnerObject = new JSONObject();
+				jInnerObject.put("silverCard:","20");
+				jDiscountArray.put(jInnerObject);
+				json.put("discount", jDiscountArray);
+			}
+		
 		}
-		return json;
+			else {
+				JSONObject jInnerObject = new JSONObject();
+				jInnerObject.put("indirim","0");
+				jDiscountArray.put(jInnerObject);
+				json.put("discount", jDiscountArray);
+				System.out.println("You have"+" "+ jsonInput.getString("amountOfDiscountUsage"));
+				System.out.println("We're sorry to tell that we could not apply discount with using phone ");
+			}
+			return json;
 	}
 	
-	public Boolean amountOfBillController() {
+	public Boolean amountOfBillController(float result) {
 		
-		return null;
+		if(result >= 200) {
+			return true;
+		}
+		return false;
 	}
 	
-	public Boolean countOfDiscountUsage() {
+	public String countOfDiscountUsage(JSONObject json) {
 		
-		return null;
+		String temp;
+		
+		temp = json.getString("amountOfDiscountUsage");
+		
+		return temp;
 	}
 	
 	
@@ -99,7 +136,7 @@ public class Controller {
 			return false;
 		}
 		else {
-			System.out.println("It's invalid. Please enter correctly.");
+			
 			return true;
 		}
 	}
@@ -111,7 +148,7 @@ public class Controller {
 			return false;
 		}
 		else {
-			System.out.println("It's invalid. Please enter correctly.");
+			
 			return true;
 		}
 	}
@@ -178,12 +215,29 @@ public class Controller {
 		for(int i = 0; i< size; i++) {
 			
 			if((ch[i] >= 'a' && ch[i]<= 'z') || (ch[i] >= 'A' && ch[i] <= 'Z')) {
-				return false;
+				System.out.println("controller"+ch[i]);
+				return true;
 			}
 		}
 		
-		return true;
+		return false;
 	}
 	
+	public Boolean passwordController(String password, String repeatPassword) {
+		if(password.equals(repeatPassword)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean customerController(JSONObject json) {
+		
+		if(json.getJSONArray("data").getJSONObject(0).getString("typeOfCustomer").equals("affiliated")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 }

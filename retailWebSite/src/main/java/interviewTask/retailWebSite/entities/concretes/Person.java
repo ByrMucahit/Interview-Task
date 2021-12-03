@@ -118,11 +118,11 @@ public abstract class Person {
 	
 	/* Type Of Card */
 	
-	public void typeOfCard( String typeOfCard) {
+	public void setTypeOfCard(String typeOfCard ) {
 		this.typeOfCard = typeOfCard;
 	}
 	
-	public String typeOfCard() {
+	public String getTypeOfCard() {
 		return typeOfCard;
 	}
 	

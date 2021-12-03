@@ -8,6 +8,7 @@ import interviewTask.retailWebSite.entities.concretes.Person;
 
 public interface UserService {
 
-	String personIdentifier(JSONObject jsonInput);
+	JSONObject personIdentifier(JSONObject jsonInput);
 	String userIdGenerator(JSONObject jsonInput);
+	JSONObject userRemoving(JSONObject jsonInput);
 }

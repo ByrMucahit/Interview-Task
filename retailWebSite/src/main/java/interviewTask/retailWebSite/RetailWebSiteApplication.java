@@ -39,6 +39,7 @@ public class RetailWebSiteApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RetailWebSiteApplication.class, args);
 		boolean flag = true;
+		boolean parentFlag = true;
 		String response;
 		String message;
 		String amount ;
@@ -67,11 +68,13 @@ public class RetailWebSiteApplication {
 			jInnerObject.put("percentageOfDiscount","30");
 			jInnerObject.put("cardPassword","1453");
 			jInnerObject.put("amountOfDiscountUsage","1");
-			jInnerObject.put("typeOfCustomer","affiliated");
+			jInnerObject.put("typeOfCustomer","Customer");
 			jInnerObject.put("typeOfCard","GOLDEN");
 			jInnerObject.put("year","2018");
 			jInnerObject.put("mounth","10");
 			jInnerObject.put("day","20");
+			jInnerObject.put("device","phone");
+			jInnerObject.put("socialIdentityNumber","null");
 			jRootArray.put(jInnerObject);
 			json.put("data", jRootArray);
 				
@@ -129,11 +132,12 @@ public class RetailWebSiteApplication {
 			
 			
 			 
-			/*message = userManager.personIdentifier(json);
-			System.out.println("message: "+ message);*/
-			
+			while(parentFlag){
+				json = userManager.personIdentifier(json);
+				System.out.println("message: "+ json);
 			
 				while(flag) {
+					
 					System.out.println("What would you like to do ?\n"+
 										"1. View Account Detail\n"+
 										"2. Paying Bill\n"+
@@ -148,20 +152,28 @@ public class RetailWebSiteApplication {
 					switch(response) {
 						case "1":
 							System.out.println("Your account Detail");
-							System.out.println("Your Full Name  is: "+ json.getJSONArray("data").getJSONObject(0).getString("personName").toUpperCase()+" "+ json.getJSONArray("data").getJSONObject(0).getString("personSurname").toUpperCase()+"\n"+
-												"Your Id: "+ json.getJSONArray("data").getJSONObject(0).getString("personId")+"\n"+
-												"Your Mail: "+ json.getJSONArray("data").getJSONObject(0).getString("personMail") +"\n"+
-												"Your Telephone Number: "+ json.getJSONArray("data").getJSONObject(0).getString("personTelephoneNumber") +"\n"+
-												"Alternative Telephone Number: "+ json.getJSONArray("data").getJSONObject(0).getString("personAlternativeTelephoneNumber") +"\n"+
-												"Your Address: "+ json.getJSONArray("data").getJSONObject(0).getString("personAddress") +"\n"+
-												"Card Id: "+  json.getJSONArray("data").getJSONObject(0).getString("cardId") +"\n"+
-												"Card Number:"+ json.getJSONArray("data").getJSONObject(0).getString("cardNumber") +"\n"+
-												"Card Security Number:"+ json.getJSONArray("data").getJSONObject(0).getString("cardSecurityNumber") +"\n"+
-												"Your Percenatage Of Discount: "+ json.getJSONArray("data").getJSONObject(0).getString("percentageOfDiscount") +"\n"+
-												"Card Password: "+ json.getJSONArray("data").getJSONObject(0).getString("cardPassword") +"\n"+
-												"Amount Of Discount Usage: "+ json.getJSONArray("data").getJSONObject(0).getString("amountOfDiscountUsage") +"\n"			
+							System.out.println("Your Full Name  is: "+ json.getString("personName").toUpperCase()+" "+ json.getString("personSurname").toUpperCase()+"\n"+
+												"Your Id: "+json.getString("personId")+"\n"+
+												"Your Mail: "+ json.getString("personMail") +"\n"+
+												"Your Telephone Number: "+json.getString("personTelephoneNumber") +"\n"+
+												"Alternative Telephone Number: "+ json.getString("personAlternativeTelephoneNumber") +"\n"+
+												"Your Address: "+ json.getString("personAddress") +"\n"+
+												"Card Id: "+  json.getString("cardId") +"\n"+
+												"Card Number:"+json.getString("cardNumber") +"\n"+
+												"Card Security Number:"+ json.getString("cardSecurityNumber") +"\n"+
+												"Your Percenatage Of Discount: "+json.getString("percentageOfDiscount") +"\n"+
+												"Card Password: "+ json.getString("cardPassword") +"\n"+
+												"Amount Of Discount Usage: "+ json.getString("amountOfDiscountUsage") +"\n"+	
+												"Type Of Customer: "+ json.getString("typeOfCustomer") +"\n"+	
+												"Type Of Card: "+ json.getString("typeOfCard") +"\n" +	
+												"Year: "+ json.getString("year") +"\n"+	
+												"Mounth: "+ json.getString("mounth") +"\n"+	
+												"Day: "+ json.getString("day") +"\n"+	
+												"Device: "+ json.getString("device") +"\n"
 									);
-							
+							if(!json.getString("socialIdentityNumber").equals("null")){
+									System.out.println("Social Identity: "+ json.getString("socialIdentityNumber"));
+							}
 							
 							break;
 							
@@ -169,45 +181,53 @@ public class RetailWebSiteApplication {
 							
 							
 							
-							System.out.println("Account owner is :"+ json.getJSONArray("data").getJSONObject(0).getString("personName").toUpperCase()+" "+ json.getJSONArray("data").getJSONObject(0).getString("personSurname").toUpperCase());
+							System.out.println("Account owner is :"+ json.getString("personName").toUpperCase()+" "+json.getString("personSurname").toUpperCase());
 							
 							
-							amount = transactionManager.fillingBlankedField("Please enter something that how much money you want to paying ?",0, null,0);
+							amount = transactionManager.fillingBlankedNumberField("Please enter something that how much money you want to paying ?",0);
 							
 							JSONObject discountObject = new JSONObject();
-							discountObject = checkpoint.discountController(json.getJSONArray("data").getJSONObject(0));
+							discountObject = checkpoint.discountController(json);
 							
 							
-							
+							System.out.println("YOU HAVE"+" "+ json.getString("amountOfDiscountUsage") +" DISCOUNT NUMBER THAT YOU'RE ENABLE TO USING");
 							int tempIndex = 0;
-							for(int i = 0; i < discountObject.getJSONArray("discount").length(); i++) {
+							if(!discountObject.getJSONArray("discount").getJSONObject(0).getString("indirim").equals("0"))
+							{
+								for(int i = 0; i < discountObject.getJSONArray("discount").length(); i++) {
+									
+									System.out.println(i+".:"+" "+ discountObject.getJSONArray("discount").getJSONObject(i)+"%");
+								}
+								System.out.println("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.");
+								response = myObj.nextLine();
+								tempIndex = Integer.valueOf(response);
+								System.out.println("YOU HAVE SELECTED: "+ discountObject.getJSONArray("discount").getJSONObject(tempIndex));
+								json = transactionManager.payBill(json,discountObject.getJSONArray("discount").getJSONObject(tempIndex), Integer.valueOf(amount));
 								
-								System.out.println(i+".:"+" "+ discountObject.getJSONArray("discount").getJSONObject(i)+"%");
 							}
-							
-							
-							System.out.println("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.");
-							response = myObj.nextLine();
-							tempIndex = Integer.valueOf(response);
-							System.out.println("YOU HAVE SELECTED: "+ discountObject.getJSONArray("discount").getJSONObject(tempIndex));
-							
-							transactionManager.payBill(json.getJSONArray("data").getJSONObject(0),discountObject.getJSONArray("discount").getJSONObject(tempIndex), Integer.valueOf(amount));
+							json = transactionManager.payBill(json,discountObject.getJSONArray("discount").getJSONObject(0), Integer.valueOf(amount));
 							break;
 							
 						case "3":
 							System.out.println("Change password");
+							json = transactionManager.changePassword(json);
 							break;
 							
 						case "4":
 							System.out.println("Be Affiliated");
+							json = transactionManager.beAffiliated(json);
 							break;
 							
 						case "5":
 							System.out.println("Remove Account");
+							json = userManager.userRemoving(json);
+							flag = false;
 							break;
 							
 						case "6":
-							System.out.println("Exit");
+							System.out.println("See u soon, By By");
+							flag = false;
+							
 							break;
 							
 						default:
@@ -217,6 +237,15 @@ public class RetailWebSiteApplication {
 					
 					System.out.println("Response:"+response);
 				}
+			
+				response = transactionManager.fillingBlankedNumberField("Please, press 1 for continue.",1);
+				if(response.equals("1")){
+					parentFlag= true;
+				}
+				else {
+					parentFlag= false;
+				}
+			}
 			
 		
 		/*String m = "Merhaba";
@@ -236,8 +265,7 @@ public class RetailWebSiteApplication {
 		 long diff = d2.getTime() - d1.getTime();
 		 System.out.println(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));*/
 			 
-			 
-		
+			
 		
 	}
 }
