@@ -1,7 +1,16 @@
 package interviewTask.retailWebSite;
 
 import java.util.Scanner;
-
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +21,9 @@ import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import interviewTask.retailWebSite.business.abstracts.TransactionService;
 import interviewTask.retailWebSite.business.abstracts.UserService;
+import interviewTask.retailWebSite.business.concretes.TransactionManager;
 import interviewTask.retailWebSite.business.concretes.UserManager;
 import interviewTask.retailWebSite.core.concretes.Controller;
 import interviewTask.retailWebSite.entities.concretes.Card;
@@ -30,10 +41,14 @@ public class RetailWebSiteApplication {
 		boolean flag = true;
 		String response;
 		String message;
+		String amount ;
 		
 		UserService userManager = new UserManager();
 		Scanner myObj = new Scanner(System.in);
-		
+		LocalDateTime currentDate = LocalDateTime.now();
+		Controller checkpoint = new Controller();
+		TransactionService transactionManager = new TransactionManager();
+		 
 		JSONObject json = new JSONObject();
 		JSONArray jRootArray = new JSONArray();
 			
@@ -52,6 +67,11 @@ public class RetailWebSiteApplication {
 			jInnerObject.put("percentageOfDiscount","30");
 			jInnerObject.put("cardPassword","1453");
 			jInnerObject.put("amountOfDiscountUsage","1");
+			jInnerObject.put("typeOfCustomer","affiliated");
+			jInnerObject.put("typeOfCard","GOLDEN");
+			jInnerObject.put("year","2018");
+			jInnerObject.put("mounth","10");
+			jInnerObject.put("day","20");
 			jRootArray.put(jInnerObject);
 			json.put("data", jRootArray);
 				
@@ -139,16 +159,39 @@ public class RetailWebSiteApplication {
 												"Card Security Number:"+ json.getJSONArray("data").getJSONObject(0).getString("cardSecurityNumber") +"\n"+
 												"Your Percenatage Of Discount: "+ json.getJSONArray("data").getJSONObject(0).getString("percentageOfDiscount") +"\n"+
 												"Card Password: "+ json.getJSONArray("data").getJSONObject(0).getString("cardPassword") +"\n"+
-												"Amount Of Discount Usage: "+ json.getJSONArray("data").getJSONObject(0).getString("amountOfDiscountUsage") +"\n"
-												
-												
+												"Amount Of Discount Usage: "+ json.getJSONArray("data").getJSONObject(0).getString("amountOfDiscountUsage") +"\n"			
 									);
 							
 							
 							break;
 							
 						case "2":
-							System.out.println("Paying bill");
+							
+							
+							
+							System.out.println("Account owner is :"+ json.getJSONArray("data").getJSONObject(0).getString("personName").toUpperCase()+" "+ json.getJSONArray("data").getJSONObject(0).getString("personSurname").toUpperCase());
+							
+							
+							amount = transactionManager.fillingBlankedField("Please enter something that how much money you want to paying ?",0, null,0);
+							
+							JSONObject discountObject = new JSONObject();
+							discountObject = checkpoint.discountController(json.getJSONArray("data").getJSONObject(0));
+							
+							
+							
+							int tempIndex = 0;
+							for(int i = 0; i < discountObject.getJSONArray("discount").length(); i++) {
+								
+								System.out.println(i+".:"+" "+ discountObject.getJSONArray("discount").getJSONObject(i)+"%");
+							}
+							
+							
+							System.out.println("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.");
+							response = myObj.nextLine();
+							tempIndex = Integer.valueOf(response);
+							System.out.println("YOU HAVE SELECTED: "+ discountObject.getJSONArray("discount").getJSONObject(tempIndex));
+							
+							transactionManager.payBill(json.getJSONArray("data").getJSONObject(0),discountObject.getJSONArray("discount").getJSONObject(tempIndex), Integer.valueOf(amount));
 							break;
 							
 						case "3":
@@ -183,11 +226,15 @@ public class RetailWebSiteApplication {
 		/*JSONObject objectInArray = jRootArray.getJSONObject("1");*/
 		/*System.out.println("value : "+ json.toString());*/
 			
-			
-		System.out.println("value : "+ json.getJSONArray("data"));
-		System.out.println("value : "+ json.getJSONArray("data").getJSONObject(0));
-			
-			 
+	
+		
+		
+	
+		/*Date inputString1 = "2021 12 03";
+		Date inputString2 = "2022 04 2025";
+
+		 long diff = d2.getTime() - d1.getTime();
+		 System.out.println(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));*/
 			 
 			 
 		

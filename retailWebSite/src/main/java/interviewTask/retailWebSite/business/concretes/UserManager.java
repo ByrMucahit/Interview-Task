@@ -1,5 +1,6 @@
 package interviewTask.retailWebSite.business.concretes;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,18 +18,25 @@ import interviewTask.retailWebSite.entities.concretes.Card;
 import interviewTask.retailWebSite.entities.concretes.GoldCard;
 import interviewTask.retailWebSite.entities.concretes.Person;
 import interviewTask.retailWebSite.entities.concretes.SilverCard;
+import interviewTask.retailWebSite.entities.concretes.AffiliatedCustomer;
+import interviewTask.retailWebSite.entities.concretes.Customer;
 
 public class UserManager implements UserService {
 	private String tempId;
 	private String cardId;
+	private String tempSocialId;
+	private String tempDate;
+	private String yesNoFlag;
 	int flag = 0;
 	Card card;
+	Person customer;
 	
 	Scanner myObj = new Scanner(System.in);
 	CardService cardManager = new CardManager();
 	Controller controller = new Controller();
 	TransactionService transactionManager = new TransactionManager();
-	
+	LocalDate currentDate = LocalDate.now();
+	 
 	@Override
 	public String personIdentifier(JSONObject jsonInput) {
 		/* Common Variable */
@@ -39,7 +47,7 @@ public class UserManager implements UserService {
 		
 		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		
-		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:[It should be like that 05....]\n", 11, "05").toUpperCase();
+		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:[It should be like that 05....]\n", 11, "05",2).toUpperCase();
 		 
 		
 		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
@@ -58,60 +66,105 @@ public class UserManager implements UserService {
 			
 			 System.out.println("You're a new for us"+", "+"We're excited to meet you."+" "+ "Welcome to our family.");
 			
-			 tempInfoArray[0] = transactionManager.fillingBlankedField("Please enter your first name. It's required !!!:\n", 0, null).toUpperCase();
+			 tempInfoArray[0] = transactionManager.fillingBlankedField("Please enter your first name. It's required !!!:\n", 0, null,0).toUpperCase();
 			 
-		 	 tempInfoArray[1] = transactionManager.fillingBlankedField("Please enter your surname. It's required !!! :\n", 0, null).toUpperCase();
+		 	 tempInfoArray[1] = transactionManager.fillingBlankedField("Please enter your surname. It's required !!! :\n", 0, null,0).toUpperCase();
 		
-		 	 tempInfoArray[2] = transactionManager.fillingBlankedField("Please enter your  mail. It's required !!!:\n", 0, null);
+		 	 tempInfoArray[2] = transactionManager.fillingBlankedField("Please enter your  mail. It's required !!!:\n", 0, null,0);
 			 		
-		 	strFlag = transactionManager.fillingBlankedField("If you want to save number you wrote. It's required:[Y/N]\n", 0, null);	 	
+		 	strFlag = transactionManager.fillingBlankedField("If you want to save number you wrote. It's required:[Y/N]\n", 0, null,0);	 	
 			 		
 			 /* Telephone Number */
 			 if(strFlag.equals("Y")) {
 			 		tempInfoArray[3] = templatePhoneNumber;
 			 	}
 			 else if(strFlag.equals("N")){	
-				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 0, null);
+				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 0, null,0);
 				 
 			 		}
 				 
 			 System.out.println("Please enter alternative telephone number, It's optional:\n");
 			 tempInfoArray[4] = myObj.nextLine();
-				
 			 
-			 tempInfoArray[5] = transactionManager.fillingBlankedField("Please enter your home address. It's required:\n", 0, null);
+			 tempInfoArray[5] = transactionManager.fillingBlankedField("Please enter your home address. It's required:\n", 0, null,0);
 				 
 			 
-			 tempInfoArray[6] = transactionManager.fillingBlankedField("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required. [G/S]\n", 0, null).toUpperCase(); 
+			 tempInfoArray[6] = transactionManager.fillingBlankedField("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required. [G/S]\n", 0, null,0).toUpperCase(); 
 					
 				 
-			 System.out.println("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter E if you want.[E/N]:\n");
+			 System.out.println("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter E if you want.[Y/N]:\n");
 			 tempInfoArray[7] = myObj.nextLine().toUpperCase();
-			
-			
-			
-			
-			try {
-						
+			 
+			 
+			 System.out.println("Do you want  enter count of day that  you have been our customer? FOR TESTING !!!");
+			 yesNoFlag = myObj.nextLine().toUpperCase();
+			 
+			 if(yesNoFlag.equals("Y")) {
+				 tempInfoArray[8] = transactionManager.fillingBlankedNumberField("Please enter Year", 0).toUpperCase(); 
+				 tempInfoArray[9] = transactionManager.fillingBlankedNumberField("Please enter number of mounth\n", 13).toUpperCase(); 
+				 tempInfoArray[10] = transactionManager.fillingBlankedNumberField("Please enter number of day\n", 31).toUpperCase(); 
+							
+			 }
+			 else if(yesNoFlag.equals("N")) {
+				 tempInfoArray[8] = String.valueOf(currentDate.getYear());
+				 tempInfoArray[9] = String.valueOf(currentDate.getMonth());
+				 tempInfoArray[10] = String.valueOf(currentDate.getDayOfMonth());
+			 }
+			 
+			try {		
 						JSONObject jInnerObject = new JSONObject();
 					
 						/* Setting User ID */
-						tempInfoArray[9] = userIdGenerator(jsonInput);
+						tempInfoArray[12] = userIdGenerator(jsonInput);
 						
 						/* Setting Card Id */
-						tempInfoArray[10] = cardManager.cardIdGenerator(jsonInput);
+						tempInfoArray[13] = cardManager.cardIdGenerator(jsonInput);
 						/* Setting Card Number */
-						tempInfoArray[11] = cardManager.cardNumberGenerator(jsonInput);
+						tempInfoArray[14] = cardManager.cardNumberGenerator(jsonInput);
 						/* Setting Card Security Number */
-						tempInfoArray[12] = cardManager.cardSecurityNumberGenerator(jsonInput);
+						tempInfoArray[15] = cardManager.cardSecurityNumberGenerator(jsonInput);
 						/* Setting Card Password */
-						tempInfoArray[13] = cardManager.cardPasswordGenerator(jsonInput);
+						tempInfoArray[16] = cardManager.cardPasswordGenerator(jsonInput);
 						
 						if(tempInfoArray[6].equals("G")) {
 							card = new GoldCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 30, tempInfoArray[13],1);
 						}
 						else if(tempInfoArray[6].equals("S")) {
 							card = new SilverCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 20, tempInfoArray[13],1);
+						}
+						
+						
+						if( tempInfoArray[7].equals("Y")) {
+							tempSocialId = transactionManager.beAffiliated();
+									customer = new AffiliatedCustomer(
+									Integer.valueOf(tempInfoArray[9]), /*id*/
+									tempInfoArray[0], /*Name */
+									tempInfoArray[1], /*Surname */
+									tempInfoArray[2], /*Mail */
+									card,			  /*Card Object */
+									tempInfoArray[3], /*Telephone Number */
+									tempInfoArray[4], /*Alternative Telephone Number */
+									tempInfoArray[5], /*Home address */
+									tempInfoArray[6]+"OLDEN",/* Type Of Card */
+									tempInfoArray[8], /* Date */
+									tempSocialId,/* social identifier */
+									"affiliated"); 
+						}
+						else if(tempInfoArray[7].equals("N")) {
+							 		customer = new Customer(
+									Integer.valueOf(tempInfoArray[9]), 
+									tempInfoArray[0], 
+									tempInfoArray[1],
+									tempInfoArray[2],
+									card,
+									tempInfoArray[3],
+									tempInfoArray[4], 
+									tempInfoArray[5], 
+									tempInfoArray[6]+"ILVER",
+									tempInfoArray[8],
+									null,
+									"Customer"
+									);
 						}
 						/* Card Transaction */
 						jInnerObject.put("cardId",  String.valueOf(card.getCardId()));
@@ -126,12 +179,24 @@ public class UserManager implements UserService {
 						jInnerObject.put("personId",tempId);
 						
 						/* Datas, which is got by Customer */
-						jInnerObject.put("personName",tempInfoArray[0]);
-						jInnerObject.put("personSurname",tempInfoArray[1]);
-						jInnerObject.put("personMail",tempInfoArray[2]);
-						jInnerObject.put("personTelephoneNumber",tempInfoArray[3]);
-						jInnerObject.put("personAlternativeTelephoneNumber", tempInfoArray[4]);
-						jInnerObject.put("personAddress",tempInfoArray[5]);
+						jInnerObject.put("personName", customer.getPersonName());
+						jInnerObject.put("personSurname", customer.getPersonSurname());
+						jInnerObject.put("personMail", customer.getPersonMail());
+						jInnerObject.put("personTelephoneNumber",customer.getPersonAlternativePhone());
+						jInnerObject.put("personAlternativeTelephoneNumber", customer.getPersonAlternativePhone());
+						jInnerObject.put("personAddress", customer.getPersonAddress());
+						jInnerObject.put("typeOfCustomer", customer.getTypeCustomer());
+						jInnerObject.put("typeOfCard", customer.getOwnCardType());
+						jInnerObject.put("firstDay", customer.getFirstDayOfBeenCustomer());
+						
+						if( customer.getTypeCustomer().equals("affiliated")) {
+							jInnerObject.put("social Identity Number", customer.getSocialIdentityNumber());
+						}
+						else {
+							jInnerObject.put("social Identity Number", "null");
+						}
+						
+						
 						
 						
 						jRootArray.put(jInnerObject);

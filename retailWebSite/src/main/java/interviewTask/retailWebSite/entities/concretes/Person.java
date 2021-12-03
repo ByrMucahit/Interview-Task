@@ -12,12 +12,16 @@ public abstract class Person {
 	private String personPhone;
 	private String personAlternativePhone;
 	private String personAddress;
-	private Date firstDayOfBeenCustomer;
+	private String firstDayOfBeenCustomer;
 	private Card ownCardType;
+	private String typeOfCard;
+	private String typeOfAffiliate;
+	private String socialIdentityNumber;
 	
 	/* Constructor */
 	public Person(int id, String personName, String personSurname, String personMail, Card ownCardType,
-			String personPhone, String personAlternativePhone, String personAddress) {
+			String personPhone, String personAlternativePhone, String personAddress, String typeOfCard,
+			String firstDayOfBeenCustomer, String typeOfAffiliate, String socialIdentityNumber) {
 			
 		this.id = id;
 		this.personName = personName;
@@ -27,7 +31,10 @@ public abstract class Person {
 		this.personAlternativePhone = personAlternativePhone;
 		this.personAddress = personAddress;
 		this.ownCardType = ownCardType;
-		
+		this.typeOfCard = typeOfCard;
+		this.firstDayOfBeenCustomer = firstDayOfBeenCustomer;
+		this.typeOfAffiliate = typeOfAffiliate;
+		this.socialIdentityNumber = socialIdentityNumber;
 	}
 	
 	/* Id */
@@ -58,34 +65,34 @@ public abstract class Person {
 	}
 	
 	/* Person Mail */
-	public void setPersonelMail(String personMail) {
+	public void setPersonMail(String personMail) {
 		this.personMail = personMail;
 	}
 	
-	public String getPersonelMail() {
+	public String getPersonMail() {
 		return personMail;
 	}
 	
 	/* Personel Phone  */
-	public void setPersonelPhone(String personPhone) {
+	public void setPersonPhone(String personPhone) {
 		this.personPhone = personPhone;
 	}
 	
-	public String getPersonelPhone() {
+	public String getPersonPhone() {
 		return personPhone;
 	}
 	
 	/* Personel Alternative Phone */
-	public void setPersonelAlternativePhone(String personAlternativePhone) {
+	public void setPersonAlternativePhone(String personAlternativePhone) {
 		this.personAlternativePhone = personAlternativePhone;
 	}
 	
-	public String getPersonelAlternativePhone() {
+	public String getPersonAlternativePhone() {
 		return personAlternativePhone;
 	}
 	
 	/* Personel Address */
-	public void setPersonelAddress(String personAddress) {
+	public void setPersonAddress(String personAddress) {
 		this.personAddress =  personAddress;
 	}
 	public String getPersonAddress() {
@@ -93,10 +100,10 @@ public abstract class Person {
 	}
 	
 	/* First Date of Been Customer */
-	public void setFirstDayOfBeenCustomer(Date firstDayOfBeenCustomer) {
+	public void setFirstDayOfBeenCustomer(String firstDayOfBeenCustomer) {
 		this.firstDayOfBeenCustomer= firstDayOfBeenCustomer;
 	}
-	public Date getFirstDayOfBeenCustomer () {
+	public String getFirstDayOfBeenCustomer () {
 		return firstDayOfBeenCustomer;
 	}
 	
@@ -107,6 +114,35 @@ public abstract class Person {
 	
 	public Card getOwnCardType() {
 		return ownCardType;
+	}
+	
+	/* Type Of Card */
+	
+	public void typeOfCard( String typeOfCard) {
+		this.typeOfCard = typeOfCard;
+	}
+	
+	public String typeOfCard() {
+		return typeOfCard;
+	}
+	
+	
+	
+	/* Type Of Affiliated */
+	public void setTypeOfCustomer(String typeOfCustomer) {
+		this.typeOfAffiliate = typeOfAffiliate;
+	}
+	
+	public String getTypeCustomer() {
+		return typeOfAffiliate;
+	}
+	
+	/* Social Identity Number */
+	public void setSocialIdentityNumber(String socialIdentityNumber) {
+		this.socialIdentityNumber = socialIdentityNumber;
+	}
+	public String getSocialIdentityNumber() {
+		return socialIdentityNumber;
 	}
 }
 

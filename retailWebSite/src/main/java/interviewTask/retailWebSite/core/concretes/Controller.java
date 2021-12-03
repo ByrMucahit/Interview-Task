@@ -2,7 +2,11 @@ package interviewTask.retailWebSite.core.concretes;
 
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import interviewTask.retailWebSite.business.abstracts.TransactionService;
+import interviewTask.retailWebSite.business.concretes.TransactionManager;
 
 public class Controller {
 
@@ -26,14 +30,56 @@ public class Controller {
 	    return -1;
 	}
 	
-	public Boolean processController() {
+	public Boolean processController(JSONObject json) {
 		
-		return null;
+		int temp = 0;
+		
+		TransactionService transactionManager = new TransactionManager();
+		temp = transactionManager.counterOfBillPaidOverStatedYear(json);
+		
+		if(temp > 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	
 	}
 	
-	public Boolean discountController() {
+	public JSONObject discountController(JSONObject jsonInput) {
 		
-		return null;
+		JSONObject json = new JSONObject();
+		JSONArray jDiscountArray = new JSONArray();
+		System.out.println(jsonInput);
+		if(jsonInput.getString("typeOfCustomer").equals("affiliated")){
+			JSONObject jInnerObject = new JSONObject();
+			jInnerObject.put("affiliatedDiscount","10");
+			jDiscountArray.put(jInnerObject);
+			json.put("discount", jDiscountArray);
+		}
+		
+		if(processController(jsonInput)) {
+			JSONObject jInnerObject = new JSONObject();
+			jInnerObject.put("longOfYouHaveBeenCustomer","3");
+			jDiscountArray.put(jInnerObject);
+			json.put("discount", jDiscountArray);
+		}
+		
+		if(jsonInput.getString("typeOfCard").equals("GOLDEN")) {
+			JSONObject jInnerObject = new JSONObject();
+			jInnerObject.put("goldenCard:","30");
+			jDiscountArray.put(jInnerObject);
+			json.put("discount", jDiscountArray);
+		}
+		
+		else if(jsonInput.getString("typeOfCard").equals("SILVER")) {
+			JSONObject jInnerObject = new JSONObject();
+			jInnerObject.put("silverCard:","20");
+			jDiscountArray.put(jInnerObject);
+			json.put("discount", jDiscountArray);
+		}
+		return json;
 	}
 	
 	public Boolean amountOfBillController() {
@@ -46,17 +92,11 @@ public class Controller {
 		return null;
 	}
 	
-	public Boolean characterLengthController(String data, int length, String headerCharacter) {
+	
+	public Boolean characterLengthController(String data, int length) {
+		
 		if(data.length() == length) {
-			
-			if(data.substring(0,2).equals(headerCharacter)) {
-				return false;
-			}
-			else {
-				System.out.println("It's invalid. Please enter correctly.");
-				return true;
-			}
-			
+			return false;
 		}
 		else {
 			System.out.println("It's invalid. Please enter correctly.");
@@ -64,9 +104,16 @@ public class Controller {
 		}
 	}
 	
-	public Boolean properChartacterController() {
+	
+	public Boolean properChartacterController(String data, String headerCharacter, int characterInterval) {
 		
-		return null;
+		if( data.substring(0,characterInterval).equals(headerCharacter)) {
+			return false;
+		}
+		else {
+			System.out.println("It's invalid. Please enter correctly.");
+			return true;
+		}
 	}
 	
 	public Boolean idConflictController(JSONObject jsonInput, int id) {
@@ -117,6 +164,24 @@ public class Controller {
 		if(data.isEmpty()) {
 			return false;
 		}
+		return true;
+	}
+	
+	public Boolean stringCharacterController(String data) {
+		int size;
+	
+		data=data.toLowerCase();
+		data=data.replaceAll("\\s","");
+	    char[] ch=data.toCharArray();
+	    size =data.length();
+	    
+		for(int i = 0; i< size; i++) {
+			
+			if((ch[i] >= 'a' && ch[i]<= 'z') || (ch[i] >= 'A' && ch[i] <= 'Z')) {
+				return false;
+			}
+		}
+		
 		return true;
 	}
 	
