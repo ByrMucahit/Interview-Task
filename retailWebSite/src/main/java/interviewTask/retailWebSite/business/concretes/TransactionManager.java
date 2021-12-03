@@ -153,10 +153,10 @@ public class TransactionManager implements TransactionService {
 				}
 			}
 			else {
-				flagNumber += 1;
+				flagNumber += 2;
 			}
 			
-			if(flagNumber >= 2) {
+			if(flagNumber == 3) {
 				flag = false;
 			}
 			else {

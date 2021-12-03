@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.CDL;
@@ -20,23 +21,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.json.JsonParser;
 
 import interviewTask.retailWebSite.business.abstracts.TransactionService;
 import interviewTask.retailWebSite.business.abstracts.UserService;
 import interviewTask.retailWebSite.business.concretes.TransactionManager;
 import interviewTask.retailWebSite.business.concretes.UserManager;
 import interviewTask.retailWebSite.core.concretes.Controller;
+import interviewTask.retailWebSite.core.concretes.utilities.results.DataResult;
 import interviewTask.retailWebSite.entities.concretes.Card;
 import interviewTask.retailWebSite.entities.concretes.Customer;
 import interviewTask.retailWebSite.entities.concretes.GoldCard;
 import interviewTask.retailWebSite.entities.concretes.Person;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.parser.JSONParser;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+import com.google.gson.Gson;    
 
 @SpringBootApplication
 public class RetailWebSiteApplication {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JsonMappingException, JsonProcessingException {
 		SpringApplication.run(RetailWebSiteApplication.class, args);
 		boolean flag = true;
 		boolean parentFlag = true;
@@ -50,6 +61,7 @@ public class RetailWebSiteApplication {
 		Controller checkpoint = new Controller();
 		TransactionService transactionManager = new TransactionManager();
 		 
+		DataResult<List<Person>> x;
 		JSONObject json = new JSONObject();
 		JSONArray jRootArray = new JSONArray();
 			
@@ -123,18 +135,40 @@ public class RetailWebSiteApplication {
 						json.put("data", jRootArray);
 					}*/
 				
-				System.out.println(json.toString());
+			
 				
 				
 			} catch (JSONException e) {
                 e.printStackTrace();
             }
 			
-			
-			 
+		
+		 
 			while(parentFlag){
-				json = userManager.personIdentifier(json);
-				System.out.println("message: "+ json);
+				
+				x = userManager.personIdentifier(json);
+				
+				/*Gson gson =  new Gson();
+				String n = gson.toJson(x);
+				
+				System.out.println(n);
+				
+				String jsonString = "{ \"name\" : \"John\", \"age\" : \"20\", \"address\" : \"some address\" }";
+				
+				*/
+				JSONObject jsonObject = new JSONObject(x);
+				System.out.println("jsonObject"+jsonObject);
+				
+			
+				/*JSONArray jsonArray = new JSONArray(m);
+				JSONObject jsnobject = new JSONObject(m);
+				JSONObject n = gson.fromJson(x);*/
+			
+				
+				
+			
+				
+				
 			
 				while(flag) {
 					
@@ -265,7 +299,7 @@ public class RetailWebSiteApplication {
 		 long diff = d2.getTime() - d1.getTime();
 		 System.out.println(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));*/
 			 
-			
+		
 		
 	}
 }

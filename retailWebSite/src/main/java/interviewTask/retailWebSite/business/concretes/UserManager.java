@@ -2,6 +2,7 @@ package interviewTask.retailWebSite.business.concretes;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,6 +15,8 @@ import interviewTask.retailWebSite.business.abstracts.TransactionService;
 import interviewTask.retailWebSite.business.abstracts.UserService;
 import interviewTask.retailWebSite.core.concretes.Controller;
 import interviewTask.retailWebSite.core.concretes.utilities.results.DataResult;
+import interviewTask.retailWebSite.core.concretes.utilities.results.ErrorDataResult;
+import interviewTask.retailWebSite.core.concretes.utilities.results.SuccessDataResult;
 import interviewTask.retailWebSite.entities.concretes.Card;
 import interviewTask.retailWebSite.entities.concretes.GoldCard;
 import interviewTask.retailWebSite.entities.concretes.Person;
@@ -38,7 +41,7 @@ public class UserManager implements UserService {
 	LocalDate currentDate = LocalDate.now();
 	 
 	@Override
-	public JSONObject personIdentifier(JSONObject jsonInput) {
+	public DataResult<List<Person>> personIdentifier(JSONObject jsonInput) {
 		/* Common Variable */
 		String[] tempInfoArray = new String[20];
 		String templatePhoneNumber;
@@ -53,19 +56,21 @@ public class UserManager implements UserService {
 		
 		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
 		JSONArray jRootArray = new JSONArray();
-		
+		System.out.println("jsonInput"+ jsonInput);
+		System.out.println("flag"+ flag);
 		if (flag != -1) {
 			// "I want to iterate though the objects in the array..." 
-			jsonInput = jsonInput.getJSONArray("data").getJSONObject(flag);
-			System.out.println("Dear "+jsonInput.getString("personName").toUpperCase()+" "+
-					jsonInput.getString("personSurname").toUpperCase()+", "+"Welcome to Retail Website");
+			//jsonInput = jsonInput.getJSONArray("data").getJSONObject(flag);
+			System.out.println("Dear "+jsonInput.getJSONArray("data").getJSONObject(flag).getString("personName").toUpperCase()+" "+
+					jsonInput.getJSONArray("data").getJSONObject(flag).getString("personSurname").toUpperCase()+", "+"Welcome to Retail Website");
 			
-			return jsonInput;
+			return new SuccessDataResult<List<Person>>
+						(jsonInput,"It has been good");
 		}
 		
 		else if(flag == -1) {
 			
-			
+			jsonInput = jsonInput.getJSONArray("data").getJSONObject(jsonInput.getJSONArray("data").length()-1);
 			 System.out.println("You're a new for us"+", "+"We're excited to meet you."+" "+ "Welcome to our family.");
 			
 			 tempInfoArray[0] = transactionManager.fillingBlankedField("Please enter your first name. It's required !!!:\n", 0, null,0).toUpperCase();
@@ -81,12 +86,12 @@ public class UserManager implements UserService {
 			 		tempInfoArray[3] = templatePhoneNumber;
 			 	}
 			 else if(strFlag.equals("N")){	
-				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 11, "05",0);
+				 tempInfoArray[3] = transactionManager.fillingBlankedField("Please enter your telephone number, It's required:\n", 11, "05",2);
 				 
 			 		}
 				 
 			 
-			 tempInfoArray[4] = transactionManager.fillingBlankedField("Please enter alternative telephone number, It's required:\n", 11, "05",0);
+			 tempInfoArray[4] = transactionManager.fillingBlankedField("Please enter alternative telephone number, It's required:\n", 11, "05",2);
 			 
 			 tempInfoArray[5] = transactionManager.fillingBlankedField("Please enter your home address. It's required:\n", 0, null,0);
 				 
@@ -127,7 +132,7 @@ public class UserManager implements UserService {
 						/* Setting Card Password */
 						tempInfoArray[16] = cardManager.cardPasswordGenerator(jsonInput);
 						
-						 jsonInput = jsonInput.getJSONArray("data").getJSONObject(Integer.valueOf(tempInfoArray[12] ));
+						 
 						
 						if(tempInfoArray[6].equals("G")) {
 							card = new GoldCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 30, tempInfoArray[13],1);
@@ -210,10 +215,12 @@ public class UserManager implements UserService {
 	            }
 				System.out.println("value : "+ jsonInput.getJSONArray("data").toString());
 				
-				return jsonInput;
+				return new SuccessDataResult<List<Person>>
+				(jsonInput,"It has been good");
 		}
 		else {
-			return jsonInput;
+			return new ErrorDataResult<List<Person>>
+			(jsonInput,"It hasn't been good");
 		}
 		
 		

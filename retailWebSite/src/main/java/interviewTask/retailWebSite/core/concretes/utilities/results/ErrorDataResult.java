@@ -1,10 +1,12 @@
 package interviewTask.retailWebSite.core.concretes.utilities.results;
 
-public class ErrorDataResult <T> extends DataResult<T>  {
+import org.json.JSONObject;
+
+public class ErrorDataResult<T> extends DataResult<T>  {
 
 	/* Constructor */
-	public ErrorDataResult(T data, String message) {
-		super(data, false, message);
+	public ErrorDataResult(JSONObject jsonInput, String message) {
+		super(jsonInput, false, message);
 	}
 	
 	/* Constructor 2 */

@@ -1,5 +1,7 @@
 package interviewTask.retailWebSite.business.abstracts;
 
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,7 +10,7 @@ import interviewTask.retailWebSite.entities.concretes.Person;
 
 public interface UserService {
 
-	JSONObject personIdentifier(JSONObject jsonInput);
+	DataResult<List<Person>> personIdentifier(JSONObject jsonInput);
 	String userIdGenerator(JSONObject jsonInput);
 	JSONObject userRemoving(JSONObject jsonInput);
 }

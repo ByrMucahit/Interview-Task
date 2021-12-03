@@ -1,13 +1,14 @@
 package interviewTask.retailWebSite.core.concretes.utilities.results;
 
+import org.json.JSONObject;
 
 public class DataResult<T> extends Result {
 
 private T data;
 	
-	public DataResult(T data, boolean success, String message) {
+	public DataResult(JSONObject jsonInput, boolean success, String message) {
 		super(success, message);
-		this.data = data;
+		this.data = (T) jsonInput;
 	}
 	
 	public DataResult(T data, boolean success) {

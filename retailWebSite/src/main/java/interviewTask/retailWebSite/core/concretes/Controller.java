@@ -29,14 +29,14 @@ public class Controller {
 	    for (int i = 0, size = jsonInput.length(); i < size; i++)
 	    {
 	    	try {
-	    	if(jsonInput.getString("personTelephoneNumber").equals(telephoneNumber)){
+	    	if(jsonInput.getJSONArray("data").getJSONObject(i).getString("personTelephoneNumber").equals(telephoneNumber)){
 	    		index = i;
 	    		
 	    		return index;
 	    	}
 	    	}
 	    	catch (Exception e) {
-	    	      System.out.println("This Phone Number ");
+	    	      System.out.println("The phone hasn't been registered");
 	    	      return -1;
 	    	    }
 	   }
