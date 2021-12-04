@@ -54,6 +54,8 @@ public class RetailWebSiteApplication {
 		String response;
 		String message;
 		String amount ;
+		DataResult<List<Person>> jsonAllData;
+		DataResult<List<Person>> jsonTemp;
 		
 		UserService userManager = new UserManager();
 		Scanner myObj = new Scanner(System.in);
@@ -61,7 +63,7 @@ public class RetailWebSiteApplication {
 		Controller checkpoint = new Controller();
 		TransactionService transactionManager = new TransactionManager();
 		 
-		DataResult<List<Person>> x;
+		
 		JSONObject json = new JSONObject();
 		JSONArray jRootArray = new JSONArray();
 			
@@ -81,7 +83,7 @@ public class RetailWebSiteApplication {
 			jInnerObject.put("cardPassword","1453");
 			jInnerObject.put("amountOfDiscountUsage","1");
 			jInnerObject.put("typeOfCustomer","Customer");
-			jInnerObject.put("typeOfCard","GOLDEN");
+			jInnerObject.put("typeOfCard","GOLDCARD");
 			jInnerObject.put("year","2018");
 			jInnerObject.put("mounth","10");
 			jInnerObject.put("day","20");
@@ -93,49 +95,40 @@ public class RetailWebSiteApplication {
 				
 					
 						
-					/*
+					
 							JSONObject jInnerObject2 = new JSONObject();
-							jInnerObject2.put("personId","null");
-							jInnerObject2.put("personName","null");
-							jInnerObject2.put("personSurname","null");
-							jInnerObject2.put("personMail","null");
-							jInnerObject2.put("personTelephoneNumber","null");
-							jInnerObject2.put("personAlternativeTelephoneNumber","null");
-							jInnerObject2.put("personAddress","null");
-							jInnerObject2.put("cardId","null");
-							jInnerObject2.put("cardNumber","null");
-							jInnerObject2.put("cardSecurityNumber","null");
-							jInnerObject2.put("percentageOfDiscount","null");
-							jInnerObject2.put("cardPassword","null");
-							jInnerObject2.put("amountOfDiscountUsage ","null");
+							jInnerObject2.put("personId","12");
+							jInnerObject2.put("personName","mucahit");
+							jInnerObject2.put("personSurname","bayar");
+							jInnerObject2.put("personMail","m.mucahitbayar@gmail.com");
+							jInnerObject2.put("personTelephoneNumber","05435446158");
+							jInnerObject2.put("personAlternativeTelephoneNumber","05433654751");
+							jInnerObject2.put("personAddress","çay çıkmazı");
+							jInnerObject2.put("cardId","21");
+							jInnerObject2.put("cardNumber","4562 1234 7894 1235");
+							jInnerObject2.put("cardSecurityNumber","432");
+							jInnerObject2.put("percentageOfDiscount","30");
+							jInnerObject2.put("cardPassword","1453");
+							jInnerObject2.put("amountOfDiscountUsage","1");
+							jInnerObject2.put("typeOfCustomer","Customer");
+							jInnerObject2.put("typeOfCard","SILVERCARD");
+							jInnerObject2.put("year","2018");
+							jInnerObject2.put("mounth","10");
+							jInnerObject2.put("day","20");
+							jInnerObject2.put("device","phone");
+							jInnerObject2.put("socialIdentityNumber","null");
 							jRootArray.put(jInnerObject2);
 							json.put("data", jRootArray);
 						
 							
-							JSONObject jInnerObject3 = new JSONObject();
-							jInnerObject3.put("personId","null");
-							jInnerObject3.put("personName","null");
-							jInnerObject3.put("personSurname","null");
-							jInnerObject3.put("personMail","null");
-							jInnerObject3.put("personTelephoneNumber","null");
-							jInnerObject3.put("personAlternativeTelephoneNumber","null");
-							jInnerObject3.put("personAddress","null");
-							jInnerObject3.put("cardId","null");
-							jInnerObject3.put("cardNumber","null");
-							jInnerObject3.put("cardSecurityNumber","null");
-							jInnerObject3.put("percentageOfDiscount","null");
-							jInnerObject3.put("cardPassword","null");
-							jInnerObject3.put("amountOfDiscountUsage ","null");
-							jRootArray.put(jInnerObject3);
-							json.put("data", jRootArray);
-					
-					*/
+						
+						
 					
 					/*if(json.getJSONArray("data") != null) {
 						json.put("data", jRootArray);
 					}*/
 				
-			
+		
 				
 				
 			} catch (JSONException e) {
@@ -145,111 +138,90 @@ public class RetailWebSiteApplication {
 		
 		 
 			while(parentFlag){
+				int userId;
+				jsonAllData = userManager.personIdentifier(json);
+				JSONObject jsonObject = new JSONObject(jsonAllData);
 				
-				x = userManager.personIdentifier(json);
+		
 				
-				/*Gson gson =  new Gson();
-				String n = gson.toJson(x);
-				
-				System.out.println(n);
-				
-				String jsonString = "{ \"name\" : \"John\", \"age\" : \"20\", \"address\" : \"some address\" }";
-				
-				*/
-				JSONObject jsonObject = new JSONObject(x);
-				System.out.println("jsonObject"+jsonObject);
-				
-			
-				/*JSONArray jsonArray = new JSONArray(m);
-				JSONObject jsnobject = new JSONObject(m);
-				JSONObject n = gson.fromJson(x);*/
-			
+		
 				
 				
 			
 				
-				
 			
+				flag = true;
 				while(flag) {
-					
-					System.out.println("What would you like to do ?\n"+
-										"1. View Account Detail\n"+
-										"2. Paying Bill\n"+
-										"3. Change Password\n"+
-										"4. Be Affiliated\n"+
-										"5. Remove Account\n"+
-										"6. Exit");
+				
+					if(jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("typeOfCustomer").equals("affiliated")) {
+						System.out.println("What would you like to do ?\n"+
+								"1. View Account Detail\n"+
+								"2. Paying Bill\n"+
+								"3. Change Password\n"+
+								"4. Be Customer\n"+
+								"5. Remove Account\n"+
+								"6. All Customer FOR TESTING\n"+
+								"7. Exit");
+					}
+					else {
+						System.out.println("What would you like to do ?\n"+
+								"1. View Account Detail\n"+
+								"2. Paying Bill\n"+
+								"3. Change Password\n"+
+								"4. Be Affiliated\n"+
+								"5. Remove Account\n"+
+								"6. All Customer FOR TESTING\n"+
+								"7. Exit");
+					}
 					
 					System.out.println("Please Choose it:\n-->");
 					response = myObj.nextLine();
 					
 					switch(response) {
 						case "1":
-							System.out.println("Your account Detail");
-							System.out.println("Your Full Name  is: "+ json.getString("personName").toUpperCase()+" "+ json.getString("personSurname").toUpperCase()+"\n"+
-												"Your Id: "+json.getString("personId")+"\n"+
-												"Your Mail: "+ json.getString("personMail") +"\n"+
-												"Your Telephone Number: "+json.getString("personTelephoneNumber") +"\n"+
-												"Alternative Telephone Number: "+ json.getString("personAlternativeTelephoneNumber") +"\n"+
-												"Your Address: "+ json.getString("personAddress") +"\n"+
-												"Card Id: "+  json.getString("cardId") +"\n"+
-												"Card Number:"+json.getString("cardNumber") +"\n"+
-												"Card Security Number:"+ json.getString("cardSecurityNumber") +"\n"+
-												"Your Percenatage Of Discount: "+json.getString("percentageOfDiscount") +"\n"+
-												"Card Password: "+ json.getString("cardPassword") +"\n"+
-												"Amount Of Discount Usage: "+ json.getString("amountOfDiscountUsage") +"\n"+	
-												"Type Of Customer: "+ json.getString("typeOfCustomer") +"\n"+	
-												"Type Of Card: "+ json.getString("typeOfCard") +"\n" +	
-												"Year: "+ json.getString("year") +"\n"+	
-												"Mounth: "+ json.getString("mounth") +"\n"+	
-												"Day: "+ json.getString("day") +"\n"+	
-												"Device: "+ json.getString("device") +"\n"
-									);
-							if(!json.getString("socialIdentityNumber").equals("null")){
-									System.out.println("Social Identity: "+ json.getString("socialIdentityNumber"));
-							}
-							
+							transactionManager.printing(jsonObject);
+							flag= true;
 							break;
 							
 						case "2":
-							
-							
-							
-							System.out.println("Account owner is :"+ json.getString("personName").toUpperCase()+" "+json.getString("personSurname").toUpperCase());
-							
-							
 							amount = transactionManager.fillingBlankedNumberField("Please enter something that how much money you want to paying ?",0);
 							
 							JSONObject discountObject = new JSONObject();
-							discountObject = checkpoint.discountController(json);
+							discountObject = checkpoint.discountController(jsonObject);
 							
-							
-							System.out.println("YOU HAVE"+" "+ json.getString("amountOfDiscountUsage") +" DISCOUNT NUMBER THAT YOU'RE ENABLE TO USING");
 							int tempIndex = 0;
-							if(!discountObject.getJSONArray("discount").getJSONObject(0).getString("indirim").equals("0"))
-							{
-								for(int i = 0; i < discountObject.getJSONArray("discount").length(); i++) {
-									
-									System.out.println(i+".:"+" "+ discountObject.getJSONArray("discount").getJSONObject(i)+"%");
-								}
-								System.out.println("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.");
-								response = myObj.nextLine();
-								tempIndex = Integer.valueOf(response);
-								System.out.println("YOU HAVE SELECTED: "+ discountObject.getJSONArray("discount").getJSONObject(tempIndex));
-								json = transactionManager.payBill(json,discountObject.getJSONArray("discount").getJSONObject(tempIndex), Integer.valueOf(amount));
-								
-							}
-							json = transactionManager.payBill(json,discountObject.getJSONArray("discount").getJSONObject(0), Integer.valueOf(amount));
+
+							flag = transactionManager.payBill(jsonObject,discountObject.getJSONArray("discount").getJSONObject(0), Integer.valueOf(amount));
+							jsonObject = new JSONObject(jsonAllData);
+							
+							tempIndex = transactionManager.discountPrinter(discountObject);
+							
+							flag = transactionManager.payBill(jsonObject,discountObject.getJSONArray("discount").getJSONObject(tempIndex), Integer.valueOf(amount));
+							flag= true;
 							break;
 							
 						case "3":
 							System.out.println("Change password");
-							json = transactionManager.changePassword(json);
+							JSONObject tempJSON = new JSONObject();
+							tempJSON = transactionManager.changePassword(jsonObject);
+							/*jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("cardPassword", tempJSON)*/
+							/*tempJSON = new JSONObject(jsonTemp);*/
+							
+							/*jsonObject.put("data",tempJSON);*/
+							/*jsonAllData = userManager.personIdentifier(json);
+							JSONObject jsonObject = new JSONObject(jsonAllData);*/
+						
+							jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("cardPassword", tempJSON.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardPassword"));
+							flag= true;
+							 
 							break;
 							
 						case "4":
-							System.out.println("Be Affiliated");
-							json = transactionManager.beAffiliated(json);
+							System.out.println("CHANGE YOUR TYPE OF CUSTOMER");
+							tempJSON = transactionManager.beAffiliated(jsonObject);
+							
+							jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("typeOfCustomer", tempJSON.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("typeOfCustomer"));
+							flag= true;
 							break;
 							
 						case "5":
@@ -257,12 +229,26 @@ public class RetailWebSiteApplication {
 							json = userManager.userRemoving(json);
 							flag = false;
 							break;
-							
+						
 						case "6":
+							System.out.println("All ACCOUNT");
+							
+							System.out.println("All:"+" "+jsonObject.getJSONObject("data"));
+							
+							transactionManager.gettingListed(jsonObject);
+							
+							flag = true;
+							
+							break;
+							
+						case "7":
 							System.out.println("See u soon, By By");
 							flag = false;
 							
 							break;
+						case "8":
+							System.out.println("Change to Card");
+							flag = true;
 							
 						default:
 							System.out.println("Invalid Selection");

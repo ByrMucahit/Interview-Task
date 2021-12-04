@@ -47,17 +47,17 @@ public class UserManager implements UserService {
 		String templatePhoneNumber;
 		boolean boolFlag = true ;
 		String strFlag ; 
-		JSONObject tempJSON;
+		int tempIndex= 0;
+		JSONObject tempJSON = new JSONObject();
 		
 		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		
 		templatePhoneNumber = transactionManager.fillingBlankedField("Please enter your telephone number, It should be consist of 11 numbers, It's required:[It should be like that 05....]\n", 11, "05",2).toUpperCase();
 		 
-		
+		/* Register Controller */
 		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
 		JSONArray jRootArray = new JSONArray();
-		System.out.println("jsonInput"+ jsonInput);
-		System.out.println("flag"+ flag);
+		
 		if (flag != -1) {
 			// "I want to iterate though the objects in the array..." 
 			//jsonInput = jsonInput.getJSONArray("data").getJSONObject(flag);
@@ -65,12 +65,21 @@ public class UserManager implements UserService {
 					jsonInput.getJSONArray("data").getJSONObject(flag).getString("personSurname").toUpperCase()+", "+"Welcome to Retail Website");
 			
 			return new SuccessDataResult<List<Person>>
-						(jsonInput,"It has been good");
+						(jsonInput,flag,"It has been good");
 		}
 		
 		else if(flag == -1) {
 			
-			jsonInput = jsonInput.getJSONArray("data").getJSONObject(jsonInput.getJSONArray("data").length()-1);
+			System.out.println("Length"+jsonInput.getJSONArray("data").length());
+			 tempIndex = jsonInput.getJSONArray("data").length();
+			 /*tempJSON = jsonInput.getJSONArray("data").getJSONObject(tempIndex);*/
+			
+			
+			
+			
+			
+			
+			
 			 System.out.println("You're a new for us"+", "+"We're excited to meet you."+" "+ "Welcome to our family.");
 			
 			 tempInfoArray[0] = transactionManager.fillingBlankedField("Please enter your first name. It's required !!!:\n", 0, null,0).toUpperCase();
@@ -100,7 +109,7 @@ public class UserManager implements UserService {
 					
 				 
 			 
-			 tempInfoArray[7] = transactionManager.fillingBlankedOptionalField("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter E if you want.[Y/N]:\n", "Y", "N").toUpperCase() ; 
+			 tempInfoArray[7] = transactionManager.fillingBlankedOptionalField("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter Y if you want.[Y/N]:\n", "Y", "N").toUpperCase() ; 
 			 
 			 
 			 yesNoFlag =transactionManager.fillingBlankedOptionalField("Do you want  enter count of day that  you have been our customer? FOR TESTING[Y/N]!!!","Y","N").toUpperCase();
@@ -131,8 +140,8 @@ public class UserManager implements UserService {
 						tempInfoArray[15] = cardManager.cardSecurityNumberGenerator(jsonInput);
 						/* Setting Card Password */
 						tempInfoArray[16] = cardManager.cardPasswordGenerator(jsonInput);
+						                    
 						
-						 
 						
 						if(tempInfoArray[6].equals("G")) {
 							card = new GoldCard(Integer.valueOf(tempInfoArray[10]), tempInfoArray[11], tempInfoArray[12], 30, tempInfoArray[13],1);
@@ -153,7 +162,7 @@ public class UserManager implements UserService {
 									tempInfoArray[3], /*Telephone Number */
 									tempInfoArray[4], /*Alternative Telephone Number */
 									tempInfoArray[5], /*Home address */
-									tempInfoArray[6]+"OLDEN",/* Type Of Card */
+									card.getTypeOfCard().toUpperCase(),/* Type Of Card */
 									tempInfoArray[8], /* Date */
 									tempSocialId,/* social identifier */
 									"affiliated"); 
@@ -168,19 +177,20 @@ public class UserManager implements UserService {
 									tempInfoArray[3],
 									tempInfoArray[4], 
 									tempInfoArray[5], 
-									tempInfoArray[6]+"ILVER",
+									card.getTypeOfCard().toUpperCase(),
 									tempInfoArray[8],
 									null,
 									"Customer"
 									);
 						}
 						/* Card Transaction */
+						System.out.println("CARD NUMBER "+card.getCardId());
 						jInnerObject.put("cardId",  String.valueOf(card.getCardId()));
-						jInnerObject.put("cardNumber", card.getCardNumber());
+						jInnerObject.put("cardNumber", String.valueOf(card.getCardNumber()));
 						jInnerObject.put("cardSecurityNumber", card.getCodeOfCardSecurity());
 						jInnerObject.put("percentageOfDiscount", String.valueOf(card.getPercentageOfDiscount()));
-						jInnerObject.put("cardPassword ", card.getCardPassword());
-						jInnerObject.put("amountOfDiscountUsage ", card.getAmountOfDiscountUsage());
+						jInnerObject.put("cardPassword", String.valueOf(card.getCardPassword()));
+						jInnerObject.put("amountOfDiscountUsage", String.valueOf(card.getAmountOfDiscountUsage()));
 						
 						/* Person Id Generator */
 						tempId = userIdGenerator(jsonInput);
@@ -194,33 +204,37 @@ public class UserManager implements UserService {
 						jInnerObject.put("personAlternativeTelephoneNumber", customer.getPersonAlternativePhone());
 						jInnerObject.put("personAddress", customer.getPersonAddress());
 						jInnerObject.put("typeOfCustomer", customer.getTypeCustomer());
-						jInnerObject.put("typeOfCard", customer.getTypeOfCard());
+						jInnerObject.put("typeOfCard", card.getTypeOfCard());
 						jInnerObject.put("firstDay", customer.getFirstDayOfBeenCustomer());
+						jInnerObject.put("year",tempInfoArray[8]);
+						jInnerObject.put("mounth",tempInfoArray[9]);
+						jInnerObject.put("day",tempInfoArray[10]);
+						
 						
 						if( customer.getTypeCustomer().equals("affiliated")) {
 							jInnerObject.put("social Identity Number", customer.getSocialIdentityNumber());
 						}
 						else {
-							jInnerObject.put("social Identity Number", "null");
+							jInnerObject.put("socialIdentityNumber", "null");
 						}
 						
 						
 						
 						
 						jRootArray.put(jInnerObject);
-						jsonInput.put("data", jRootArray);
-					
+						jsonInput.put("data",jRootArray);
+					    System.out.println("jsonnn"+ jsonInput);
 				} catch (JSONException e) {
 	                e.printStackTrace();
 	            }
 				System.out.println("value : "+ jsonInput.getJSONArray("data").toString());
 				
 				return new SuccessDataResult<List<Person>>
-				(jsonInput,"It has been good");
+				(jsonInput,jsonInput.getJSONArray("data").length()-1,"It has been good");
 		}
 		else {
 			return new ErrorDataResult<List<Person>>
-			(jsonInput,"It hasn't been good");
+			(jsonInput,0,"It hasn't been good");
 		}
 		
 		
@@ -230,7 +244,7 @@ public class UserManager implements UserService {
 	public String userIdGenerator(JSONObject jsonInput) {
 		int  tempId= 0;
 		boolean valid = true;
-		
+		System.out.println("It's user id generator"+jsonInput);
 		while(valid) {
 			
 			Controller checkpoint = new Controller();

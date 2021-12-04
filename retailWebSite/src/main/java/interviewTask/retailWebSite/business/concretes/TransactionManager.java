@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Scanner;
 
 import org.json.JSONObject;
@@ -11,7 +12,9 @@ import org.json.JSONObject;
 import interviewTask.retailWebSite.business.abstracts.TransactionService;
 import interviewTask.retailWebSite.core.concretes.Controller;
 import interviewTask.retailWebSite.core.concretes.utilities.results.DataResult;
+import interviewTask.retailWebSite.core.concretes.utilities.results.SuccessDataResult;
 import interviewTask.retailWebSite.entities.concretes.Person;
+
 
 public class TransactionManager implements TransactionService {
 	
@@ -20,62 +23,69 @@ public class TransactionManager implements TransactionService {
 	LocalDateTime currentDate = LocalDateTime.now();
 	
 	@Override
-	public JSONObject payBill(JSONObject jsonInput, JSONObject jsonDiscount, int amount) {
-		int tempDiscount = 0;
+	public boolean payBill(JSONObject jsonObject, JSONObject jsonDiscount, int amount) {
+		int tempDiscount = 0 ;
 		JSONObject jsonTemp;
 		boolean flag;
 		float greaterThan=0;
 		float amountOfDiscount = 0;
-		System.out.println("Discount: "+ jsonDiscount  +"\n" + "Object: "+jsonInput + "\n"+ "Amount: "+ amount);
+	    String yesNoFlag;
 		int result= amount;
 		
-		System.out.println(jsonDiscount.getString("indirim"));
+	
+			
+	
+		
+	
 		tempDiscount = Integer.valueOf(jsonDiscount.getString("indirim"));
 		
-		if(tempDiscount == 5) {
-			
-			jsonInput.put("mounth", String.valueOf(currentDate.getMonthValue()));
-			jsonInput.put("year", String.valueOf(currentDate.getYear()));
-			jsonInput.put("day", String.valueOf(currentDate.getDayOfMonth()));
-			System.out.println("long: "+ jsonInput);
-		}
-		
-		
-		flag = checkpoint.amountOfBillController(result);
-		
-		if(flag == true) {
-			greaterThan = calculateAmountOfDiscount(result, 200);
-			
-			System.out.println("greater than "+ greaterThan);
-			result -= (greaterThan*5);
-			
-		}
-		
-		
-		
-		
-		System.out.println("--- PAYMENT SUMMARY---");
-		System.out.println("-----------------------");
-		System.out.println("--> amount is :"+ amount);
-		
-		if(checkpoint.deviceController(jsonInput)) {
-			result = (amount*(100 - tempDiscount))/100;
-			if(greaterThan != 0) {
-				System.out.println("--> You're paying amount is greates than 200 that's why  also you gain :"+ (greaterThan*5));
+			System.out.println("--- PAYMENT SUMMARY---");
+			System.out.println("-----------------------");
+			System.out.println("--> amount is :"+ amount+"$");
+			if(tempDiscount == 5) {
+				
+				jsonObject.put("mounth", String.valueOf(currentDate.getMonthValue()));
+				jsonObject.put("year", String.valueOf(currentDate.getYear()));
+				jsonObject.put("day", String.valueOf(currentDate.getDayOfMonth()));
+				result -= tempDiscount; 
+				System.out.println("You have been our customer: "+ jsonObject);
 			}
-			System.out.println("--> Applied Discount is:"+ tempDiscount);
-			System.out.println("--> amount paid is :"+ result +" "+"with using"+" "+ jsonInput.getString("typeOfCard")+" "+"CARD");
-			System.out.println("--> Lefted your discount is: "+ jsonInput.getString("amountOfDiscountUsage"));
-			System.out.println("-----------------------");
-		}else {
-			System.out.println("--> amount paid is :"+ result +" "+"with using"+" "+ jsonInput.getString("typeOfCard")+" "+"CARD");
+			else if(tempDiscount == 20 || tempDiscount == 30 || tempDiscount == 10) {
+						int tempResult = 0;
+				
+						tempResult = (amount*(100 - tempDiscount))/100;
+					   
+					    System.out.println("--> Dear"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personName")+" "+"You have"+" "+ 
+					                        jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("typeOfCard")+" "+"CARD");
+						System.out.println("--> Applied Discount is:"+" "+tempDiscount+"%");
+						
+						
+						result = tempResult;
+				
+				}
+			/* If  Amount is greater than 200 */
+			flag = checkpoint.amountOfBillController(result);
 			
+			if(flag) {
+				
+				
+				greaterThan = calculateAmountOfDiscount(amount, 200);
+				
+				System.out.println("--> Your bill is greater than 200 then you gain"+" "+greaterThan+" "+"count "+" discount"+", "+ greaterThan*5+"$"+""+"will have been identified your bill");
+				result -= (greaterThan*5);
+				
+			}
+			
+			System.out.println("--> amount paid is :"+ result+"$" );
+			System.out.println("--> Lefted your discount is: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("amountOfDiscountUsage"));
 			System.out.println("-----------------------");
+			
+			return true;
 		}
-			
 		
-		return jsonInput;
-	}
+	
+
+	
 
 	@Override
 	public float calculateAmountOfDiscount(int result, int discount) {
@@ -83,17 +93,16 @@ public class TransactionManager implements TransactionService {
 		float temp;
 		
 		temp = result / discount;
-		System.out.println("temp"+ temp);
 		return temp;
 	}
 
 	@Override
-	public int counterOfBillPaidOverStatedYear(JSONObject jsonInput) {
+	public int counterOfBillPaidOverStatedYear(JSONObject jsonObject) {
 		int countOfDay= 0;
 		
-		if(Integer.valueOf(Integer.valueOf(jsonInput.getString("year"))- currentDate.getYear()) > 0) {
+		if(Integer.valueOf(Integer.valueOf(jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("year"))- currentDate.getYear()) > 0) {
 		
-			countOfDay =  (Integer.valueOf(jsonInput.getString("mounth")) - currentDate.getMonthValue()) * 365;
+			countOfDay =  (Integer.valueOf(jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("mounth")) - currentDate.getMonthValue()) * 365;
 			countOfDay += currentDate.getMonthValue()*30;
 			countOfDay +=  currentDate.getDayOfMonth();
 		}
@@ -211,38 +220,41 @@ public class TransactionManager implements TransactionService {
 	
 
 	@Override
-	public JSONObject beAffiliated(JSONObject json) {
+	public JSONObject beAffiliated(JSONObject jsonObject) {
 		
 		boolean flag;
-		String temp = fillingBlankedNumberField("Please ENTER social identfier. It's required. It should be consist of 11 character",11);
 		
-		flag = checkpoint.customerController(json);
+		
+		flag = checkpoint.customerController(jsonObject);
 		
 		if(flag)
 		{
-			System.out.println("You're already affiliated");
+			System.out.println("You have been customer");
+			jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("typeOfCustomer","null");
 		}
 		else {
-			json.put("socialIdentityNumber",temp);
-			json.put("typeOfCustomer","affiliated");
+			String temp = fillingBlankedNumberField("Please ENTER social identfier. It's required. It should be consist of 11 character",11);
+			System.out.println("You have been affiliated");
+			jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("socialIdentityNumber",temp);
+			jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("typeOfCustomer","affiliated");
 			System.out.println("You're afailated");
 		}
 		
 		
-		return json;
+		return jsonObject;
 	}
 	
 	
 	
 
 	@Override
-	public JSONObject changePassword(JSONObject jsonInput) {
+	public JSONObject changePassword(JSONObject jsonObject) {
 		String response ;
 		String tempResponse;
 		boolean flag;
 		
 		response = fillingBlankedNumberField("Please enter current password?",4);
-		flag = checkpoint.passwordController(response, jsonInput.getString("cardPassword"));
+		flag = checkpoint.passwordController(response, jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardPassword"));
 		if(flag) {
 			
 			response = fillingBlankedNumberField("Please enter new password",4);
@@ -252,12 +264,12 @@ public class TransactionManager implements TransactionService {
 			if(flag) {
 				
 			
-			if(checkpoint.passwordController(response,jsonInput.getString("cardPassword")))
+			if(checkpoint.passwordController(response,jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardPassword")))
 				System.out.println("Password could not be same with previous password, Password hasn't been changed");
 			
 			else {
 				
-				jsonInput.put("cardPassword", response);
+				jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("cardPassword", response);
 				System.out.println("Password has been changed. You can check it out in account detail.");
 			}
 			
@@ -270,7 +282,8 @@ public class TransactionManager implements TransactionService {
 			System.out.println("You have entered password not corectly.");
 		}
 		
-		return jsonInput;
+		return jsonObject;
+		
 	}
 
 	@Override
@@ -296,9 +309,120 @@ public class TransactionManager implements TransactionService {
 		return response;
 		
 	}
-	
-	
-	
 
+
+
+
+
+	@Override
+	public void gettingListed(JSONObject jsonObject) {
+		System.out.println("----------------------------------");
+		System.out.println("##### ALL CUSTOMER #####");
+		System.out.println("All Account Detail");
+		
+			
+			System.out.println("Your account Detail  "+jsonObject.getJSONObject("data").getJSONArray("data").length());
+			
+			for(int i = 0 ; i < jsonObject.getJSONObject("data").getJSONArray("data").length(); i++) {
+				System.out.println("-> Person Full Name"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personName")+
+								   " "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personSurname")+"\n"+
+						           "-> Person Id"+":"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personId")+"\n"+
+								   "-> Person Mail"+":"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personMail")+"\n"+
+								   "-> Person Telephone Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personTelephoneNumber")+"\n"+
+								   "-> Person Alternative Telephone Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personAlternativeTelephoneNumber")+"\n"+
+								   "-> Person Address"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personAddress")+"\n"+
+								   "-> Person Card Id"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardId")+"\n"+
+								   "-> Person Card Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardNumber")+"\n"+
+								   "-> Person Card Security Number:"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardSecurityNumber")+"\n"+
+								   "-> Vary Of Customer"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("typeOfCustomer")+"\n"+
+								   "-> Vary Of Card"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("typeOfCard")+"\n"+
+								   "-> Date Of Been Customer"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("year")+"/"+
+								   jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("mounth")+"/"+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("day")
+								   );
+				System.out.println("--------------------------------------------");
+			}
+		
+		
 	
+		
+	}
+
+
+
+
+
+	@Override
+	public void printing(JSONObject jsonObject) {
+		
+		System.out.println("------Your account Detail-----");
+		System.out.println( "* Your Full Name  is: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personName").toUpperCase()+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personSurname").toUpperCase()+"\n"+
+							"* Your Id: "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personId")+"\n"+
+							"* Your Mail: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personMail") +"\n"+
+							"* Your Telephone Number: "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personTelephoneNumber") +"\n"+
+							"* Alternative Telephone Number: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personAlternativeTelephoneNumber") +"\n"+
+							"* Your Address: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personAddress") +"\n"+
+							"* Card Id: "+  jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardId") +"\n"+
+							"* Card Number:"+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardNumber") +"\n"+
+							"* Card Security Number:"+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardSecurityNumber") +"\n"+
+							"* Your Percenatage Of Discount: "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("percentageOfDiscount") +"\n"+
+							"* Card Password: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardPassword") +"\n"+
+							"* Amount Of Discount Usage: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("amountOfDiscountUsage") +"\n"+	
+							"* Type Of Customer: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("typeOfCustomer") +"\n"+	
+							"* Type Of Card: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("typeOfCard") +"\n" +	
+							"* Year: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("year") +"\n"+	
+							"* Mounth: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("mounth") +"\n"+	
+							"* Day: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("day") +"\n"	
+							);
+		System.out.println("-------------------------------------");
+				
+		if(!jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("socialIdentityNumber").equals("null")){
+				System.out.println("Social Identity: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("socialIdentityNumber"));
+		}
+		
+	}
+
+
+
+
+
+	@Override
+	public int discountPrinter(JSONObject discountObject) {
+		String tempTypeOfDiscount= "";
+		String response;
+		int tempIndex= 0;
+		boolean flag;
+		
+		
+		if(!discountObject.getJSONArray("discount").getJSONObject(0).getString("indirim").equals("0"))
+		{
+			for(int i = 0; i < discountObject.getJSONArray("discount").length(); i++) {
+				if(Integer.valueOf(discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")) == 10) {
+					System.out.println(i+".:"+" You're the affiliated that's why YOU CAN USE"+" "+discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")+"%");
+					tempTypeOfDiscount= "DICOUNT FOR BEING AFFILIATED ";
+				}
+				else if(Integer.valueOf(discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")) == 30) {
+					System.out.println(i+".:"+" You have GOLDEN CARD that's why YOU CAN USE"+" "+discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")+"%");
+					tempTypeOfDiscount= "DICOUNT FOR YOU HAVE GOLDEN CARD ";
+				}
+				
+				else if(Integer.valueOf(discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")) == 20) {
+					System.out.println(i+".:"+" You have SILVER CARD that's why YOU CAN USE"+" "+discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")+"%");
+					tempTypeOfDiscount= "DICOUNT FOR YOU SILVER CARD ";
+				}
+				
+			}
+			System.out.println("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.");
+			response = myObj.nextLine();
+			
+			
+			tempIndex = Integer.valueOf(response);
+			System.out.println("YOU HAVE SELECTED: "+" "+tempIndex+"."+" "+ tempTypeOfDiscount +discountObject.getJSONArray("discount").getJSONObject(tempIndex));
+			return tempIndex;
+		}
+		else{
+			System.out.println("There is no discount");
+			return 0;
+		}
+		
+	}
 }

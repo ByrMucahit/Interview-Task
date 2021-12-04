@@ -14,7 +14,7 @@ public abstract class Person {
 	private String personAddress;
 	private String firstDayOfBeenCustomer;
 	private Card ownCardType;
-	private String typeOfCard;
+	
 	private String typeOfAffiliate;
 	private String socialIdentityNumber;
 	
@@ -31,7 +31,7 @@ public abstract class Person {
 		this.personAlternativePhone = personAlternativePhone;
 		this.personAddress = personAddress;
 		this.ownCardType = ownCardType;
-		this.typeOfCard = typeOfCard;
+		
 		this.firstDayOfBeenCustomer = firstDayOfBeenCustomer;
 		this.typeOfAffiliate = typeOfAffiliate;
 		this.socialIdentityNumber = socialIdentityNumber;
@@ -115,19 +115,7 @@ public abstract class Person {
 	public Card getOwnCardType() {
 		return ownCardType;
 	}
-	
-	/* Type Of Card */
-	
-	public void setTypeOfCard(String typeOfCard ) {
-		this.typeOfCard = typeOfCard;
-	}
-	
-	public String getTypeOfCard() {
-		return typeOfCard;
-	}
-	
-	
-	
+
 	/* Type Of Affiliated */
 	public void setTypeOfCustomer(String typeOfCustomer) {
 		this.typeOfAffiliate = typeOfAffiliate;

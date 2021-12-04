@@ -10,7 +10,7 @@ public class GoldCard extends Card{
 		
 		/* Constructor */
 		super(cardId, cardNumber, codeOfCardSecurity, percentageOfDiscount, 
-				 cardPassword,  amountOfDiscountUsage);
+				 cardPassword,  amountOfDiscountUsage, "GOLDCARD");
 		
 	}
 

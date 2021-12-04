@@ -5,8 +5,8 @@ import org.json.JSONObject;
 public class SuccessDataResult<T> extends DataResult<T> {
 
 	/* Constructor */
-	public SuccessDataResult(JSONObject jsonInput, String message) {
-		super(jsonInput, true, message);
+	public SuccessDataResult(JSONObject jsonInput, int userId, String message) {
+		super(jsonInput,userId, true, message);
 	}
 	
 	/* Constructor 2*/
@@ -15,8 +15,8 @@ public class SuccessDataResult<T> extends DataResult<T> {
 	}
 	
 	/* Constructor 3*/
-	public SuccessDataResult(String message) {
-		super(null, true, message);
+	public SuccessDataResult(String message, int userId) {
+		super(null,userId, true, message);
 	}
 	
 	/* Constructor 4*/

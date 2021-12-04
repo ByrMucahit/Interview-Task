@@ -11,4 +11,5 @@ public interface CardService {
 	String cardNumberGenerator(JSONObject jsonInput);
 	String cardSecurityNumberGenerator(JSONObject jsonInput);
 	String cardPasswordGenerator(JSONObject jsonInput);
+	boolean checkPreviousPasswordConflict(JSONObject jsonInput, String password);
 }

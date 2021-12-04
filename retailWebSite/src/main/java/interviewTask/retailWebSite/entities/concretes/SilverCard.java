@@ -8,7 +8,7 @@ public class SilverCard extends Card {
 			int percentageOfDiscount, String cardPassword, int amountOfDiscountUsage) 
 	{
 		super(cardId, cardNumber, codeOfCardSecurity, percentageOfDiscount, 
-				 cardPassword,  amountOfDiscountUsage);
+				 cardPassword,  amountOfDiscountUsage, "SILVERCARD");
 	}
 }
 

@@ -61,13 +61,23 @@ public class CardManager implements CardService  {
 	@Override
 	public String cardPasswordGenerator(JSONObject jsonInput) {
 		/*  */
-		int tempCardPassword = 0000;
+		String tempCardPassword = "0000";
 		boolean valid = true;
 		while(valid) {
 			valid = checkpoint.passwordNumberConflictController(jsonInput, tempCardPassword);
 			tempCardPassword += 1;
 		}
 		return String.valueOf(tempCardPassword);
+	}
+
+	@Override
+	public boolean checkPreviousPasswordConflict(JSONObject jsonInput, String password) {
+		
+		if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("cardPassword").equals(password)) {
+			System.out.println("Password can not be same with previous");
+			return false;
+		}
+		return true;
 	}
 
 }
