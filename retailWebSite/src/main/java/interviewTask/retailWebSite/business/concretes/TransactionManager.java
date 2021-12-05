@@ -18,7 +18,7 @@ import interviewTask.retailWebSite.entities.concretes.Person;
 public class TransactionManager implements TransactionService {
 	
 	/* Services */
-	Controller checkpoint = new Controller();
+	
 	Scanner myObj = new Scanner(System.in);
 	LocalDateTime currentDate = LocalDateTime.now();
 	/*Final Variables */
@@ -31,6 +31,7 @@ public class TransactionManager implements TransactionService {
 	public boolean payBill(JSONObject jsonObject, JSONObject jsonDiscount, int amount) {
 		/* Common Variable */
 		int tempDiscount = 0 ;
+		Controller checkpoint = new Controller();
 		boolean flag;
 		float greaterThan=0;
 		int result= amount;
@@ -156,6 +157,7 @@ public class TransactionManager implements TransactionService {
 	@Override
 	public String fillingBlankedField(String request, int length, String headerCharacter, int interval) {
 		/* Common Variable*/
+		Controller checkpoint = new Controller();
 		/* State Control Flag */
 		boolean flag= true;
 		/* Input  */
@@ -227,6 +229,7 @@ public class TransactionManager implements TransactionService {
 	/* Filling Blank That need to be included integer value. */
 	@Override
 	public String fillingBlankedNumberField(String request, int length, String phone, String headerCharacter, int interval) {
+		Controller checkpoint = new Controller();
 		/* Common Variable */
 		boolean flag= true;
 		String response = null;
@@ -351,6 +354,7 @@ public class TransactionManager implements TransactionService {
 	/* Enter String Input */
 	@Override
 	public String fillingBlankedStringField(String request) {
+		Controller checkpoint = new Controller();
 		/* Common Variables*/
 		/* Stated Controll Flag */
 		boolean flag= true;
@@ -394,6 +398,7 @@ public class TransactionManager implements TransactionService {
 	/* Filing Multiple Selection Date */
 	@Override
 	public String fillingMultipleSelectionDate(String request, int length, int[] name) {
+		Controller checkpoint = new Controller();
 		/* Common Variables */
 		boolean flag= true;
 		/* Response */
@@ -452,6 +457,7 @@ public class TransactionManager implements TransactionService {
 	/* Fill Mail Field */
 	@Override
 	public String fillBlankedMailSpace(String request) {
+		Controller checkpoint = new Controller();
 		/* Common Variable */
 		/* State Controller */
 		boolean flag= true;
@@ -505,6 +511,7 @@ public class TransactionManager implements TransactionService {
 	/* Filling telephone number on releated field */
 	@Override
 	public String fillingBlankedTelephoneNumber(String request, JSONObject jsonInput, int length, String headerCharacter, int interval, String alternativeNumber,String check) {
+		Controller checkpoint = new Controller();
 		/* Common Variable */
 		/* State Controller */
 		boolean flag= true;
@@ -606,6 +613,7 @@ public class TransactionManager implements TransactionService {
 	/* Filling Date*/
 	@Override
 	public String fillingBlankedDate(String request,int length, String name) {
+		Controller checkpoint = new Controller();
 		/* Common Variable */
 		boolean flag= true;
 		String response = null;
@@ -678,6 +686,7 @@ public class TransactionManager implements TransactionService {
 	/* Be Affiliated */
 	@Override
 	public JSONObject beAffiliated(JSONObject jsonObject) {
+		Controller checkpoint = new Controller();
 		/* State Controller Flag */
 		boolean flag;
 		/* Customer Controller */
@@ -721,6 +730,7 @@ public class TransactionManager implements TransactionService {
 	/* Change Password */
 	@Override
 	public JSONObject changePassword(JSONObject jsonObject) {
+		Controller checkpoint = new Controller();
 		/* Common Variable */
 		String response ;
 		String tempResponse;
