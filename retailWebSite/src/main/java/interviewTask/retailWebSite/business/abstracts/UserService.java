@@ -12,5 +12,5 @@ public interface UserService {
 
 	DataResult<List<Person>> personIdentifier(JSONObject jsonInput);
 	String userIdGenerator(JSONObject jsonInput);
-	JSONObject userRemoving(JSONObject jsonInput);
+	DataResult<List<Person>> userRemoving(JSONObject jsonInput);
 }

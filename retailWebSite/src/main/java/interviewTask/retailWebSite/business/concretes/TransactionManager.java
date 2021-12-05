@@ -18,9 +18,14 @@ import interviewTask.retailWebSite.entities.concretes.Person;
 
 public class TransactionManager implements TransactionService {
 	
+	
 	Controller checkpoint = new Controller();
 	Scanner myObj = new Scanner(System.in);
 	LocalDateTime currentDate = LocalDateTime.now();
+	
+	 final int daylimit=31;//final variable  
+	 final int mountlimit=12;//final variable  
+	 final int yearLimit=currentDate.getYear();//final variable  
 	
 	@Override
 	public boolean payBill(JSONObject jsonObject, JSONObject jsonDiscount, int amount) {
@@ -41,7 +46,7 @@ public class TransactionManager implements TransactionService {
 		
 			System.out.println("--- PAYMENT SUMMARY---");
 			System.out.println("-----------------------");
-			System.out.println("--> amount is :"+ amount+"$");
+			System.out.println("--> amount is :"+ amount+" "+"$");
 			if(tempDiscount == 5) {
 				
 				jsonObject.put("mounth", String.valueOf(currentDate.getMonthValue()));
@@ -71,7 +76,7 @@ public class TransactionManager implements TransactionService {
 				
 				greaterThan = calculateAmountOfDiscount(amount, 200);
 				
-				System.out.println("--> Your bill is greater than 200 then you gain"+" "+greaterThan+" "+"count "+" discount"+", "+ greaterThan*5+"$"+""+"will have been identified your bill");
+				System.out.println("--> Your bill is greater than 200 then you gain"+" "+greaterThan+" "+"count "+" discount"+", "+ greaterThan*5+"$"+" "+"will have been identified your bill");
 				result -= (greaterThan*5);
 				
 			}
@@ -135,35 +140,28 @@ public class TransactionManager implements TransactionService {
 			if(checkpoint.characterController(response)) {
 				flagNumber += 1;
 				
-			}
-			else {
-				System.out.println("Please, you write based on format.");
-			}
-			
-			
-			if(length != 0 ) {
-				flag = checkpoint.characterLengthController(response, length);	
-				if(!flag) {
-					flagNumber += 1;
-				}
-				else {
-					System.out.println("Please, enter proper input correctly. ");
-				}
-				
-				if(headerCharacter != null)
-				{
-					flag = checkpoint.properChartacterController(response, headerCharacter,interval);
+				if(length != 0 ) {
+					flag = checkpoint.characterLengthController(response, length);	
 					if(!flag) {
 						flagNumber += 1;
 					}
 					else {
-						System.out.println("Warning! Please enter correctly.");
+						System.out.println("Please, enter proper input correctly. ");
 					}
+					
+				
 				}
+				else {
+					flagNumber += 2;
+				}
+				
 			}
 			else {
-				flagNumber += 2;
+				System.out.println("Please, You can not left blank.");
 			}
+			
+			
+		
 			
 			if(flagNumber == 3) {
 				flag = false;
@@ -178,7 +176,7 @@ public class TransactionManager implements TransactionService {
 	
 	
 	@Override
-	public String fillingBlankedNumberField(String request, int length) {
+	public String fillingBlankedNumberField(String request, int length, String phone, String headerCharacter, int interval) {
 		boolean flag= true;
 		String response = null;
 		int flagNumber;
@@ -189,27 +187,51 @@ public class TransactionManager implements TransactionService {
 			System.out.println(request);
 			response = myObj.nextLine();
 			System.out.println("response: "+response);
-			if(checkpoint.stringCharacterController(response)) {
-				System.out.println("It's invalid that you have just written. It has just integer value");
-			}
-			else {
-				flagNumber += 1;
-				
-			}
-			if(response.length() != length && length != 0) {	
-				System.out.println("Input should consist of"+" "+length+" "+ "character");
-			}
-			else {
-				flagNumber += 1;
-				
-			}
 			
-			if(flagNumber == 2) {
-				flag = false;
+			
+			if( checkpoint.characterController(response)) {
+				if(checkpoint.stringCharacterController(response)) {
+					System.out.println("It's invalid that you have just written. It has just integer value");
+				}
+				else {
+					flag = false;
+					
+				}
+				
+				if(length != 0)
+				{
+					
+			
+					if(response.length() > length || response.length() < length) {	
+					System.out.println("Input should consist of"+" "+length+" "+ "character");
+					flagNumber -= 1;
+					flag= true;
+					
+					}
+				}
+				else {
+					flagNumber += 1;
+					
+					if(headerCharacter != null)
+					{
+						flag = checkpoint.properChartacterController(response, headerCharacter,interval);
+						if(!flag) {
+							flag = false;
+						}
+						else {
+							System.out.println("Warning! Please enter correctly.");
+							flag= true;
+						}
+					}
+					
+				
+					
+				}	
 			}
 			else {
 				flag = true;
 			}
+		
 		}
 		return response;
 	
@@ -233,7 +255,7 @@ public class TransactionManager implements TransactionService {
 			jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("typeOfCustomer","null");
 		}
 		else {
-			String temp = fillingBlankedNumberField("Please ENTER social identfier. It's required. It should be consist of 11 character",11);
+			String temp = fillingBlankedNumberField("Please ENTER social identfier. It's required. It should be consist of 11 character",11, null, null, 0);
 			System.out.println("You have been affiliated");
 			jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("socialIdentityNumber",temp);
 			jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).put("typeOfCustomer","affiliated");
@@ -253,12 +275,12 @@ public class TransactionManager implements TransactionService {
 		String tempResponse;
 		boolean flag;
 		
-		response = fillingBlankedNumberField("Please enter current password?",4);
+		response = fillingBlankedNumberField("Please enter current password?",4, null, null, 0);
 		flag = checkpoint.passwordController(response, jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardPassword"));
 		if(flag) {
 			
-			response = fillingBlankedNumberField("Please enter new password",4);
-			tempResponse = fillingBlankedNumberField("Please enter new password again",4);
+			response = fillingBlankedNumberField("Please enter new password",4,null, null, 0);
+			tempResponse = fillingBlankedNumberField("Please enter new password again",4,null, null, 0);
 			flag = checkpoint.passwordController(response, tempResponse);
 			
 			if(flag) {
@@ -275,7 +297,7 @@ public class TransactionManager implements TransactionService {
 			
 			}
 			else {
-				System.out.println("You shoulde enter both password correctly.");
+				System.out.println("You should enter both password correctly.");
 			}
 		}
 		else {
@@ -290,12 +312,10 @@ public class TransactionManager implements TransactionService {
 	public String fillingBlankedOptionalField(String request, String option1, String option2) {
 		boolean flag= true;
 		String response = null;
-		int flagNumber ;
-		
 		while(flag) {
-			flagNumber = 0;
+			
 			System.out.println(request);
-			response = myObj.nextLine();
+			response = myObj.nextLine().toUpperCase();
 			
 			if(response.equals(option1) || response.equals(option2)) {
 				flag = false;
@@ -303,6 +323,31 @@ public class TransactionManager implements TransactionService {
 			else {
 				flag = true;
 				System.out.println("Please input one of"+" "+option1+" "+"or"+" "+option2);
+			}
+
+		}
+		return response;
+		
+	}
+	
+	@Override
+	public String fillingBlankedStringField(String request) {
+		boolean flag= true;
+		String response = null;
+		int flagNumber ;
+		
+		while(flag) {
+			flagNumber = 0;
+			System.out.println(request);
+			response = myObj.nextLine();
+			
+			if(checkpoint.stringCharacterController(response)) {
+				flag = false;
+			}
+			else {
+				System.out.println("This Field can not be included number, please enter suitable something");
+				flag = true;
+				
 			}
 
 		}
@@ -373,11 +418,12 @@ public class TransactionManager implements TransactionService {
 							"* Mounth: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("mounth") +"\n"+	
 							"* Day: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("day") +"\n"	
 							);
-		System.out.println("-------------------------------------");
-				
+		
 		if(!jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("socialIdentityNumber").equals("null")){
 				System.out.println("Social Identity: "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("socialIdentityNumber"));
 		}
+		
+		System.out.println("-------------------------------------");
 		
 	}
 
@@ -391,8 +437,8 @@ public class TransactionManager implements TransactionService {
 		String response;
 		int tempIndex= 0;
 		boolean flag;
-		
-		
+		int [] selection = new int[discountObject.getJSONArray("discount").length()];
+		System.out.println("FROM DISCOUNT PRINTER"+" "+ discountObject);
 		if(!discountObject.getJSONArray("discount").getJSONObject(0).getString("indirim").equals("0"))
 		{
 			for(int i = 0; i < discountObject.getJSONArray("discount").length(); i++) {
@@ -411,8 +457,13 @@ public class TransactionManager implements TransactionService {
 				}
 				
 			}
-			System.out.println("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.");
-			response = myObj.nextLine();
+			
+			for(int i = 0 ; i< discountObject.getJSONArray("discount").length(); i++) {
+				selection[i] = i;
+				System.out.println("DİZİ"+" "+selection[i]);
+			}
+			System.out.println("SELECTION FROM DISCOUNT PRINTER"+" "+selection[0]);
+			response = fillingMultipleSelectionDate("You're enable selection to discount as shown abow. Please enter number. Don't Forget YOU CAN USE ONLY ONE.",1,selection);
 			
 			
 			tempIndex = Integer.valueOf(response);
@@ -424,5 +475,221 @@ public class TransactionManager implements TransactionService {
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public String fillingMultipleSelectionDate(String request, int length, int[] name) {
+		
+		boolean flag= true;
+		String response = null;
+		int flagNumber ;
+		flagNumber = 0;
+		while(flag) {
+			
+			System.out.println(request);
+			response = myObj.nextLine();
+			
+			if(!checkpoint.characterController(response)) {
+				flag = true;
+			}
+			else {
+		
+			
+			if(Integer.valueOf(response) == name[flagNumber]) {
+				flag = false;
+			}
+			else if(Integer.valueOf(response) < name[flagNumber]) {
+				flag = true;
+				flagNumber += 1;
+				
+			}
+
+		}
+			
+			if(flagNumber == name.length) {
+				flag = false;
+			}
+		}
+		return response;
+	}
+
+
+
+
+	@Override
+	public String fillBlankedMailSpace(String request) {
+		boolean flag= true;
+		String response = null;
+		int flagNumber ;
+		
+		while(flag) {
+			flagNumber = 0;
+			System.out.println(request);
+			response = myObj.nextLine();
+			System.out.println("from mail controller"+" "+response);
+			
+		if( checkpoint.characterController(response)) {
+			flag = true;
+		}
+		else {
+			
+		
+			if(checkpoint.emailController(response)) {
+				flag = false;
+			}
+			else {
+				flag = true;
+				System.out.println("Please, enter your mail as *******@****.com");
+			}
+
+			}
+		}
+		return response;
+	
+	}
+
+
+
+
+
+	@Override
+	public SuccessDataResult<List<Person>> updateJson(JSONObject jsonInput, JSONObject jsonTempInput) {
+		
+		System.out.println("TEMP JSON FROM UPDATE JSON"+jsonTempInput);
+		System.out.println("JSON FROM UPDATE JSON"+jsonInput);
+		
+	
+		jsonInput.getJSONArray("data").getJSONObject(jsonTempInput.getInt("userId")).put("typeOfCard",jsonTempInput.getJSONObject("data").getString("typeOfCard"));
+		jsonInput.getJSONArray("data").getJSONObject(jsonTempInput.getInt("userId")).put("percentageOfDiscount",jsonTempInput.getJSONObject("data").getString("percentageOfDiscount"));
+		
+		System.out.println("JSON UPDATE:"+" "+jsonInput);
+		return new SuccessDataResult<List<Person>> 
+				(jsonInput,jsonTempInput.getInt("userId"),"Change has been done successfully" ) ;
+	}
+
+
+
+
+
+	@Override
+	public String fillingBlankedTelephoneNumber(String request, JSONObject jsonInput, int length, String headerCharacter, int interval, String alternativeNumber,String check) {
+		boolean flag= true;
+		String response = null;
+		int flagNumber;
+		
+		while(flag) {
+			flagNumber = 0;
+			
+			System.out.println(request);
+			response = myObj.nextLine();
+			System.out.println("response: "+response);
+			
+			
+			if( checkpoint.characterController(response)) {
+				if(checkpoint.stringCharacterController(response)) {
+					System.out.println("It's invalid that you have just written. It has just integer value");
+					flag = true;
+				}
+				else {
+					flag = false;
+					
+					if(response.length() != length && length != 0) {	
+						System.out.println("Input should consist of"+" "+length+" "+ "character");
+						flagNumber -= 1;
+						flag= true;
+						
+					}
+					else {
+						flagNumber += 1;
+						flag= false;
+						if(headerCharacter != null)
+						{
+							flag = checkpoint.properChartacterController(response, headerCharacter,interval);
+							if(!flag) {
+								flag = false;
+							}
+							else {
+								System.out.println("Warning! Please enter correctly.");
+								flag= true;
+							}
+						}
+						if(!check.equals("null"))
+						{
+						if(checkpoint.phoneController(jsonInput, response, alternativeNumber)) {
+							flag = false;
+						}
+						else {
+							flag= true;
+						}
+						}
+					
+						
+					}	
+					
+				}
+			
+			}
+			else {
+				flag = true;
+			}
+		
+		}
+		return response;
+	}
+
+
+
+
+
+	@Override
+	public String fillingBlankedDate(String request,int length, String name) {
+		boolean flag= true;
+		String response = null;
+		int flagNumber;
+		
+		while(flag) {
+			flagNumber = 0;
+			
+			System.out.println(request);
+			response = myObj.nextLine();
+			System.out.println("response: "+response);
+			
+			
+			if( checkpoint.characterController(response)) {
+				if(checkpoint.stringCharacterController(response)) {
+					System.out.println("It's invalid that you have just written. It has just integer value");
+					flag = true;
+				}
+				else {
+					flag = false;
+					
+					if(response.length() >= length && length != 0) {	
+						System.out.println("Input should consist of"+" "+(length-1)+" "+ "character");
+						flagNumber -= 1;
+						flag= true;
+						
+					}
+					else {
+						if(checkpoint.dateController(response, name))
+						{
+							flagNumber += 1;
+							flag= false;
+						}
+						else {
+							flag = true;
+						}
+					
+						
+					}	
+					
+				}
+			
+			}
+			else {
+				flag = true;
+			}
+		
+		}
+		return response;
 	}
 }
