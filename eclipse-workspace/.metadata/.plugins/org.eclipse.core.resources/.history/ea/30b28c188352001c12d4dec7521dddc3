@@ -1,0 +1,26 @@
+package main.java.interviewTask.retailSystem.entites.concretes;
+
+public abstract class Person {
+	
+	/* Common Person Attribute */
+	private int id;
+	private String personName;
+	private String personSurname;
+	private String personMail;
+	private String personPhone;
+	private String personAlternativePhone;
+	private String personelAddress;
+	
+	public Person(int id, String personName, String personSurname, String personMail, 
+			String personePhone, String personAlternativePhone, String personelAddress) {
+			
+		this.id = id;
+		this.personName = personName;
+		this.personSurname = personSurname;
+		this.personMail = personMail;
+		this.personPhone = personPhone;
+		this.personAlternativePhone = personAlternativePhone;
+		this.personelAddress = personelAddress;
+		
+	}
+}

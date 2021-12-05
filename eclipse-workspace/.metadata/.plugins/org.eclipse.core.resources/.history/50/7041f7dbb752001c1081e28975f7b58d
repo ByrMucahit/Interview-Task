@@ -1,0 +1,5 @@
+package main.java.interviewTask.retailSystem.business.concretes;
+
+public class Counter {
+
+}

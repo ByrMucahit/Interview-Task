@@ -1,0 +1,5 @@
+package interviewTask.retailWebSite.core.concretes.utilities.results;
+
+public class SuccessDataResult {
+
+}

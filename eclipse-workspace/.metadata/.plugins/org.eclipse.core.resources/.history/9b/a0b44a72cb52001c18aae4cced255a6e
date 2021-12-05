@@ -1,0 +1,29 @@
+package interviewTask.retailWebSite.core.concretes.utilities.results;
+
+public class Result {
+
+	/* Common Variable*/
+	private boolean success;
+	private String message;
+	
+	/* Constructor */
+	public Result(boolean success) {
+		this.success = success;
+	}
+	
+	/* Constructor 2 */
+	public Result(boolean success, String message) {
+		this(success);
+		this.message = message;
+	}
+	
+	/* Is Success */
+	public boolean isSuccess() {
+		return this.success;
+	}
+	
+	/* Message */
+	public String getMesage() {
+		return this.message;
+	}
+}

@@ -1,0 +1,5 @@
+package main.java.interviewTask.retailSystem.entites.concretes;
+
+public abstract class Card {
+
+}

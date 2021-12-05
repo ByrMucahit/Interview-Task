@@ -1,0 +1,73 @@
+package main.java.interviewTask.retailSystem.entites.concretes;
+
+public abstract class Person {
+	
+	/* Common Person Attribute */
+	private int id;
+	private String personName;
+	private String personSurname;
+	private String personelMail;
+	private String personelPhone;
+	private String personelAlternativePhone;
+	private String personelAddress;
+	
+	public Person(int id, String personelPhone, String personSurname, String personelMail, 
+			String personePhone, String personelAlternativePhone, String personelAddress) {
+			
+		this.id = id;
+		this.personName = personName;
+		this.personSurname = personSurname;
+		this.personelMail = personelMail;
+		this.personelPhone = personelPhone;
+		this.personelAlternativePhone = personelAlternativePhone;
+		this.personelAddress = personelAddress;
+		
+	}
+	
+	/* Id */
+	private void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	/* Person Name */
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	
+	public String getPersonName() {
+		return personName;
+	}
+	
+	/* Person Surname */
+	public void setPersonSurname(String personSurname) {
+		this.personSurname = personSurname;
+	}
+	
+	public String getPersonSurname() {
+		return personSurname;
+	}
+	
+	/* Person Mail */
+	public void setPersonelMail(String personelMail) {
+		this.personelMail = personelMail;
+	}
+	
+	public String getPersonelMail() {
+		return personelMail;
+	}
+	
+	/* Personel Phone  */
+	public void setPersonelPhone(String personelPhone) {
+		this.personelPhone = personelPhone;
+	}
+	
+	public String getPersonelPhone() {
+		return personelPhone;
+	}
+	
+	
+}

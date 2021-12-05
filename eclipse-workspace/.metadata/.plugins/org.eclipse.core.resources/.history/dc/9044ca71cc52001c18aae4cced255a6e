@@ -1,0 +1,5 @@
+package interviewTask.retailWebSite.business.abstracts;
+
+public interface CardService {
+
+}

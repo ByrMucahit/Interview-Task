@@ -1,0 +1,12 @@
+package main.java.interviewTask.retailSystem.core.concretes.utilities.results;
+
+public class SuccessResult {
+	
+	private boolean success;
+	private String message;
+	
+	public Result(boolean success) {
+		this.success = success;
+	}
+	
+}
