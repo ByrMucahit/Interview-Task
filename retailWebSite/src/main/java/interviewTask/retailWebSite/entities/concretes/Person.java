@@ -14,7 +14,6 @@ public abstract class Person {
 	private String personAddress;
 	private String firstDayOfBeenCustomer;
 	private Card ownCardType;
-	
 	private String typeOfAffiliate;
 	private String socialIdentityNumber;
 	

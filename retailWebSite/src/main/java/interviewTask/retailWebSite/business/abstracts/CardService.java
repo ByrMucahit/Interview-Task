@@ -10,7 +10,8 @@ import interviewTask.retailWebSite.entities.concretes.Card;
 import interviewTask.retailWebSite.entities.concretes.Person;
 
 public interface CardService {
-
+	
+	/* Services */
 	String cardIdGenerator(JSONObject jsonInput);
 	String cardNumberGenerator(JSONObject jsonInput);
 	String cardSecurityNumberGenerator(JSONObject jsonInput);

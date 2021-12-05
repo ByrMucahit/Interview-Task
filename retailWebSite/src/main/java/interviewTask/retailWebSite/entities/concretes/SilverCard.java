@@ -1,7 +1,5 @@
 package interviewTask.retailWebSite.entities.concretes;
 
-
-
 public class SilverCard extends Card {
 	/* Constructor */
 	public SilverCard(int cardId, String cardNumber, String codeOfCardSecurity, 

@@ -12,11 +12,8 @@ public class Customer extends Person {
 		/* Those're passed into superclass named PERSON */
 		super(id,  personName,  personSurname,  personMail,  ownCardType,
 			  personPhone, personAlternativePhone, personAddress, typeOfCard,
-		      firstDayOfBeenCustomer, socialIdentityNumber, typeOfAffiliate);
-		
+		      firstDayOfBeenCustomer, socialIdentityNumber, typeOfAffiliate);		
 	}
-	
-	
 }
 
 

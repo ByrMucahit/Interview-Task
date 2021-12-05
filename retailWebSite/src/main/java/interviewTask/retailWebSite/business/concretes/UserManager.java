@@ -1,9 +1,9 @@
 package interviewTask.retailWebSite.business.concretes;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -25,21 +25,24 @@ import interviewTask.retailWebSite.entities.concretes.AffiliatedCustomer;
 import interviewTask.retailWebSite.entities.concretes.Customer;
 
 public class UserManager implements UserService {
+	/* Common Variable */
 	private String tempId;
-	private String cardId;
+	
 	private String tempSocialId;
-	private String tempDate;
+	
 	private String yesNoFlag;
 	int flag = 0;
 	Card card;
 	Person customer;
 	
+	/* Services */
 	Scanner myObj = new Scanner(System.in);
 	CardService cardManager = new CardManager();
 	Controller controller = new Controller();
 	TransactionService transactionManager = new TransactionManager();
 	LocalDate currentDate = LocalDate.now();
 	 
+	/* Person Identifier */
 	@Override
 	public DataResult<List<Person>> personIdentifier(JSONObject jsonInput) {
 		/* Common Variable */
@@ -49,101 +52,74 @@ public class UserManager implements UserService {
 		String strFlag ; 
 		int tempIndex= 0;
 		JSONObject tempJSON = new JSONObject();
-		System.out.println("Datta BEGIN"+jsonInput);
-		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		
+		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
+		/* Getting Telephone Number */
 		templatePhoneNumber = transactionManager.fillingBlankedTelephoneNumber("Please enter your telephone number, It should be consist of 11 numbers, It's required:[It should be like that 05....]\n",jsonInput, 11, "05",2, null, "null").toUpperCase();
-		 
 		/* Register Controller */
 		int flag = controller.registerContoller(templatePhoneNumber,jsonInput);
+		/* JSON Array */
 		JSONArray jRootArray = new JSONArray();
-		
+		/* If User Registered */
 		if (flag != -1) {
 			// "I want to iterate though the objects in the array..." 
-			//jsonInput = jsonInput.getJSONArray("data").getJSONObject(flag);
 			System.out.println("Dear "+jsonInput.getJSONArray("data").getJSONObject(flag).getString("personName").toUpperCase()+" "+
 					jsonInput.getJSONArray("data").getJSONObject(flag).getString("personSurname").toUpperCase()+", "+"Welcome to Retail Website");
 			
 			return new SuccessDataResult<List<Person>>
 						(jsonInput,flag,"It has been good");
 		}
-		
+		/* Not registered user*/
 		else if(flag == -1) {
-			
-			System.out.println("Length"+jsonInput.getJSONArray("data").length());
+			 /* Lenth of array */
 			 tempIndex = jsonInput.getJSONArray("data").length();
-			 /*tempJSON = jsonInput.getJSONArray("data").getJSONObject(tempIndex);*/
-			
-			
-			
-			
-			
-			
-			
+			/* Warning */
 			 System.out.println("You're a new for us"+", "+"We're excited to meet you."+" "+ "Welcome to our family.");
-			
+			/* Getting First Name */
 			 tempInfoArray[0] = transactionManager.fillingBlankedStringField("Please enter your first name. It's required !!!:\n").toUpperCase();
-			 
+			/* Getting Surname */
 		 	 tempInfoArray[1] = transactionManager.fillingBlankedStringField("Please enter your surname. It's required !!! :\n").toUpperCase();
-		 
+		 	/* Getting Mail*/
 		 	 tempInfoArray[2] = transactionManager.fillBlankedMailSpace("Please enter your  mail. It's required !!!:\n");
-			 		
-		 	 
-		 	 
-		 	 
+			/*Yes No Flag */
 		 	strFlag = transactionManager.fillingBlankedOptionalField("If you want to save number you have written. It's required:[Y/N]\n", "Y", "N");	 	
-			 		
 			 /* Telephone Number */
 			 if(strFlag.equals("Y")) {
 			 		tempInfoArray[3] = templatePhoneNumber;
 			 	}
 			 else if(strFlag.equals("N")){	
-			tempInfoArray[3] = transactionManager.fillingBlankedTelephoneNumber("Please enter your telephone number, It's required:\n",jsonInput, 11,"05",2, null, "null");
-				 
+				    tempInfoArray[3] = transactionManager.fillingBlankedTelephoneNumber("Please enter your telephone number, It's required:\n",jsonInput, 11,"05",2, null, "null"); 
 			 		}
-				 
-			 
+		     /* Getting Alternative Number */
 			 tempInfoArray[4] = transactionManager.fillingBlankedTelephoneNumber("Please enter alternative telephone number, It's required:\n",jsonInput, 11,"05",2, tempInfoArray[3],"check");
-			 
+			 /* Getting Home address*/
 			 tempInfoArray[5] = transactionManager.fillingBlankedField("Please enter your home address. It's required:\n", 0, null,0);
-				 
-			 
+			 /* Type Of Card Selection*/
 			 tempInfoArray[6] = transactionManager.fillingBlankedOptionalField("Please enter type of card you want.Our Web Site has two optional those're one of them is Gold Card, other one's Silver Card. You need to enter G character if you want to Golden Card. You need to enter S character if you want to Silver Card .It's required. [G/S]", "G", "S").toUpperCase();   
-					
-	
-			 
+			 /* Be Affliated Selection*/
 			 tempInfoArray[7] = transactionManager.fillingBlankedOptionalField("You 're became piece of family so far. you 're able to be affilimated If you want to be closer to us. You need to enter Y if you want.[Y/N]:\n", "Y", "N").toUpperCase() ; 
-			 
+			 /* Temp Social Id */
 			 tempSocialId="null";
 			 if( tempInfoArray[7].equals("Y")) {
 				 tempSocialId = transactionManager.fillingBlankedNumberField("Please Enter Social Identity For be affiliated\n", 11, null, null,0).toUpperCase();  
 			 }
-			 	
-			 
-			 
+			 /* Yes No Flag */
 			 yesNoFlag =transactionManager.fillingBlankedOptionalField("Do you want  enter count of day that  you have been our customer? FOR TESTING[Y/N]!!!","Y","N").toUpperCase();
-			 System.out.println("yes No Flag"+yesNoFlag);
-			 
+			/* Test selection */
 			 if(yesNoFlag.equals("Y")) {
-				 System.out.println("BURAYA GIRDI");
-				 
 				 tempInfoArray[8] = transactionManager.fillingBlankedDate("Please enter Year", 5,"year").toUpperCase(); 
 				 tempInfoArray[9] = transactionManager.fillingBlankedDate("Please enter number of mounth\n", 3, "mounth").toUpperCase(); 
 				 tempInfoArray[10] = transactionManager.fillingBlankedDate("Please enter number of day of Week\n", 3, "day").toUpperCase(); 
-				 System.out.println("BURAYA CIKTI");
-							
+						
 			 }
 			 else if(yesNoFlag.equals("N")) {
-				 System.out.println("BURAYA GIRDI");
 				 tempInfoArray[8] = String.valueOf(currentDate.getYear());
 				 tempInfoArray[9] = String.valueOf(currentDate.getMonthValue());
 				 tempInfoArray[10] = String.valueOf(currentDate.getDayOfMonth());
-				 System.out.println("BURAYA CIKTI");
 			 }
-			 
 			try {		
+						/* JSON Object */
 						JSONObject jInnerObject = new JSONObject();
-					
 						/* Setting User ID */
 						tempInfoArray[12] = userIdGenerator(jsonInput);
 						System.out.println("USER id"+ tempInfoArray[12]);
@@ -158,39 +134,42 @@ public class UserManager implements UserService {
 						System.out.println("cardSecurityNumberGenerator"+ tempInfoArray[15]);
 						/* Setting Card Password */
 						tempInfoArray[16] = cardManager.cardPasswordGenerator();
-						System.out.println("Card Password"+ tempInfoArray[16]);                    
-						
-						System.out.println("Golden SILVER CONDITION"+ tempInfoArray[6]);
-						
+						/* Gold Card Building */
 						if(tempInfoArray[6].equals("G")) {
-							System.out.println("BURAYA GIRDI");
-							card = new GoldCard(Integer.valueOf(tempInfoArray[13]), tempInfoArray[14], tempInfoArray[15], 30, tempInfoArray[16],1);
+							card = new GoldCard(
+									Integer.valueOf(tempInfoArray[13]), /* Card Id */ 
+									tempInfoArray[14], /*Card Number */
+									tempInfoArray[15], /*Code Of Security */
+									30, /* percentage Of Discount */
+									tempInfoArray[16], /* Card Password */
+									1 /* Amount Of Discount */
+									);
 						}
+						/* Silver Card Building */
 						else if(tempInfoArray[6].equals("S")) {
-							System.out.println("BURAYA GIRDI");
-							card = new SilverCard(Integer.valueOf(tempInfoArray[13]), tempInfoArray[14], tempInfoArray[15], 20, tempInfoArray[16],1);
+							card = new SilverCard(
+									Integer.valueOf(tempInfoArray[13]), 
+									tempInfoArray[14], 
+									tempInfoArray[15], 20, 
+									tempInfoArray[16],1);
 						}
-						
-						
+						/* Build affiliated customer */
 						if( tempInfoArray[7].equals("Y")) {
-							
-							
-							
-							System.out.println("BURAYA GIRDI");
-									customer = new AffiliatedCustomer(
-									Integer.valueOf(tempInfoArray[9]), /*id*/
-									tempInfoArray[0], /*Name */
-									tempInfoArray[1], /*Surname */
-									tempInfoArray[2], /*Mail */
-									card,			  /*Card Object */
-									tempInfoArray[3], /*Telephone Number */
-									tempInfoArray[4], /*Alternative Telephone Number */
-									tempInfoArray[5], /*Home address */
-									card.getTypeOfCard().toUpperCase(),/* Type Of Card */
-									tempInfoArray[8], /* Date */
-									tempSocialId,/* social identifier */
-									"affiliated"); 
+								customer = new AffiliatedCustomer(
+								Integer.valueOf(tempInfoArray[9]), /*id*/
+								tempInfoArray[0], /*Name */
+								tempInfoArray[1], /*Surname */
+								tempInfoArray[2], /*Mail */
+								card,			  /*Card Object */
+								tempInfoArray[3], /*Telephone Number */
+								tempInfoArray[4], /*Alternative Telephone Number */
+								tempInfoArray[5], /*Home address */
+								card.getTypeOfCard().toUpperCase(),/* Type Of Card */
+								tempInfoArray[8], /* Date */
+								tempSocialId,/* social identifier */
+								"affiliated"); 
 						}
+						/* Build Customer */
 						else if(tempInfoArray[7].equals("N")) {
 							System.out.println("BURAYA GIRDI");
 							 		customer = new Customer(
@@ -235,27 +214,20 @@ public class UserManager implements UserService {
 						jInnerObject.put("year",tempInfoArray[8]);
 						jInnerObject.put("mounth",tempInfoArray[9]);
 						jInnerObject.put("day",tempInfoArray[10]);
-						
-						
+						/* If Customer wanna be affiliated that's why user need to enter social identity */
 						if( customer.getTypeCustomer().equals("affiliated")) {
 							jInnerObject.put("socialIdentityNumber", tempSocialId);
 						}
 						else {
 							jInnerObject.put("socialIdentityNumber", "null");
 						}
-						
-						
-						
-						System.out.println("jsonnn before"+ jsonInput.getJSONArray("data"));
+						/* JSON Array Building */
 						jRootArray.put(jInnerObject);
 						jsonInput.getJSONArray("data").put(jInnerObject);
-					    System.out.println("jsonnn"+ jsonInput);
+					   
 				} catch (JSONException e) {
 	                e.printStackTrace();
 	            }
-				System.out.println("value : "+ jsonInput.getJSONArray("data").toString());
-				System.out.println("Datta "+jsonInput);
-				
 				return new SuccessDataResult<List<Person>>
 				(jsonInput,jsonInput.getJSONArray("data").length()-1,"It has been good");
 		}
@@ -263,15 +235,34 @@ public class UserManager implements UserService {
 			return new ErrorDataResult<List<Person>>
 			(jsonInput,0,"It hasn't been good");
 		}
-		
-		
 	}
 
+	/* 
+	 * Description:
+	 * --------------
+	 * This Method is used for Register and login .
+	 * 
+	 * Parameters:
+	 * --------------
+	 * jsonInput: all data
+	 * 
+	 * Return:
+	 * -------------
+	 * Java object is returned. Object has different variables those're JSONObject which is named user info, User which is named user id, and message;
+	 * 
+	 * ----------------------------------------------------------------
+	 * 
+	 * */
+	
+	/* User Id Generator */
 	@Override
 	public String userIdGenerator(JSONObject jsonInput) {
+		/* Temp id is the variables that keeps id */
 		int  tempId= 0;
+		/* State flag */
 		boolean valid = true;
-		System.out.println("It's user id generators"+jsonInput.getJSONArray("data"));
+		
+		/* FOR TEST */
 		/*while(valid) {
 			
 			Controller checkpoint = new Controller();
@@ -282,14 +273,49 @@ public class UserManager implements UserService {
 		tempId +=1;
 		return String.valueOf(tempId);
 	}
-
+	
+	/*
+	 * Description:
+	 * ---------------
+	 * This function is used for id generator.
+	 * 
+	 * Parameters:
+	 * ---------------
+	 * jsonInput: All data
+	 * 
+	 * Return:
+	 * ----------------
+	 * User id is returned.
+	 * 
+	 * ---------------------------------------------------
+	 * */
+	
+	
+	/* User Removing */
 	@Override
 	public DataResult<List<Person>> userRemoving(JSONObject jsonInput) {
-		
-		System.out.println("Your Account has been removed"+jsonInput);
+		/*Remonig transaction within JSON*/
 		jsonInput.getJSONObject("data").getJSONArray("data").remove(jsonInput.getInt("userId"));
+		/**/
 		return new SuccessDataResult<List<Person>>
 		(jsonInput.getJSONObject("data"), jsonInput.getJSONObject("data").getJSONArray("data").length(), "Transaction has been done");
 	}
-
 }
+
+
+	/*
+	 * Description:
+	 * ---------------
+	 * This function is used for remove account
+	 * 
+	 * Parameters:
+	 * ---------------
+	 * jsonInput: All data
+	 * 
+	 * Return:
+	 * ---------------
+	 * Json
+	 * 
+	 * -------------------------------------------------------------
+	 * */
+	 
