@@ -5,7 +5,7 @@ It's a retail website. Main aim of this app is take pay from customer. This mark
 reviews customers of this market,then gives a discount based on individual person. Just one exist thing is not good is percentage based on discount is not applied on phone.
 
 ### Install
-This Explanation had been done with accepted that is that  project have been  installed to PC by user which include java jdk 16.0.2,maven apache 3.8.4 and git 2.33.0. 
+This Explanation had been done with accepted that is project have been  installed to PC by user which include java jdk 16.0.2,maven apache 3.8.4 and git 2.33.0. 
 If Those're not installed, visit those links;
 1. https://www.youtube.com/watch?v=IJ-PJbvJBGs
 2. https://www.youtube.com/watch?v=Hff-1uDH1Ts
@@ -39,7 +39,7 @@ mvn test
 mvn clean
 ```
 
-* After build success,so We're on right way, and then writing code snippet belove.
+* After build success,so We're on right way, and then writing code snippet below.
 ```
 mvn install
 ```
@@ -59,7 +59,7 @@ After all, Some files will have been created on folder named "target".
 ![maven7](https://user-images.githubusercontent.com/62469567/144900709-1325ef90-d99e-4486-a691-46d3f7c10086.png)
 
 * Now, We're copying retailWebSite-0.0.1-SNAPSHOT, then opening command prompt again on target folder.
-* We're writing code line belov.
+* We're writing code line below.
 ```
 java -jar retailWebSite-0.0.1-SNAPSHOT.jar
 ```
