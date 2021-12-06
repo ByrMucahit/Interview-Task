@@ -10,12 +10,19 @@ If Those're not installed, visit those links;
 1. https://www.youtube.com/watch?v=IJ-PJbvJBGs
 2. https://www.youtube.com/watch?v=Hff-1uDH1Ts
 
-1. First Step
+1. First Step (Git)
 You need to clone this repository into your local computer. 
 For cloning:
-1. Firstly, open a command prompt, then write code following code.<br />
+* Firstly, open a command prompt, then write code following code.<br />
 ```
 git clone https://github.com/ByrMucahit/Interview-Task.git
 ```
 
 ![Adsız](https://user-images.githubusercontent.com/62469567/144896054-983f1d01-05e9-451d-8e7b-75abb5b31556.png)
+
+
+2. Second Step (Maven)
+* In this step, we're going to open command prompt on exist maven project folder.
+Following image is project folder.
+
+![maven](https://user-images.githubusercontent.com/62469567/144897303-fad472bd-7e98-444c-8aa4-a527f32c925b.png)
