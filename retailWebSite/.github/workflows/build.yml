@@ -31,6 +31,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ 6b008791c055c021c402000cb0ed1f08d2dd1778}}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ 62c5bd691fd02ad78779dcd97a1d1a1525ffc328 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ByrMucahit_Interview-Task
