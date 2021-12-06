@@ -1,10 +1,16 @@
 package interviewTask.retailWebSite.business.concretes;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.json.JSONObject;
 
@@ -47,7 +53,7 @@ public class TransactionManager implements TransactionService {
 			jsonObject.put("year", String.valueOf(currentDate.getYear()));
 			jsonObject.put("day", String.valueOf(currentDate.getDayOfMonth()));
 			result -= tempDiscount; 
-			System.out.println("You have been our customer: "+ jsonObject);
+			System.out.println("You have been our customer over 2 year That's Why %5 discount will have been applied your bill.");
 			}
 			/* All Discount */
 			else if(tempDiscount == 20 || tempDiscount == 30 || tempDiscount == 10) {
@@ -56,7 +62,7 @@ public class TransactionManager implements TransactionService {
 					tempResult = (amount*(100 - tempDiscount))/100;
 					System.out.println("--> Dear"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("personName")+" "+"You have"+" "+ 
 					                       jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("typeOfCard")+" "+"CARD");
-					System.out.println("--> Applied Discount is:"+" "+tempDiscount+"%");
+					System.out.println("--> Applied Discount is:"+" "+"%"+tempDiscount);
 					result = tempResult;
 				}
 			/* If  Amount is greater than 200 */
@@ -121,20 +127,34 @@ public class TransactionManager implements TransactionService {
 	
 	/* Calculate Discount Based On Process of being customer */
 	@Override
-	public int counterOfBillPaidOverStatedYear(JSONObject jsonObject) {
+	public long counterOfBillPaidOverStatedYear(JSONObject jsonObject) throws ParseException {
 		/* Template count day */
 		int countOfDay= 0;
 		/* Calculate process of time*/
-		if(Integer.valueOf(Integer.valueOf(jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("year"))- currentDate.getYear()) > 0) {
-			countOfDay =  (Integer.valueOf(jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("mounth")) - currentDate.getMonthValue()) * 365;
-			countOfDay += currentDate.getMonthValue()*30;
-			countOfDay +=  currentDate.getDayOfMonth();
-		}
-		else {
-			countOfDay += currentDate.getMonthValue()*30;
-			countOfDay +=  currentDate.getDayOfMonth();
-		}
-		return countOfDay;
+		String customerDate;
+		String currentDate;
+		
+		Date dateCustomer;
+		Date dateCurrent;
+		
+		LocalDateTime objectDate = LocalDateTime.now();
+		
+		customerDate = jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("mounth")+"/"+
+					   jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("day")+"/"+
+					   jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("year");
+		
+		currentDate = String.valueOf(objectDate.getMonthValue())+"/"+ String.valueOf(objectDate.getDayOfMonth()+"/"+String.valueOf(objectDate.getYear()));
+		
+		SimpleDateFormat dates = new SimpleDateFormat("MM/dd/yyyy");
+		
+		// Setting dates
+		dateCustomer = dates.parse(customerDate);
+		dateCurrent = dates.parse(currentDate);
+		
+		final long days = ChronoUnit.DAYS.between(dateCustomer.toInstant(), dateCurrent.toInstant());
+		
+		
+		return days;
 	}
 
 	/*
@@ -905,6 +925,11 @@ public class TransactionManager implements TransactionService {
 				else if(Integer.valueOf(discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")) == 20) {
 					System.out.println(i+".:"+" You have SILVER CARD that's why YOU CAN USE"+" "+discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")+"%");
 					tempTypeOfDiscount= "DICOUNT FOR YOU SILVER CARD ";
+				}
+				
+				else if(Integer.valueOf(discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")) == 5) {
+					System.out.println(i+".:"+" You have been our customer over two year"+" "+discountObject.getJSONArray("discount").getJSONObject(i).getString("indirim")+"%");
+					tempTypeOfDiscount= "DICOUNT FOR YOU HAVE BEEN CUSTOMER 2 YEAR ";
 				}
 			}
 			/* Adding selection of user to array */

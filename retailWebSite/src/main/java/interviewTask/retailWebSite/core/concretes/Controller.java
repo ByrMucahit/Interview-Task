@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import interviewTask.retailWebSite.business.abstracts.TransactionService;
 import interviewTask.retailWebSite.business.concretes.TransactionManager;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -91,11 +92,12 @@ public class Controller {
 		}
 	
 	 /* Customer Process Controller */
-	public Boolean processController(JSONObject jsonInput) {
+	public Boolean processController(JSONObject jsonInput) throws ParseException {
 		/* Variable */
-		int temp = 0;
+		long temp = 0;
 		/* Is User being customer since 2 year */
 		temp = transactionManager.counterOfBillPaidOverStatedYear(jsonInput);
+		System.out.println("Temp from processs controller"+" "+temp);
 		/* If User is */
 		if(temp >= 730) {
 			return true;
@@ -123,7 +125,7 @@ public class Controller {
 	 *  */
 	
 	/* Discount Controller */
-	public JSONObject discountController(JSONObject jsonInput) {
+	public JSONObject discountController(JSONObject jsonInput) throws JSONException, ParseException {
 		/* Temp variable */
 		String AmountOfDiscount;
 		/* Object Building */

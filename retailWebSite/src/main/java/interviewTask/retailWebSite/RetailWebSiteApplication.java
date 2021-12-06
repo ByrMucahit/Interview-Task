@@ -1,7 +1,10 @@
 package interviewTask.retailWebSite;
 
 import java.util.Scanner;
-
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -26,7 +29,7 @@ import interviewTask.retailWebSite.entities.concretes.Person;
 
 @SpringBootApplication
 public class RetailWebSiteApplication {
-	public static void main(String[] args)  {
+	public static void main(String[] args) throws ParseException  {
 		SpringApplication.run(RetailWebSiteApplication.class, args);
 		/* Common Variable */
 		/* State Controll Flag */
@@ -54,7 +57,6 @@ public class RetailWebSiteApplication {
 		JSONObject json = new JSONObject();
 		JSONArray jRootArray = new JSONArray();
 		
-		
 		try {
 			/* Test */
 			JSONObject jInnerObject = new JSONObject();
@@ -74,7 +76,7 @@ public class RetailWebSiteApplication {
 			jInnerObject.put("typeOfCustomer","Customer");
 			jInnerObject.put("typeOfCard","GOLDCARD");
 			jInnerObject.put("year","2018");
-			jInnerObject.put("mounth","10");
+			jInnerObject.put("mounth","11");
 			jInnerObject.put("day","20");
 			jInnerObject.put("device","phone");
 			jInnerObject.put("socialIdentityNumber","null");
