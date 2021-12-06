@@ -26,3 +26,15 @@ git clone https://github.com/ByrMucahit/Interview-Task.git
 Following image is project folder.
 
 ![maven](https://user-images.githubusercontent.com/62469567/144897303-fad472bd-7e98-444c-8aa4-a527f32c925b.png)
+
+* We're opening command prompt on this project folder,then write following code.
+```
+mvn test
+```
+!!! Warning, You shouldn't forget that this step all is inside this project folder.
+
+After that code snippet, we can see this screen belove.
+
+![maven3](https://user-images.githubusercontent.com/62469567/144898435-a173c878-67c8-4ad0-b1f0-b367b0560099.png)
+
+
