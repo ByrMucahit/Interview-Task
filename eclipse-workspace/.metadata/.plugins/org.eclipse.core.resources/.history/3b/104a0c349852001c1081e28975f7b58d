@@ -1,0 +1,104 @@
+package main.java.interviewTask.retailSystem.entites.concretes;
+
+import java.util.Date;
+import main.java.interviewTask.retailSystem.entites.concretes.Card;
+public abstract class Person {
+	
+	/* Common Person Attribute */
+	private int id;
+	private String personName;
+	private String personSurname;
+	private String personMail;
+	private String personPhone;
+	private String personAlternativePhone;
+	private String personAddress;
+	private Date firstDayOfBeenCustomer;
+	private Cards ownCardType;
+	
+	public Person(int id, String personName, String personSurname, String personMail, 
+			String personPhone, String personAlternativePhone, String personAddress, Date firstDayOfBeenCustomer) {
+			
+		this.id = id;
+		this.personName = personName;
+		this.personSurname = personSurname;
+		this.personMail = personMail;
+		this.personPhone = personPhone;
+		this.personAlternativePhone = personAlternativePhone;
+		this.personAddress = personAddress;
+		this.firstDayOfBeenCustomer = firstDayOfBeenCustomer;
+	}
+	
+	/* Id */
+	private void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	/* Person Name */
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+	
+	public String getPersonName() {
+		return personName;
+	}
+	
+	/* Person Surname */
+	public void setPersonSurname(String personSurname) {
+		this.personSurname = personSurname;
+	}
+	
+	public String getPersonSurname() {
+		return personSurname;
+	}
+	
+	/* Person Mail */
+	public void setPersonelMail(String personMail) {
+		this.personMail = personMail;
+	}
+	
+	public String getPersonelMail() {
+		return personMail;
+	}
+	
+	/* Personel Phone  */
+	public void setPersonelPhone(String personPhone) {
+		this.personPhone = personPhone;
+	}
+	
+	public String getPersonelPhone() {
+		return personPhone;
+	}
+	
+	/* Personel Alternative Phone */
+	public void setPersonelAlternativePhone(String personAlternativePhone) {
+		this.personAlternativePhone = personAlternativePhone;
+	}
+	
+	public String getPersonelAlternativePhone() {
+		return personAlternativePhone;
+	}
+	
+	/* Personel Address */
+	public void setPersonelAddress(String personAddress) {
+		this.personAddress =  personAddress;
+	}
+	public String getPersonAddress() {
+		return personAddress;
+	}
+	
+	/* First Date of Been Customer */
+	public void setFirstDayOfBeenCustomer(Date firstDayOfBeenCustomer) {
+		this.firstDayOfBeenCustomer= firstDayOfBeenCustomer;
+	}
+	public Date getFirstDayOfBeenCustomer () {
+		return firstDayOfBeenCustomer;
+	}
+	
+	/* Social Identity */
+	public  abstract void setSocialIdentity(String socialIdentity);
+	public abstract String getSocialIdentity();
+}

@@ -1,0 +1,17 @@
+package main.java.interviewTask.retailSystem.entites.concretes;
+
+public class Customer extends Person {
+
+	@Override
+	public void setSocialIdentity(String socialIdentity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getSocialIdentity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

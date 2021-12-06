@@ -1,0 +1,11 @@
+package main.java.interviewTask.retailSystem;
+
+import main.java.interviewTask.retailSystem.entites.concretes.Customer;
+
+public class RetailApplication {
+		public static void main(String[] args) {
+			
+			Person p = new Customer();
+			
+		}
+}

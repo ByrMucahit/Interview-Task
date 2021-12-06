@@ -1,0 +1,5 @@
+package main.java.interviewTask.retailSystem.business.abstracts;
+
+public interface UserService {
+
+}

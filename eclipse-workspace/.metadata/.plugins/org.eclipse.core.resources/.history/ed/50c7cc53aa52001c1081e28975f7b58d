@@ -1,0 +1,5 @@
+package main.java.interviewTask.retailSystem.core.concretes.utilities.results;
+
+public class ErrorResult extends Result {
+	
+}

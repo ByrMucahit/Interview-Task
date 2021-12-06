@@ -1,0 +1,7 @@
+package main.java.interviewTask.retailSystem;
+
+public class RetailApplication {
+		public static void main(String[] args) {
+			System.out.println("Hello world");
+		}
+}
