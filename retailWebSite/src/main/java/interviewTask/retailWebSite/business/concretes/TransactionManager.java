@@ -926,7 +926,6 @@ public class TransactionManager implements TransactionService {
 		
 		try {
 			
-			System.out.println(jsonObject);
 			/* Printed Header Summary */
 			System.out.println("----------------------------------");
 			System.out.println("##### ALL CUSTOMER #####");
