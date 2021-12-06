@@ -123,16 +123,16 @@ public class UserManager implements UserService {
 						JSONObject jInnerObject = new JSONObject();
 						/* Setting User ID */
 						tempInfoArray[12] = userIdGenerator(jsonInput);
-						System.out.println("USER id"+ tempInfoArray[12]);
+						
 						/* Setting Card Id */
 						tempInfoArray[13] = cardManager.cardIdGenerator(jsonInput);
-						System.out.println("card id"+ tempInfoArray[13]);
+						
 						/* Setting Card Number */
 						tempInfoArray[14] = cardManager.cardNumberGenerator(jsonInput);
-						System.out.println("Card Number Generator"+ tempInfoArray[14]);
+						
 						/* Setting Card Security Number */
 						tempInfoArray[15] = cardManager.cardSecurityNumberGenerator(jsonInput);
-						System.out.println("cardSecurityNumberGenerator"+ tempInfoArray[15]);
+						
 						/* Setting Card Password */
 						tempInfoArray[16] = cardManager.cardPasswordGenerator();
 						/* Gold Card Building */
@@ -172,7 +172,6 @@ public class UserManager implements UserService {
 						}
 						/* Build Customer */
 						else if(tempInfoArray[7].equals("N")) {
-							System.out.println("BURAYA GIRDI");
 							 		customer = new Customer(
 									Integer.valueOf(tempInfoArray[9]), 
 									tempInfoArray[0], 
@@ -189,7 +188,7 @@ public class UserManager implements UserService {
 									);
 						}
 						/* Card Transaction */
-						System.out.println("CARD NUMBER "+card.getCardId());
+						
 						jInnerObject.put("cardId",  String.valueOf(card.getCardId()));
 						jInnerObject.put("cardNumber", String.valueOf(card.getCardNumber()));
 						jInnerObject.put("cardSecurityNumber", card.getCodeOfCardSecurity());
@@ -199,7 +198,7 @@ public class UserManager implements UserService {
 						
 						/* Person Id Generator */
 						tempId = userIdGenerator(jsonInput);
-						System.out.println("temp ID:"+tempId);
+						
 						jInnerObject.put("personId",tempId);
 						
 						/* Datas, which is got by Customer */

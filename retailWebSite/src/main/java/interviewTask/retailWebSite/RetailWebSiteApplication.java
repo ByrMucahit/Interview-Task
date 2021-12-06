@@ -58,27 +58,27 @@ public class RetailWebSiteApplication {
 		JSONArray jRootArray = new JSONArray();
 		
 		try {
-			/* Test */
+			/* Initial */
 			JSONObject jInnerObject = new JSONObject();
-			jInnerObject.put("personId","12");
-			jInnerObject.put("personName","mucahit");
-			jInnerObject.put("personSurname","bayar");
-			jInnerObject.put("personMail","m.mucahitbayar@gmail.com");
-			jInnerObject.put("personTelephoneNumber","05435446158");
-			jInnerObject.put("personAlternativeTelephoneNumber","05433654751");
-			jInnerObject.put("personAddress","çay çıkmazı");
-			jInnerObject.put("cardId","21");
-			jInnerObject.put("cardNumber","4562 1234 7894 1235");
-			jInnerObject.put("cardSecurityNumber","432");
-			jInnerObject.put("percentageOfDiscount","30");
-			jInnerObject.put("cardPassword","1453");
-			jInnerObject.put("amountOfDiscountUsage","1");
-			jInnerObject.put("typeOfCustomer","Customer");
-			jInnerObject.put("typeOfCard","GOLDCARD");
-			jInnerObject.put("year","2018");
-			jInnerObject.put("mounth","11");
-			jInnerObject.put("day","20");
-			jInnerObject.put("device","phone");
+			jInnerObject.put("personId","null");
+			jInnerObject.put("personName","null");
+			jInnerObject.put("personSurname","null");
+			jInnerObject.put("personMail","null");
+			jInnerObject.put("personTelephoneNumber","null");
+			jInnerObject.put("personAlternativeTelephoneNumber","null");
+			jInnerObject.put("personAddress","null");
+			jInnerObject.put("cardId","null");
+			jInnerObject.put("cardNumber","null");
+			jInnerObject.put("cardSecurityNumber","null");
+			jInnerObject.put("percentageOfDiscount","null");
+			jInnerObject.put("cardPassword","null");
+			jInnerObject.put("amountOfDiscountUsage","null");
+			jInnerObject.put("typeOfCustomer","null");
+			jInnerObject.put("typeOfCard","null");
+			jInnerObject.put("year","null");
+			jInnerObject.put("mounth","null");
+			jInnerObject.put("day","null");
+			jInnerObject.put("device","null");
 			jInnerObject.put("socialIdentityNumber","null");
 			jRootArray.put(jInnerObject);
 			json.put("data", jRootArray);
