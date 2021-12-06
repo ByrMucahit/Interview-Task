@@ -4,12 +4,19 @@ import org.json.JSONObject;
 
 public class DataResult<T> extends Result {
 
-private T data;
-private int userId;
+	private T data;
+	private int userId;
+	private T jsonDiscount;
 	
 	public DataResult(JSONObject jsonInput, int userId ,boolean success, String message) {
 		super(success, message);
 		this.data = (T) jsonInput;
+		this.userId = userId;
+	}
+	public DataResult(JSONObject jsonInput, JSONObject jsonDiscount, int userId, boolean success,String message) {
+		super(success, message);
+		this.data = (T) jsonInput;
+		this.jsonDiscount = (T) jsonDiscount;
 		this.userId = userId;
 	}
 	
@@ -25,6 +32,10 @@ private int userId;
 	public int getUserId() {
 		return this.userId;
 	}
+	public T getJsonDiscount() {
+		return this.jsonDiscount;
+	}
+
 }
 
 /*

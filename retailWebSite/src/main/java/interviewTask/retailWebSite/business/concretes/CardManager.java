@@ -2,8 +2,7 @@ package interviewTask.retailWebSite.business.concretes;
 
 import java.util.List;
 
-
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import interviewTask.retailWebSite.business.abstracts.CardService;
@@ -25,13 +24,21 @@ public class CardManager implements CardService  {
 		int tempCardId = 0;
 		/* Check point */
 		boolean valid = true;
-		/* Generating Uniaque Id */
-		while(valid) {
-			/* If valid is false, loop will have been finished. */
-			valid = checkpoint.idConflictController(jsonInput, tempCardId);
-			tempCardId +=1;
-					}
+		try {
+			/* Generating Uniaque Id */
+			while(valid) {
+				/* If valid is false, loop will have been finished. */
+				valid = checkpoint.idConflictController(jsonInput, tempCardId);
+				tempCardId +=1;
+						}
+				return String.valueOf(tempCardId);
+		}	
+		catch(JSONException e) {
+			
+            System.out.println("Someting went wrong");
+			e.printStackTrace();
 			return String.valueOf(tempCardId);
+			}	
 		}
 	
 	/*
@@ -60,15 +67,23 @@ public class CardManager implements CardService  {
 		int  min = 100000000;
 		int  max = 999999999;
 		
-		/* If card number should be unique */
-		while(valid) {
-			/* Generate Card Number */
-			tempCardNumber  = (int)Math.floor(Math.random()*(max-min+1)+min);
-			/* If valid is false, loop will have been finished. */
-			valid = checkpoint.cardNumberConflictController(jsonInput, tempCardNumber);
+		try {
+			/* If card number should be unique */
+			while(valid) {
+				/* Generate Card Number */
+				tempCardNumber  = (int)Math.floor(Math.random()*(max-min+1)+min);
+				/* If valid is false, loop will have been finished. */
+				valid = checkpoint.cardNumberConflictController(jsonInput, tempCardNumber);
+			}
+			return String.valueOf(tempCardNumber);
 		}
-		return String.valueOf(tempCardNumber);
-	}
+			catch(JSONException e) {
+			
+            System.out.println("Someting went wrong");
+			e.printStackTrace();
+			return String.valueOf(tempCardNumber);
+					}	
+		}
 
 	/*
 	 * Description:
@@ -94,13 +109,22 @@ public class CardManager implements CardService  {
 		boolean valid = true;
 		int min = 100;
 		int max = 999;
-		/* If card security number should be unique */
-		while(valid) {
-			/* If valid is false, loop will have been finished. */
-			tempCardSecurityNumber  = (int)Math.floor(Math.random()*(max-min+1)+min);
-			valid = checkpoint.securityNumberConflictController(jsonInput, tempCardSecurityNumber);
+		
+		try {
+			/* If card security number should be unique */
+			while(valid) {
+				/* If valid is false, loop will have been finished. */
+				tempCardSecurityNumber  = (int)Math.floor(Math.random()*(max-min+1)+min);
+				valid = checkpoint.securityNumberConflictController(jsonInput, tempCardSecurityNumber);
+			}
+			return String.valueOf(tempCardSecurityNumber);
 		}
-		return String.valueOf(tempCardSecurityNumber);
+		catch(JSONException e) {
+			
+            System.out.println("Someting went wrong");
+			e.printStackTrace();
+			return String.valueOf(tempCardSecurityNumber);
+					}	
 	}
 	
 	/*
@@ -128,9 +152,17 @@ public class CardManager implements CardService  {
 		/* Min - Max vlaue */
 		int min = 1000;
 		int max = 9999;
-		/* Card password generator */
-		tempCardPassword = (int)Math.floor(Math.random()*(max-min+1)+min);
-		return String.valueOf(tempCardPassword);
+		try {
+			/* Card password generator */
+			tempCardPassword = (int)Math.floor(Math.random()*(max-min+1)+min);
+			return String.valueOf(tempCardPassword);
+		}
+		catch(JSONException e) {
+			
+            System.out.println("Someting went wrong");
+			e.printStackTrace();
+			return String.valueOf(tempCardPassword);
+		}	
 	}
 
 	/* 
@@ -152,12 +184,20 @@ public class CardManager implements CardService  {
 	/* Check Previous Controller */
 	@Override
 	public boolean checkPreviousPasswordConflict(JSONObject jsonInput, String password) {
-		/* If Any password is the same with password that has been written by user */
-		if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("cardPassword").equals(password)) {
-			System.out.println("Password can not be same with previous");
-			return false;
+		try {
+			/* If Any password is the same with password that has been written by user */
+			if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("cardPassword").equals(password)) {
+				System.out.println("Password can not be same with previous");
+				return false;
+			}
+			return true;	
 		}
-		return true;
+	catch(JSONException e) {
+			
+            System.out.println("Someting went wrong");
+			e.printStackTrace();
+			return true;
+		}	
 	}
 	
 	/* 
@@ -180,21 +220,31 @@ public class CardManager implements CardService  {
 	/* Change Your Card */
 	@Override
 	public SuccessDataResult<List<Person>> changeYourCard(JSONObject jsonInput) {
-		/* If User has gold card */
-		if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("GOLDCARD")) {
-			System.out.println("YOU SILVER CARD NOW");
-			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","SILVERCARD");
-			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","20");						
+		try {
+			/* If User has gold card */
+			if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("GOLDCARD")) {
+				System.out.println("YOU SILVER CARD NOW");
+				jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","SILVERCARD");
+				jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","20");						
+			}
+			/* If User has silver card */
+			else if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("SILVERCARD")) {
+				System.out.println("YOU HAVE GOLD CARD NOW");
+				jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","GOLDCARD");
+				jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","30");
+			}
+			return new SuccessDataResult<List<Person>>
+					(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")),jsonInput.getInt("userId"),"Data has been achieved successfully" );
+			}	
+			catch(JSONException e) {
+				
+	            System.out.println("Someting went wrong");
+				e.printStackTrace();
+				return new SuccessDataResult<List<Person>>
+				(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")),jsonInput.getInt("userId"),"Data hasn't been achieved successfully" );
+			}	
 		}
-		/* If User has silver card */
-		else if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("SILVERCARD")) {
-			System.out.println("YOU HAVE GOLD CARD NOW");
-			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","GOLDCARD");
-			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","30");
-		}
-		return new SuccessDataResult<List<Person>>
-				(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")),jsonInput.getInt("userId"),"Data has been achieved successfully" );
-		}
+	
 	}
 
 	/*

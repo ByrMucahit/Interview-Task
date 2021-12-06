@@ -21,7 +21,7 @@ import interviewTask.retailWebSite.business.concretes.TransactionManager;
 import interviewTask.retailWebSite.business.concretes.UserManager;
 import interviewTask.retailWebSite.core.concretes.Controller;
 import interviewTask.retailWebSite.core.concretes.utilities.results.DataResult;
-
+import interviewTask.retailWebSite.core.concretes.utilities.results.SuccessDataResult;
 import interviewTask.retailWebSite.entities.concretes.Person;
 
 
@@ -122,19 +122,30 @@ public class RetailWebSiteApplication {
 							break;
 							
 						case "2":
+						
 							/* Input */
 							amount = transactionManager.fillingBlankedNumberField("Please enter something that how much money you want to paying ?",0,null,null, 0);
 							/* Json Object to variable can accept object from controller */
 							JSONObject discountObject = new JSONObject();
+							
 							/* Discount Controller */
 							discountObject = checkpoint.discountController(jsonObject);
 							/* It keeps value that is type of discount User has choosen */
-							int tempIndex = 0;
+							SuccessDataResult<List<Person>> tempIndex ;
 
 							/* All discount user deserved is printed */
-							tempIndex = transactionManager.discountPrinter(discountObject);
+							tempIndex = transactionManager.discountPrinter(jsonObject,discountObject);
+							JSONObject converter = new JSONObject(tempIndex);
+							System.out.println("FROM MENU TO CONVERTER"+converter);
+							System.out.println("json from menu"+jsonObject);
 							/* Paying Bill */
-							flag = transactionManager.payBill(jsonObject,discountObject.getJSONArray("discount").getJSONObject(tempIndex), Integer.valueOf(amount));
+							if(!converter.getString("message").equals("false"))
+							{
+								flag = transactionManager.payBill(converter,converter.getJSONObject("jsonDiscount").getJSONArray("discount").getJSONObject(converter.getInt("userId")), Integer.valueOf(amount));
+							}
+							else {
+								flag = transactionManager.payBill(null,null, 0);
+							}
 							/* Back to Menu */
 							flag= true;
 							break;
@@ -191,7 +202,6 @@ public class RetailWebSiteApplication {
 							/* Card changing transaction */
 							tempData = cardManager.changeYourCard(jsonObject);
 							
-							
 							/* Convert from JAVA object to JSON Object */
 							JSONObject jsontempObject = new JSONObject(tempData);
 							
@@ -229,7 +239,8 @@ public class RetailWebSiteApplication {
 					parentFlag= false;
 					}
 				}	
-			} catch (JSONException e) {
+			} 
+			catch (JSONException e) {
                 e.printStackTrace();
 			}
 		}

@@ -21,7 +21,7 @@ public interface TransactionService {
 	JSONObject changePassword(JSONObject jsonInput);
 	void gettingListed(JSONObject jsonList);
 	void printing(JSONObject jsonInput);
-	int discountPrinter(JSONObject jsonInput);
+	SuccessDataResult<List<Person>> discountPrinter(JSONObject jsonInput,JSONObject jsonDiscount);
 	String fillBlankedMailSpace(String request);
 	public SuccessDataResult<List<Person>> updateJson(JSONObject jsonInput, JSONObject jsonTempInput);
 	public String fillingBlankedStringField(String request);

@@ -23,7 +23,7 @@ public class Result {
 	}
 	
 	/* Message */
-	public String getMesage() {
+	public String getMessage() {
 		return this.message;
 	}
 }

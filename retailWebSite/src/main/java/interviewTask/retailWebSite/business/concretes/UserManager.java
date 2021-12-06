@@ -52,6 +52,7 @@ public class UserManager implements UserService {
 		String strFlag ; 
 		int tempIndex= 0;
 		JSONObject tempJSON = new JSONObject();
+		try {	
 		
 		System.out.println("Welcome to Retail Website, Have a enjoy shopping :)");
 		/* Getting Telephone Number */
@@ -117,7 +118,7 @@ public class UserManager implements UserService {
 				 tempInfoArray[9] = String.valueOf(currentDate.getMonthValue());
 				 tempInfoArray[10] = String.valueOf(currentDate.getDayOfMonth());
 			 }
-			try {		
+				
 						/* JSON Object */
 						JSONObject jInnerObject = new JSONObject();
 						/* Setting User ID */
@@ -224,18 +225,24 @@ public class UserManager implements UserService {
 						/* JSON Array Building */
 						jRootArray.put(jInnerObject);
 						jsonInput.getJSONArray("data").put(jInnerObject);
-					   
-				} catch (JSONException e) {
+						return new SuccessDataResult<List<Person>>
+						(jsonInput,jsonInput.getJSONArray("data").length()-1,"It has been good");
+				}
+				else {
+					return new ErrorDataResult<List<Person>>
+					(jsonInput,0,"It hasn't been good");
+					}   
+				} 
+			catch (JSONException e) {
+				
+					System.out.println("Someting went wrong");
 	                e.printStackTrace();
-	            }
-				return new SuccessDataResult<List<Person>>
-				(jsonInput,jsonInput.getJSONArray("data").length()-1,"It has been good");
-		}
-		else {
-			return new ErrorDataResult<List<Person>>
-			(jsonInput,0,"It hasn't been good");
-		}
-	}
+	                return new ErrorDataResult<List<Person>>
+					(jsonInput,0,"It hasn't been good");
+					}   
+	          }
+
+	
 
 	/* 
 	 * Description:
@@ -261,17 +268,24 @@ public class UserManager implements UserService {
 		int  tempId= 0;
 		/* State flag */
 		boolean valid = true;
-		
-		/* FOR TEST */
-		/*while(valid) {
+		try {
+			/* FOR TEST */
+			/*while(valid) {
+				
+				Controller checkpoint = new Controller();
+				valid = checkpoint.idConflictController(jsonInput, tempId);
+				System.out.println("VALİD"+valid);
+				
+			}*/
+			tempId +=1;
+			return String.valueOf(tempId);	
+		}
+		catch (JSONException e) {
 			
-			Controller checkpoint = new Controller();
-			valid = checkpoint.idConflictController(jsonInput, tempId);
-			System.out.println("VALİD"+valid);
-			
-		}*/
-		tempId +=1;
-		return String.valueOf(tempId);
+			System.out.println("Someting went wrong");
+            e.printStackTrace();
+            return null;	
+			}   
 	}
 	
 	/*
@@ -294,11 +308,19 @@ public class UserManager implements UserService {
 	/* User Removing */
 	@Override
 	public DataResult<List<Person>> userRemoving(JSONObject jsonInput) {
-		/*Remonig transaction within JSON*/
-		jsonInput.getJSONObject("data").getJSONArray("data").remove(jsonInput.getInt("userId"));
-		/**/
-		return new SuccessDataResult<List<Person>>
-		(jsonInput.getJSONObject("data"), jsonInput.getJSONObject("data").getJSONArray("data").length(), "Transaction has been done");
+		try {
+			/*Remonig transaction within JSON*/
+			jsonInput.getJSONObject("data").getJSONArray("data").remove(jsonInput.getInt("userId"));
+			/**/
+			return new SuccessDataResult<List<Person>>
+			(jsonInput.getJSONObject("data"), jsonInput.getJSONObject("data").getJSONArray("data").length(), "Transaction has been done");
+		}
+			catch (JSONException e) {
+			
+			System.out.println("Someting went wrong");
+            e.printStackTrace();
+            return null;	
+		}   
 	}
 }
 

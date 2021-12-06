@@ -9,6 +9,11 @@ public class SuccessDataResult<T> extends DataResult<T> {
 		super(jsonInput,userId, true, message);
 	}
 	
+	/* Constructor */
+	public SuccessDataResult(JSONObject jsonInput, JSONObject jsonDiscount, int userId, String message) {
+		super(jsonInput,jsonDiscount,userId, true, message);
+	}
+	
 	/* Constructor 2*/
 	public SuccessDataResult(T data) {
 		super(data, true);
