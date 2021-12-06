@@ -22,12 +22,11 @@ import interviewTask.retailWebSite.core.concretes.utilities.results.DataResult;
 import interviewTask.retailWebSite.entities.concretes.Person;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+
 
 @SpringBootApplication
 public class RetailWebSiteApplication {
-	public static void main(String[] args) throws JsonMappingException, JsonProcessingException {
+	public static void main(String[] args)  {
 		SpringApplication.run(RetailWebSiteApplication.class, args);
 		/* Common Variable */
 		/* State Controll Flag */
@@ -189,11 +188,18 @@ public class RetailWebSiteApplication {
 							DataResult<List<Person>> tempData;
 							/* Card changing transaction */
 							tempData = cardManager.changeYourCard(jsonObject);
+							
+							
 							/* Convert from JAVA object to JSON Object */
 							JSONObject jsontempObject = new JSONObject(tempData);
+							
+							System.out.println("temp data from menu"+" "+jsontempObject);
+							
 							/* Main JSON Updating */
 							json.getJSONArray("data").getJSONObject(jsontempObject.getInt("userId")).put("typeOfCard",jsontempObject.getJSONObject("data").getString("typeOfCard"));
 							json.getJSONArray("data").getJSONObject(jsontempObject.getInt("userId")).put("percentageOfDiscount",jsontempObject.getJSONObject("data").getString("percentageOfDiscount"));
+							
+							System.out.println("UPDATED JSON FROM MENU"+" "+json);
 							/* Back to Main */
 							flag = true;	
 							break;

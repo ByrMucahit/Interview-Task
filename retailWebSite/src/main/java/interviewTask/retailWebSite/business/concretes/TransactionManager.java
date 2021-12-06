@@ -99,6 +99,7 @@ public class TransactionManager implements TransactionService {
 		temp = result / discount;
 		return temp;
 	}
+	
 	/*
 	 * Description:
 	 * ----------------
@@ -885,6 +886,9 @@ public class TransactionManager implements TransactionService {
 		boolean flag;
 		/* Array keeps those're selection of user*/
 		int [] selection = new int[discountObject.getJSONArray("discount").length()];
+		
+		System.out.println("discount object from discount printer"+" "+discountObject);
+		
 		/* If discount is exist */
 		if(!discountObject.getJSONArray("discount").getJSONObject(0).getString("indirim").equals("0"))
 		{	

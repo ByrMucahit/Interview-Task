@@ -161,7 +161,7 @@ public class Controller {
 			else if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("SILVERCARD")) {
 				/* Inner  object Building*/ 
 				JSONObject jInnerObject = new JSONObject();
-				jInnerObject.put("indirim:","20");
+				jInnerObject.put("indirim","20");
 				jDiscountArray.put(jInnerObject);
 				jsonDiscount.put("discount", jDiscountArray);
 			}

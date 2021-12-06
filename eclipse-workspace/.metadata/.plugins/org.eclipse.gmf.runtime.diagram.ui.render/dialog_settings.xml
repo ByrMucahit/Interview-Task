@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<section name="Workbench">
-	<section name="CopyToImageDialog">
-		<item key="CopyToImageDialog.folder" value="E:\My Office\Backend\Java\Aybekler-Back-End\Documents"/>
-		<item key="CopyToImageDialog.imageFormat" value="png"/>
-		<item key="CopyToImageDialog.overwriteExisting" value="false"/>
-		<item key="CopyToImageDialog.exportToHTML" value="false"/>
-	</section>
-</section>

@@ -182,13 +182,13 @@ public class CardManager implements CardService  {
 	public SuccessDataResult<List<Person>> changeYourCard(JSONObject jsonInput) {
 		/* If User has gold card */
 		if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("GOLDCARD")) {
-			System.out.println("YOU HAVE GOLD CARD NOW");
+			System.out.println("YOU SILVER CARD NOW");
 			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","SILVERCARD");
 			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","20");						
 		}
 		/* If User has silver card */
 		else if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("SILVERCARD")) {
-			System.out.println("YOU SILVER CARD NOW");
+			System.out.println("YOU HAVE GOLD CARD NOW");
 			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","GOLDCARD");
 			jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","30");
 		}
