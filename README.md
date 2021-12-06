@@ -13,9 +13,9 @@ If Those're not installed, visit those links;
 1. First Step
 You need to clone this repository into your local computer. 
 For cloning:
-1. Firstly, open a command prompt, then write code following code.
-'''
+1. Firstly, open a command prompt, then write code following code.<br />
+```
 git clone https://github.com/ByrMucahit/Interview-Task.git
-'''
+```
 
 ![Adsız](https://user-images.githubusercontent.com/62469567/144896054-983f1d01-05e9-451d-8e7b-75abb5b31556.png)
