@@ -35,7 +35,7 @@ public class CardManager implements CardService  {
 		}	
 		catch(JSONException e) {
 			
-            System.out.println("Someting went wrong");
+            System.out.println("Something went wrong");
 			e.printStackTrace();
 			return String.valueOf(tempCardId);
 			}	
@@ -79,7 +79,7 @@ public class CardManager implements CardService  {
 		}
 			catch(JSONException e) {
 			
-            System.out.println("Someting went wrong");
+            System.out.println("Something went wrong");
 			e.printStackTrace();
 			return String.valueOf(tempCardNumber);
 					}	
@@ -121,7 +121,7 @@ public class CardManager implements CardService  {
 		}
 		catch(JSONException e) {
 			
-            System.out.println("Someting went wrong");
+            System.out.println("Something went wrong");
 			e.printStackTrace();
 			return String.valueOf(tempCardSecurityNumber);
 					}	
@@ -159,7 +159,7 @@ public class CardManager implements CardService  {
 		}
 		catch(JSONException e) {
 			
-            System.out.println("Someting went wrong");
+            System.out.println("Something went wrong");
 			e.printStackTrace();
 			return String.valueOf(tempCardPassword);
 		}	
@@ -194,7 +194,7 @@ public class CardManager implements CardService  {
 		}
 	catch(JSONException e) {
 			
-            System.out.println("Someting went wrong");
+            System.out.println("Something went wrong");
 			e.printStackTrace();
 			return true;
 		}	
@@ -223,7 +223,7 @@ public class CardManager implements CardService  {
 		try {
 			/* If User has gold card */
 			if(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).getString("typeOfCard").equals("GOLDCARD")) {
-				System.out.println("YOU SILVER CARD NOW");
+				System.out.println("YOU HAVE SILVER CARD NOW");
 				jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("typeOfCard","SILVERCARD");
 				jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")).put("percentageOfDiscount","20");						
 			}
@@ -238,7 +238,7 @@ public class CardManager implements CardService  {
 			}	
 			catch(JSONException e) {
 				
-	            System.out.println("Someting went wrong");
+	            System.out.println("Something went wrong");
 				e.printStackTrace();
 				return new SuccessDataResult<List<Person>>
 				(jsonInput.getJSONObject("data").getJSONArray("data").getJSONObject(jsonInput.getInt("userId")),jsonInput.getInt("userId"),"Data hasn't been achieved successfully" );

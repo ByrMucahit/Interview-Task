@@ -136,8 +136,7 @@ public class RetailWebSiteApplication {
 							/* All discount user deserved is printed */
 							tempIndex = transactionManager.discountPrinter(jsonObject,discountObject);
 							JSONObject converter = new JSONObject(tempIndex);
-							System.out.println("FROM MENU TO CONVERTER"+converter);
-							System.out.println("json from menu"+jsonObject);
+							
 							/* Paying Bill */
 							if(!converter.getString("message").equals("false"))
 							{
@@ -206,13 +205,10 @@ public class RetailWebSiteApplication {
 							/* Convert from JAVA object to JSON Object */
 							JSONObject jsontempObject = new JSONObject(tempData);
 							
-							System.out.println("temp data from menu"+" "+jsontempObject);
-							
 							/* Main JSON Updating */
 							json.getJSONArray("data").getJSONObject(jsontempObject.getInt("userId")).put("typeOfCard",jsontempObject.getJSONObject("data").getString("typeOfCard"));
 							json.getJSONArray("data").getJSONObject(jsontempObject.getInt("userId")).put("percentageOfDiscount",jsontempObject.getJSONObject("data").getString("percentageOfDiscount"));
-							
-							System.out.println("UPDATED JSON FROM MENU"+" "+json);
+						
 							/* Back to Main */
 							flag = true;	
 							break;

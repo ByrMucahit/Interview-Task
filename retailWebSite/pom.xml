@@ -15,7 +15,16 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.organization>byrmucahit</sonar.organization>
+  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  		   <!-- Optional URL to server. Default value is http://localhost:9000 -->
+                <sonar.host.url>
+                  http://myserver:9000
+                </sonar.host.url>
 	</properties>
+	
+	
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -38,7 +47,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>3.2</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+		<dependency>
+    <groupId>org.sonarsource.scanner.maven</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.9.1.2184</version>
+</dependency>
+			
 	</dependencies>
+	
 	
 
 	<build>

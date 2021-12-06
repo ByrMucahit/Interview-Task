@@ -109,7 +109,7 @@ public class Controller {
 		try {
 			/* Is User being customer since 2 year */
 			temp = transactionManager.counterOfBillPaidOverStatedYear(jsonInput);
-			System.out.println("Temp from processs controller"+" "+temp);
+			
 			/* If User is */
 			if(temp >= 730) {
 				return true;

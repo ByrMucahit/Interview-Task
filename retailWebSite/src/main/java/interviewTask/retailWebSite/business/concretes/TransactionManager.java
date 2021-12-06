@@ -28,10 +28,7 @@ public class TransactionManager implements TransactionService {
 	
 	Scanner myObj = new Scanner(System.in);
 	LocalDateTime currentDate = LocalDateTime.now();
-	/*Final Variables */
-	final int daylimit=31;//final variable  
-	final int mountlimit=12;//final variable  
-	final int yearLimit=currentDate.getYear();//final variable  
+	
 	
 	/* Paying Bill */
 	@Override
