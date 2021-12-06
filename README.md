@@ -53,8 +53,19 @@ After all, Some files will have been created on folder named "target".
 
 3. Third Step (Java)
 * In this step, we're runing  project built on folder named target. java's needed in this section.
-* If all this steps would be successfull, we can those folder like belove.
+* If all this steps have been successfull, we can those folder like belove.
+
+
 ![maven7](https://user-images.githubusercontent.com/62469567/144900709-1325ef90-d99e-4486-a691-46d3f7c10086.png)
+
+* Now, We're copying retailWebSite-0.0.1-SNAPSHOT, then opening command prompt again on target folder.
+* We're writing code line belov.
+```
+java -jar retailWebSite-0.0.1-SNAPSHOT.jar
+```
+* then, It's what we want. Finally, Project is runing.
+
+![maven8](https://user-images.githubusercontent.com/62469567/144901839-814495a1-ab05-45be-9879-1348aeffce35.png)
 
 
 
