@@ -33,8 +33,29 @@ mvn test
 ```
 !!! Warning, You shouldn't forget that this step all is inside this project folder.
 
-After that code snippet, we can see this screen belove.
 
-![maven3](https://user-images.githubusercontent.com/62469567/144898435-a173c878-67c8-4ad0-b1f0-b367b0560099.png)
+* After seing build success, we write following code line.
+```
+maven clean
+```
+
+* After build success,so We're on right way, and then writing code snippet belove.
+```
+mvn install
+```
+* Last step of maven stage is following code
+```
+mvn clean install
+```
+After all, Some files will have been created on folder named "target".
+
+* Now, we're going to inside target.
+
+3. Third Step (Java)
+* In this step, we're runing  project built on folder named target. java's needed in this section.
+* If all this steps would be successfull, we can those folder like belove.
+![maven7](https://user-images.githubusercontent.com/62469567/144900709-1325ef90-d99e-4486-a691-46d3f7c10086.png)
+
+
 
 
