@@ -420,17 +420,16 @@ public class TransactionManager implements TransactionService {
 			}
 			else {
 				/* If response is selection that user wants to */
-				if(Integer.valueOf(response) == name[flagNumber]) {
-					flag = false;
+				if(Integer.valueOf(response) > name.length) {
+					System.out.println("INVALID SELECTION");
+					/* To continue */
+					flag = true;
 				}
 				/* If user would choose that is not exist as option */
-				else if(Integer.valueOf(response) < name[flagNumber]) {
-					flag = true;
-					flagNumber += 1;
-			}
-		}
-			if(flagNumber == name.length) {
-				flag = false;
+				else {
+					/* To Exit Loop */
+					flag = false;
+				}
 			}
 		}
 		return response;
