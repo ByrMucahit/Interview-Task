@@ -36,7 +36,7 @@ public class Controller {
 		String yesNoFlag;
 		try {
 			/* Input that has option to selection */
-			yesNoFlag = transactionManager.fillingBlankedOptionalField("Are you selling  phone?[Y/N]!!!","Y","N").toUpperCase();
+			yesNoFlag = transactionManager.fillingBlankedOptionalField("Are you buying phone?[Y/N]!!!","Y","N").toUpperCase();
 			/* Condition */
 			if(yesNoFlag.equals("Y")) {
 				return false;
