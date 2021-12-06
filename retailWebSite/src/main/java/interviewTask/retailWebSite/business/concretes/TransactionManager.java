@@ -71,29 +71,34 @@ public class TransactionManager implements TransactionService {
 							System.out.println("--> Applied Discount is:"+" "+"%"+tempDiscount);
 							result = tempResult;
 						}
-					/* If  Amount is greater than 200 */
-					flag = checkpoint.amountOfBillController(result);
-					/* Flag is true */
-					if(flag) {
-						greaterThan = calculateAmountOfDiscount(amount, 200);
-						System.out.println("--> Your bill is greater than 200 then you gain"+" "+greaterThan+" "+"count "+" discount"+", "+ greaterThan*5+"$"+" "+"will have been identified your bill");
-						result -= (greaterThan*5);
-					}
+				
 			}
 			else {
 				System.out.println("We're sorry to tell that The percentage based discounts do not apply on phones.");
 			}
+			
+			/* If  Amount is greater than 200 */
+			flag = checkpoint.amountOfBillController(amount);
+			/* Flag is true */
+			if(flag) {
+				greaterThan = calculateAmountOfDiscount(amount, 200);
+				System.out.println("--> Your bill is greater than 200 then you gain"+" "+greaterThan+" "+"count "+" discount"+", "+ greaterThan*5+"$"+" "+"will have been identified your bill");
+				result -= (greaterThan*5);
+				/* Footer Summary */
+				
+			}
+			
+			System.out.println("--> amount paid is :"+ result+"$" );
+			System.out.println("-----------------------");
+			
+			return true;
 		
 		}catch(JSONException e) {
             System.out.println("Someting went wrong");
 			e.printStackTrace();
 			return false;
 		}
-			/* Footer Summary */
-			System.out.println("--> amount paid is :"+ amount+"$" );
-			System.out.println("-----------------------");
 			
-			return true;
 		}
 		
 	/*
@@ -864,6 +869,7 @@ public class TransactionManager implements TransactionService {
 		boolean flag;
 		
 		try {
+			System.out.println("FOR TESTING !!!!, Your password's"+": "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(jsonObject.getInt("userId")).getString("cardPassword"));
 			/* Enter Input that is should be integer character */
 			response = fillingBlankedNumberField("Please enter current password?",4, null, null, 0);
 			/* Passsword Controller */

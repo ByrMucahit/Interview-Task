@@ -83,7 +83,7 @@ public class UserManager implements UserService {
 		 	/* Getting Mail*/
 		 	 tempInfoArray[2] = transactionManager.fillBlankedMailSpace("Please enter your  mail. It's required !!!:\n");
 			/*Yes No Flag */
-		 	strFlag = transactionManager.fillingBlankedOptionalField("If you want to save number you have written. It's required:[Y/N]\n", "Y", "N");	 	
+		 	strFlag = transactionManager.fillingBlankedOptionalField("If you want to save number you have written. Number -->"+" "+templatePhoneNumber+". "+ "It's required:[Y/N]\n", "Y", "N");	 	
 			 /* Telephone Number */
 			 if(strFlag.equals("Y")) {
 			 		tempInfoArray[3] = templatePhoneNumber;

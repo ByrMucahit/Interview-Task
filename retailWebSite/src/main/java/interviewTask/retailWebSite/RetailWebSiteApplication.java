@@ -144,7 +144,8 @@ public class RetailWebSiteApplication {
 								flag = transactionManager.payBill(converter,converter.getJSONObject("jsonDiscount").getJSONArray("discount").getJSONObject(converter.getInt("userId")), Integer.valueOf(amount));
 							}
 							else {
-								flag = transactionManager.payBill(null,null, 0);
+								
+								flag = transactionManager.payBill(null,null, Integer.valueOf(amount));
 							}
 							/* Back to Menu */
 							flag= true;
