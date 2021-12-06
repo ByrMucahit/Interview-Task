@@ -68,5 +68,19 @@ java -jar retailWebSite-0.0.1-SNAPSHOT.jar
 ![maven8](https://user-images.githubusercontent.com/62469567/144901839-814495a1-ab05-45be-9879-1348aeffce35.png)
 
 
+### Analyzing
 
+* It's needed to be enter in sequential for analyzing.
+```
+mvn clean verify sonar:sonar -Dsonar.login=myAuthenticationToken
+```
 
+```
+mvn clean install
+```
+```
+mvn sonar:sonar -Dsonar.login=myAuthenticationToken
+```
+```
+mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar
+```
