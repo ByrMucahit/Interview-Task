@@ -925,39 +925,33 @@ public class TransactionManager implements TransactionService {
 		
 		
 		try {
-			if(jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(0).getString("personTelephoneNumber").equals("null"))
-			{
-				
-			}
-			else {
-				System.out.println(jsonObject);
-				/* Printed Header Summary */
-				System.out.println("----------------------------------");
-				System.out.println("##### ALL CUSTOMER #####");
-				System.out.println("All Account Detail");
-				/* Length Of Object */
-				System.out.println("Your account Detail  "+jsonObject.getJSONObject("data").getJSONArray("data").length());
-				/* iterative Loop */
-				for(int i = 0 ; i < jsonObject.getJSONObject("data").getJSONArray("data").length(); i++) {
-					System.out.println("-> Person Full Name"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personName")+
-									   " "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personSurname")+"\n"+
-								       "-> Person Id"+":"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personId")+"\n"+
-									   "-> Person Mail"+":"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personMail")+"\n"+
-									   "-> Person Telephone Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personTelephoneNumber")+"\n"+
-									   "-> Person Alternative Telephone Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personAlternativeTelephoneNumber")+"\n"+
-									   "-> Person Address"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personAddress")+"\n"+
-									   "-> Person Card Id"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardId")+"\n"+
-									   "-> Person Card Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardNumber")+"\n"+
-									   "-> Person Card Security Number:"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardSecurityNumber")+"\n"+
-									   "-> Vary Of Customer"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("typeOfCustomer")+"\n"+
-									   "-> Vary Of Card"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("typeOfCard")+"\n"+
-									   "-> Date Of Been Customer"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("year")+"/"+
-									    jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("mounth")+"/"+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("day")
-										   );
-						System.out.println("--------------------------------------------");
-					}
-			}
-		
+			
+			System.out.println(jsonObject);
+			/* Printed Header Summary */
+			System.out.println("----------------------------------");
+			System.out.println("##### ALL CUSTOMER #####");
+			System.out.println("All Account Detail");
+			/* Length Of Object */
+			System.out.println("Your account Detail"+" "+(jsonObject.getJSONObject("data").getJSONArray("data").length()-1));
+			/* iterative Loop */
+			for(int i = 1 ; i < jsonObject.getJSONObject("data").getJSONArray("data").length(); i++) {
+				System.out.println("-> Person Full Name"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personName")+
+								   " "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personSurname")+"\n"+
+							       "-> Person Id"+":"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personId")+"\n"+
+								   "-> Person Mail"+":"+" "+ jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personMail")+"\n"+
+								   "-> Person Telephone Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personTelephoneNumber")+"\n"+
+								   "-> Person Alternative Telephone Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personAlternativeTelephoneNumber")+"\n"+
+								   "-> Person Address"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("personAddress")+"\n"+
+								   "-> Person Card Id"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardId")+"\n"+
+								   "-> Person Card Number"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardNumber")+"\n"+
+								   "-> Person Card Security Number:"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("cardSecurityNumber")+"\n"+
+								   "-> Vary Of Customer"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("typeOfCustomer")+"\n"+
+								   "-> Vary Of Card"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("typeOfCard")+"\n"+
+								   "-> Date Of Been Customer"+":"+" "+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("year")+"/"+
+								    jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("mounth")+"/"+jsonObject.getJSONObject("data").getJSONArray("data").getJSONObject(i).getString("day")
+									   );
+					System.out.println("--------------------------------------------");
+				}
 		}
 		catch(JSONException e) {
 			/* If Something went wrong*/
