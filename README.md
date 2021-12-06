@@ -36,7 +36,7 @@ mvn test
 
 * After seing build success, we write following code line.
 ```
-maven clean
+mvn clean
 ```
 
 * After build success,so We're on right way, and then writing code snippet belove.
