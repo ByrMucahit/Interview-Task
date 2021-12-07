@@ -13,8 +13,8 @@ If they are not installed, visit the links below:
 --
 
 1. First Step (Git)<br />
-You need to clone this repository into your local computer. 
-For cloning:
+*You need to clone this repository into your local computer. 
+- For cloning:
 * First, open a command prompt, then write the following code.<br />
 ```
 git clone https://github.com/ByrMucahit/Interview-Task.git
