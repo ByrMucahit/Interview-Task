@@ -12,7 +12,7 @@ If they are not installed, visit the links below:
 * https://www.youtube.com/watch?v=2j7fD92g-gE<br />
 --
 
-1. First Step (Git)
+1. First Step (Git)<br />
 You need to clone this repository into your local computer. 
 For cloning:
 * First, open a command prompt, then write the following code.<br />
