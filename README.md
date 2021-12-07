@@ -8,7 +8,7 @@ This is a retail website. The main goal of this app is to receive payments from 
 This directory has been written assuming that the following programs are installed java jdk 16.0.2,maven apache 3.8.4 and git 2.33.0. 
 If they are not installed, visit the links below:
 1. https://www.youtube.com/watch?v=IJ-PJbvJBGs
-2. https://www.youtube.com/watch?v=Hff-1uDH1Ts
+2. https://www.youtube.com/watch?v=Hff-1uDH1Ts<br />
 --
 
 1. First Step (Git)
